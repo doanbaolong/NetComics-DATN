@@ -1,0 +1,88 @@
+.header-branch {
+
+    .container {
+        height: 70px;
+
+        .navbar-brand {
+            height: 100%;
+
+            .img-logo {
+                height: 40px;
+            }
+        }
+
+        .search-form {
+            width: 432px;
+            height: 36px;
+            display: flex;
+            background-color: #fff;
+            border-radius: 16px;
+            padding-left: 16px;
+
+            .search-input {
+                height: 100%;
+                flex: 1;
+                border-radius: 0;
+            }
+
+            .search-btn {
+                width: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                font-size: 2rem;
+                color: #212529;
+                background-color: transparent;
+                border-radius: 0 16px 16px 0;
+                transition: all 0.2s ease-in;
+
+                &:hover {
+                    background-color: #e6e6e6;
+                }
+            }
+        }
+
+        .navbar-nav {
+            button {
+                background-color: transparent;
+                color: #fff;
+                font-size: 2rem;
+                transition: all 0.15s ease-in;
+                display: flex;
+                align-items: center;
+
+                &:hover {
+                    color: var(--dark-color)
+                }
+            }
+
+            .nav-link {
+                font-size: 2rem;
+                color: #fff;
+                transition: all 0.15s ease-in;
+                display: flex;
+                align-items: center;
+
+                &:hover {
+                    color: var(--dark-color);
+                }
+
+                .header-avatar {
+                    width: 40px;
+                    height: 40px;
+                    object-fit: cover;
+                }
+            }
+    
+            .dropdown-menu {
+                left: auto;
+                right: 0;
+                
+                .dropdown-item {
+                    padding: 5px 30px;
+                }
+            }
+        }
+    }
+}

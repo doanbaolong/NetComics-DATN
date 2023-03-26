@@ -15,16 +15,13 @@
         <div class="row">
             <form action="/crud/post-crud" method="POST">
                 <div class="col-12 mt-3">Create a new user</div>
-                <div class="row">
-                    <div class="mb-3 col-6">
-                        <label for="exampleInputEmail1" class="form-label">First Name</label>
-                        <input type="text" name="firstName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="exampleInputPassword1" class="form-label">Last Name</label>
-                        <input type="text" name="lastName" class="form-control" id="exampleInputPassword1">
-                    </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Full Name</label>
+                    <input type="text" name="fullName" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
                 </div>
+
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control" id="exampleInputPassword1">

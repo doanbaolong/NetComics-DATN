@@ -1,0 +1,25 @@
+.form-group {
+
+    .input {
+        position: relative;
+
+        .form-control {
+            padding-right: 3.2rem;
+        }
+    
+        .input-icon {
+            padding: 5px;
+            position: absolute;
+            top: -2px;
+            right: 3px;
+            cursor: pointer;
+            font-size: 2rem;
+            color: var(--grey);
+            transition: all 0.2s ease-in;
+    
+            &:hover {
+                color: #333;
+            }
+        }
+    }
+}

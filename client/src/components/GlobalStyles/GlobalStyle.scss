@@ -1,0 +1,64 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'normalize.css';
+@import './breakpoints.scss';
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+:root {
+    --white: #fff;
+    --grey: rgba(0,0,0,.26);
+    --dark-color: #ee4d2d;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    // font-family: 'Roboto', sans-serif;
+    font-family: Helvetica Neue, Helvetica , Arial, sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+}
+
+.container {
+    width: 1100px;
+    max-width: 100%;
+}
+
+button, input, [tabindex] {
+    border: none;
+    outline: none;
+}
+
+
+// custom bootstrap variables
+$font-family-sans-serif: Helvetica Neue, Helvetica , Arial, sans-serif;
+$font-size-base: 1.6rem;
+$primary: #0054ff;
+$secondary: #ee4d2d;
+
+$container-max-widths: (
+  sm: 100%,
+  md: 748px,
+  lg: 962px,
+  xl: 1140px,
+  xxl: 1140px
+);
+
+$btn-padding-y: 8px;
+$btn-padding-x: 8px;
+$btn-border-radius: 2px;
+
+$input-padding-y: 8px;
+$input-padding-x: 8px;
+$input-border-radius: 2px;
+
+$link-decoration: none;
+@import '~bootstrap/scss/bootstrap.scss';
