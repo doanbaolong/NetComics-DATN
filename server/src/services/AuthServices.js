@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const db = require("../app/models/index");
 require("dotenv").config();
 
-class AuthService {
+class AuthServices {
   async signUpService({ fullName, email, userName, password }) {
     return new Promise(async (resolve, reject) => {
       try {
@@ -90,4 +90,4 @@ class AuthService {
   }
 }
 
-module.exports = new AuthService();
+module.exports = new AuthServices();

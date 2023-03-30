@@ -5,7 +5,9 @@
 
 :root {
     --white: #fff;
-    --grey: rgba(0,0,0,.26);
+    --black: #000;
+    --grey: rgba(0, 0, 0, 0.26);
+    --primary-color: #0054ff;
     --dark-color: #ee4d2d;
 }
 
@@ -21,7 +23,7 @@ html {
 
 body {
     // font-family: 'Roboto', sans-serif;
-    font-family: Helvetica Neue, Helvetica , Arial, sans-serif;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
@@ -32,24 +34,25 @@ body {
     max-width: 100%;
 }
 
-button, input, [tabindex] {
+button,
+input,
+[tabindex] {
     border: none;
     outline: none;
 }
 
-
 // custom bootstrap variables
-$font-family-sans-serif: Helvetica Neue, Helvetica , Arial, sans-serif;
+$font-family-sans-serif: Helvetica Neue, Helvetica, Arial, sans-serif;
 $font-size-base: 1.6rem;
 $primary: #0054ff;
 $secondary: #ee4d2d;
 
 $container-max-widths: (
-  sm: 100%,
-  md: 748px,
-  lg: 962px,
-  xl: 1140px,
-  xxl: 1140px
+    sm: 100%,
+    md: 748px,
+    lg: 962px,
+    xl: 1140px,
+    xxl: 1140px,
 );
 
 $btn-padding-y: 8px;

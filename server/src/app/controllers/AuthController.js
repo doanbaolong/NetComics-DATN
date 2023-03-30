@@ -1,6 +1,5 @@
-const CRUDService = require("../../services/CRUDService");
 const db = require("../models/index");
-const authService = require("../../services/AuthService");
+const authServices = require("../../services/AuthServices");
 
 class AuthController {
   // [POST] /signup
@@ -13,7 +12,7 @@ class AuthController {
           msg: "Missing input",
         });
 
-      const response = await authService.signUpService(req.body);
+      const response = await authServices.signUpService(req.body);
       return res.status(200).json(response);
     } catch (error) {
       return res.status(500).json({
@@ -33,7 +32,7 @@ class AuthController {
           msg: "Missing input",
         });
 
-      const response = await authService.logInService(req.body);
+      const response = await authServices.logInService(req.body);
       return res.status(200).json(response);
     } catch (error) {
       return res.status(500).json({

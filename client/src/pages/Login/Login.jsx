@@ -69,7 +69,7 @@ function Login() {
                     </div>
                     <div className="col-xl-4 col-lg-12 auth-box m-auto">
                         <div className="auth-form">
-                            <div className="d-flex align-items-center justify-content-between mb-2">
+                            <div className="d-flex align-items-center justify-content-between">
                                 <p className="mb-3 fs-5">{isSignUp ? 'Đăng ký' : 'Đăng nhập'}</p>
                             </div>
                             {error && (

@@ -1,4 +1,4 @@
-import { Header, Navbar, Sidebar, Footer } from '~/components/Layout/components';
+import { Header, Sidebar, Footer, Navbar } from '~/components/Layout/components';
 
 function DefaultLayout({ children }) {
     return (

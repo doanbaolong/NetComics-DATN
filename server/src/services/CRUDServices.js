@@ -3,7 +3,7 @@ const db = require("../app/models/index");
 
 const salt = bcrypt.genSaltSync(10);
 
-class CRUDService {
+class CRUDServices {
   async creatUser(data) {
     return new Promise(async (resolve, reject) => {
       try {
@@ -94,4 +94,4 @@ class CRUDService {
   }
 }
 
-module.exports = new CRUDService();
+module.exports = new CRUDServices();

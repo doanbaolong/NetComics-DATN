@@ -1,0 +1,48 @@
+.navbar-dropdown {
+    top: 40px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-width: 150px;
+    max-height: 324px;
+    min-height: 148px;
+    padding: 8px 0;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    position: absolute;
+    display: none;
+
+    @for $i from 1 through 10 {
+        &.width-#{$i} {
+            width: $i * 150px;
+        }
+    }
+
+    &.rating {
+        height: 170px;
+        width: 300px;
+    }
+
+    &-item {
+        width: 150px;
+
+        &-link {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            color: #333;
+            font-size: 1.5rem;
+            transition: all 0.15s ease;
+
+            &:hover {
+                color: var(--primary-color);
+                background-color: #e9ecef;
+            }
+
+            svg {
+                font-size: 1.6rem;
+                margin-right: 5px;
+            }
+        }
+    }
+}

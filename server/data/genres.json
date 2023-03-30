@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Action",
+        "description": "Thể loại này thường có nội dung về đánh nhau, bạo lực, hỗn loạn, với diễn biến nhanh"
+    },
+    {
+        "name": "Adventure",
+        "description": "Thể loại phiêu lưu, mạo hiểm, thường là hành trình của các nhân vật"
+    },
+    {
+        "name": "Anime",
+        "description": "Truyện đã được chuyển thể thành film Anime"
+    },
+    {
+        "name": "Chuyển Sinh",
+        "description": "Thể loại này là những câu chuyện về người ở một thế giới này xuyên đến một thế giới khác, có thể là thế giới mang phong cách trung cổ với kiếm sĩ và ma thuật, hay thế giới trong game, hoặc có thể là bạn chết ở nơi này và được chuyển sinh đến nơi khác"
+    },
+    {
+        "name": "Fantasy",
+        "description": "Thể loại xuất phát từ trí tưởng tượng phong phú, từ pháp thuật đến thế giới trong mơ thậm chí là những câu chuyện thần tiên"
+    },
+    {
+        "name": "Historical",
+        "description": "Thể loại có liên quan đến thời xa xưa"
+    },
+    {
+        "name": "Comedy",
+        "description": "Thể loại có liên quan đến thời xa xưa"
+    }
+]

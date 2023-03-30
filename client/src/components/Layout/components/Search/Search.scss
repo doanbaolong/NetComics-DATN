@@ -1,0 +1,32 @@
+@import '../../../GlobalStyles/breakpoints.scss';
+.search-form {
+    width: 432px;
+    height: 40px;
+    display: flex;
+    background-color: #fff;
+    border-radius: 20px;
+    padding-left: 16px;
+
+    .search-input {
+        height: 100%;
+        flex: 1;
+        border-radius: 0;
+    }
+
+    @include breakpoint(md) { 
+        width: 300px;
+    }
+    // .search-btn {
+    //     width: 48px;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     height: 100%;
+    //     font-size: 2rem;
+    //     color: #212529;
+    //     background-color: transparent;
+    //     border-radius: 20px;
+    //     transition: all 0.2s ease-in;
+    // }
+
+}
