@@ -1,4 +1,4 @@
-import { Header, Sidebar, Footer, Navbar } from '~/components/Layout/components';
+import { Header, Sidebar, Footer, Navbar, Slide } from '~/components/Layout/components';
 
 function DefaultLayout({ children }) {
     return (
@@ -6,6 +6,7 @@ function DefaultLayout({ children }) {
             <Header />
             <Navbar />
             <div className="container">
+                <Slide />
                 <div className="content">{children}</div>
                 <Sidebar />
             </div>

@@ -23,7 +23,7 @@ html {
 
 body {
     // font-family: 'Roboto', sans-serif;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: Tahoma, sans-serif, Helvetica, Arial;
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
@@ -42,7 +42,7 @@ input,
 }
 
 // custom bootstrap variables
-$font-family-sans-serif: Helvetica Neue, Helvetica, Arial, sans-serif;
+$font-family-sans-serif: Tahoma, sans-serif, Helvetica, Arial;
 $font-size-base: 1.6rem;
 $primary: #0054ff;
 $secondary: #ee4d2d;
