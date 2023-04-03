@@ -49,11 +49,12 @@ $secondary: #ee4d2d;
 
 $container-max-widths: (
     sm: 100%,
-    md: 748px,
-    lg: 962px,
-    xl: 1140px,
-    xxl: 1140px,
+    md: 780px,
+    lg: 1100px,
+    xl: 1100px,
+    xxl: 1100px,
 );
+$container-padding-x: 3rem;
 
 $btn-padding-y: 8px;
 $btn-padding-x: 8px;

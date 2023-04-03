@@ -1,5 +1,7 @@
+import config from '~/config';
+
 // Layouts
-import { NoSidebarLayout } from '~/components/Layout';
+import { NoSidebarLayout } from '~/layouts';
 
 import Home from '~/pages/Home';
 import Following from '~/pages/Following';
@@ -10,20 +12,19 @@ import Profile from '~/pages/Profile';
 import Search from '~/pages/Search';
 import Login from '~/pages/Login';
 import NotFound from '~/pages/NotFound';
-import { path } from '~/util/constants';
 
 // publicRoutes
 const publicRoutes = [
-    { path: path.HOME, component: Home },
-    { path: path.HOMEPAGE, to: path.HOME },
+    { path: config.routes.home, component: Home },
+    { path: config.routes.homePage, to: config.routes.home },
     { path: '*', component: NotFound, layout: null },
-    { path: path.HOT, component: Hot },
-    { path: path.FOLLOW, component: Following },
-    { path: path.HISTORY, component: History },
-    { path: path.RATING, component: Rating },
-    { path: path.SEARCH_COMIC, component: Search, layout: NoSidebarLayout },
-    { path: path.LOGIN, component: Login, layout: null },
-    { path: path.SIGNUP, component: Login, layout: null },
+    { path: config.routes.hot, component: Hot },
+    { path: config.routes.follow, component: Following },
+    { path: config.routes.history, component: History },
+    { path: config.routes.rating, component: Rating },
+    { path: config.routes.searchComic, component: Search, layout: NoSidebarLayout },
+    { path: config.routes.logIn, component: Login, layout: null },
+    { path: config.routes.signUp, component: Login, layout: null },
 ];
 
 // privateRoutes

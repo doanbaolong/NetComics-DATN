@@ -11,7 +11,7 @@ import { authSlide } from '~/store/authSlice';
 import './Header.scss';
 import logo from '~/assets/images/logo-2.png';
 import favicon from '~/assets/images/logo-icon-2.png';
-import { path } from '~/util/constants';
+import config from '~/config';
 
 function Header() {
     const { isLoggedIn } = useSelector(authSelector);
@@ -19,7 +19,7 @@ function Header() {
 
     return (
         <>
-            <header className="header-branch">
+            <header className="wrapper">
                 <nav className="p-0 navbar navbar-expand bg-primary">
                     <div className="d-flex align-items-center container">
                         <Link to="/" className="d-flex align-items-center me-auto navbar-brand">
@@ -66,10 +66,10 @@ function Header() {
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     {!isLoggedIn ? (
                                         <>
-                                            <Link className="dropdown-item" to={path.LOGIN}>
+                                            <Link className="dropdown-item" to={config.routes.logIn}>
                                                 Đăng nhập
                                             </Link>
-                                            <Link className="dropdown-item" to={path.SIGNUP}>
+                                            <Link className="dropdown-item" to={config.routes.signUp}>
                                                 Đăng ký
                                             </Link>
                                         </>

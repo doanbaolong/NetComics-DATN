@@ -34,17 +34,17 @@
         padding: 1rem 0;
         margin: 0;
 
-        @include breakpoint(lg) { 
+        @include breakpoint(lg) {
             font-size: 1.4rem;
 
             &-logo {
                 display: none;
             }
-         }
+        }
 
-        @include breakpoint(sm) { 
+        @include breakpoint(sm) {
             font-size: 1.2rem;
-         }
+        }
 
         .logo-icon {
             max-width: 600px;
@@ -62,12 +62,11 @@
                 border-radius: 5px;
                 background-color: var(--white);
                 box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
-            
-                
+
                 .ruler {
                     display: flex;
                     align-items: center;
-                    margin: 24px 0 16px; 
+                    margin: 24px 0 16px;
 
                     .line {
                         height: 1px;
@@ -90,12 +89,11 @@
                     svg {
                         font-size: 2rem;
                     }
-                    
+
                     span {
-                        color: #000
+                        color: #000;
                     }
                 }
-                
 
                 p {
                     margin-top: 16px;

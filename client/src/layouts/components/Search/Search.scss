@@ -1,4 +1,4 @@
-@import '../../../GlobalStyles/breakpoints.scss';
+@import '../../../components/GlobalStyles/breakpoints.scss';
 .search-form {
     width: 432px;
     height: 40px;
@@ -13,7 +13,7 @@
         border-radius: 0;
     }
 
-    @include breakpoint(md) { 
+    @include breakpoint(md) {
         width: 300px;
     }
     // .search-btn {
@@ -28,5 +28,4 @@
     //     border-radius: 20px;
     //     transition: all 0.2s ease-in;
     // }
-
 }

@@ -1,0 +1,15 @@
+@import '../../components/GlobalStyles/breakpoints.scss';
+
+.main {
+    display: flex;
+    @include breakpoint(md) {
+        flex-direction: column;
+    }
+
+    .content {
+        flex: 1;
+        @include breakpoint(md) {
+            width: 100%;
+        }
+    }
+}

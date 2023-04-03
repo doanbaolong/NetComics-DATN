@@ -1,0 +1,10 @@
+@import '../../../components/GlobalStyles/breakpoints.scss';
+
+aside.wrapper {
+    width: 33.333333%;
+    padding-left: 15px;
+
+    @include breakpoint(md) {
+        width: 100%;
+    }
+}

@@ -12,12 +12,12 @@ import './Login.scss';
 import slogan from '~/assets/images/slogan.png';
 import logo from '~/assets/images/logo.png';
 import logoIcon from '~/assets/images/logo-icon.png';
-import { path } from '~/util/constants';
+import config from '~/config';
 
 function Login() {
     const location = useLocation();
     const navigate = useNavigate();
-    const isSignUp = location.pathname === path.SIGNUP;
+    const isSignUp = location.pathname === config.routes.signUp;
     const dispatch = useDispatch();
     const { isLoggedIn, message } = useSelector(authSelector);
     const methods = useForm();
@@ -27,7 +27,7 @@ function Login() {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        isLoggedIn && navigate(path.HOME);
+        isLoggedIn && navigate(config.routes.home);
     }, [isLoggedIn, navigate]);
 
     useEffect(() => {
@@ -54,7 +54,7 @@ function Login() {
     return (
         <>
             <div className="auth-header">
-                <Link to={path.HOME}>
+                <Link to={config.routes.home}>
                     <img src={logoIcon} alt="NetComisLogo" className="img-fluid" />
                     <img src={logo} alt="NetComisLogo" className="img-fluid" />
                 </Link>
@@ -190,14 +190,14 @@ function Login() {
                                 {isSignUp ? (
                                     <>
                                         <span>Bạn đã có tài khoản?</span>{' '}
-                                        <Link to={path.LOGIN} onClick={handleRemoveError}>
+                                        <Link to={config.routes.logIn} onClick={handleRemoveError}>
                                             Đăng nhập
                                         </Link>
                                     </>
                                 ) : (
                                     <>
                                         <span>Bạn mới biết đến NetComics?</span>{' '}
-                                        <Link to={path.SIGNUP} onClick={handleRemoveError}>
+                                        <Link to={config.routes.signUp} onClick={handleRemoveError}>
                                             Đăng ký
                                         </Link>
                                     </>
