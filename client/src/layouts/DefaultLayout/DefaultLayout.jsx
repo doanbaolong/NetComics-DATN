@@ -3,18 +3,18 @@ import './DefaultLayout.scss';
 
 function DefaultLayout({ children }) {
     return (
-        <div>
+        <>
             <Header />
             <Navbar />
-            <div className="container">
+            <main className="main">
                 {/* <Slide /> */}
-                <div className="main">
+                <div className="container main-content">
                     <div className="content">{children}</div>
                     <Sidebar />
                 </div>
-            </div>
+            </main>
             <Footer />
-        </div>
+        </>
     );
 }
 

@@ -29,7 +29,7 @@ function ComicItem() {
                 </div>
             </div>
             <div className="title">
-                <span>Đại Quản Gia Là Ma Hoàng</span>
+                <Link>Đại Quản Gia Là Ma Hoàng</Link>
             </div>
             <ul className="chapter-list list-unstyled">
                 <li className="chapter-item">

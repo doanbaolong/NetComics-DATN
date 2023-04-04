@@ -1,15 +1,23 @@
 @import '../../components/GlobalStyles/breakpoints.scss';
 
-.main {
-    display: flex;
-    @include breakpoint(md) {
-        flex-direction: column;
-    }
+main.main {
+    background-color: #f0f2f5;
 
-    .content {
-        flex: 1;
+    .main-content {
+        display: flex;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background-color: var(--white);
+
         @include breakpoint(md) {
-            width: 100%;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+            @include breakpoint(md) {
+                width: 100%;
+            }
         }
     }
 }

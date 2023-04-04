@@ -38,6 +38,15 @@
 
     .title {
         margin: 5px 0 8px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+
+        a {
+            display: inline-block;
+        }
     }
 
     .chapter-list {
@@ -47,14 +56,13 @@
             margin-bottom: 6px;
 
             a {
-                color: var(--black);
                 font-size: 1.3rem;
             }
 
-            i {
+            .time {
                 font-size: 1.1rem;
                 line-height: 2rem;
-                color: #999;
+                color: var(--time-color);
             }
         }
     }
