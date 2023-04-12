@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
-import { DefaultLayout } from './layouts';
+import { RootLayout } from './layouts';
 
 function App() {
     return (
@@ -19,11 +19,9 @@ function App() {
                         const Page = route.component;
                         const to = route.to;
 
-                        let Layout = DefaultLayout;
+                        let Layout = RootLayout;
 
-                        if (route.layout) {
-                            Layout = route.layout;
-                        } else if (route.layout === null) {
+                        if (route.layout === null) {
                             Layout = Fragment;
                         }
                         return (

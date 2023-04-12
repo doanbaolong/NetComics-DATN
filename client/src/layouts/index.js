@@ -1,2 +1,1 @@
-export { default as DefaultLayout } from './DefaultLayout';
-export { default as NoSidebarLayout } from './NoSidebarLayout';
+export { default as RootLayout } from './RootLayout';

@@ -8,6 +8,24 @@
         border-radius: 4px;
     }
 
+    .rank {
+        line-height: 60px;
+        padding-right: 10px;
+        font-size: 2.2rem;
+
+        &.one {
+            color: var(--primary-color);
+        }
+
+        &.two {
+            color: var(--secondary-color);
+        }
+
+        &.three {
+            color: var(--green);
+        }
+    }
+
     .item-img {
         width: 70px;
         height: 60px;
@@ -51,6 +69,17 @@
 
             .time {
                 font-size: 1.1rem;
+            }
+
+            .view {
+                font-style: italic;
+                font-size: 1.3rem;
+                margin-right: 2px;
+                color: #666;
+
+                svg {
+                    margin-right: 2px;
+                }
             }
 
             .btn-delete {

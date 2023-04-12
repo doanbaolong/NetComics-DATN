@@ -24,6 +24,7 @@ function Login() {
     const { handleSubmit, getValues, reset } = methods;
 
     const [isShowPassword, setIsShowPassword] = useState(false);
+    const [isShowCfPassword, setIsShowCfPassword] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -41,6 +42,10 @@ function Login() {
 
     const handleShowHidePassword = () => {
         setIsShowPassword(!isShowPassword);
+    };
+
+    const handleShowHideCfPassword = () => {
+        setIsShowCfPassword(!isShowCfPassword);
     };
 
     const handleRemoveError = () => {
@@ -70,7 +75,7 @@ function Login() {
                     <div className="col-xl-4 col-lg-12 auth-box m-auto">
                         <div className="auth-form">
                             <div className="d-flex align-items-center justify-content-between">
-                                <p className="mb-3 fs-5">{isSignUp ? 'Đăng ký' : 'Đăng nhập'}</p>
+                                <h2 className="mb-3">{isSignUp ? 'Đăng ký' : 'Đăng nhập'}</h2>
                             </div>
                             {error && (
                                 <div className="alert alert-danger alert-dismissible fade show" role="alert">
@@ -139,7 +144,7 @@ function Login() {
                                             <>
                                                 <InputForm
                                                     placeholder={'Nhập lại mật khẩu'}
-                                                    type={isShowPassword ? 'text' : 'password'}
+                                                    type={isShowCfPassword ? 'text' : 'password'}
                                                     id={'cpassword'}
                                                     name={'cpassword'}
                                                     validate={{
@@ -156,10 +161,12 @@ function Login() {
                                                             return password === value || 'Mật khẩu không trùng khớp';
                                                         },
                                                     }}
-                                                    RightIcon={isShowPassword ? AiFillEyeInvisible : AiFillEye}
-                                                    onClick={handleShowHidePassword}
+                                                    RightIcon={isShowCfPassword ? AiFillEyeInvisible : AiFillEye}
+                                                    onClick={handleShowHideCfPassword}
                                                 />
-                                                <span className="form-text">Chú ý: Mật khẩu chứa ít nhất 6 kí tự</span>
+                                                <span className="form-text note">
+                                                    Chú ý: Mật khẩu chứa ít nhất 6 kí tự
+                                                </span>
                                             </>
                                         )}
                                     </div>

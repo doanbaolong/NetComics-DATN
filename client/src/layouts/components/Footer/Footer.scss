@@ -1,0 +1,36 @@
+footer.footer {
+    background-color: #222;
+    font-size: 1.4rem;
+
+    .footer-content {
+        padding: 50px 0;
+    }
+
+    .footer-logo {
+        img {
+            width: 200px;
+            height: auto;
+        }
+    }
+
+    .footer-link {
+        a {
+            color: var(--white);
+        }
+    }
+
+    .keywords {
+        a {
+            display: inline-block;
+            padding: 6px;
+            border-radius: 4px;
+            margin: 0 10px 10px 0;
+            background-color: #ccc;
+        }
+    }
+
+    .copyright {
+        background-color: #111;
+        color: #ccc;
+    }
+}

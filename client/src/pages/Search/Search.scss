@@ -1,0 +1,111 @@
+.btn-show-search {
+    border-radius: 4px;
+    font-size: 1.4rem;
+    min-width: 164px;
+
+    svg {
+        margin-left: 4px;
+    }
+}
+
+.search-instruction {
+    margin-bottom: 15px;
+}
+
+.instruction-item {
+    margin-bottom: 8px;
+    font-size: 1.4rem;
+
+    .check {
+        width: 20px;
+        height: 20px;
+        border: 1px solid var(--border-color);
+        border-radius: 2px;
+        cursor: pointer;
+
+        &.tick {
+            background-color: var(--green);
+            color: var(--white);
+        }
+
+        &.cross {
+            background-color: var(--red);
+            color: var(--white);
+        }
+    }
+}
+
+.advsearch-box {
+    font-size: 1.4rem;
+    transition: all 1s ease;
+
+    .genre-col {
+        padding: 0 15px;
+
+        .genre-item {
+            border: 2px solid var(--border-color);
+            border-radius: 2px;
+            padding: 5px 15px;
+            position: relative;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(221, 221, 221, 0.25);
+            }
+
+            &.tick {
+                border-color: var(--green);
+                background-color: var(--green-hover);
+            }
+
+            &.cross {
+                border-color: var(--red);
+                background-color: var(--red-hover);
+            }
+
+            &.tick::after,
+            &.cross::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                border-style: solid;
+                border-width: 0 24px 24px 0;
+                border-color: transparent var(--green) transparent transparent;
+            }
+
+            &.tick::after {
+                border-color: transparent var(--green) transparent transparent;
+            }
+
+            &.cross::after {
+                border-color: transparent var(--red) transparent transparent;
+            }
+
+            .genre-check-box {
+                position: absolute;
+                right: 0;
+                top: 0;
+                display: flex;
+                align-items: center;
+                color: var(--white);
+                z-index: 10;
+
+                svg {
+                    font-size: 1.4rem;
+                }
+            }
+        }
+    }
+
+    .advsearch-select-container {
+        .advsearch-select__control {
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+        }
+
+        .advsearch-select__value-container {
+            padding: 0 15px;
+        }
+    }
+}

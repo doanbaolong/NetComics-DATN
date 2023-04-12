@@ -7,6 +7,7 @@ const routes = {
     follow: '/theo-doi',
     history: '/lich-su',
     genres: '/the-loai',
+    comic: '/truyen-tranh/:slug',
     rating: '/xep-loai',
     searchComic: '/tim-truyen',
 };

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AiOutlineEye } from 'react-icons/ai';
 import SideWrapper from '~/components/SideWrapper';
 import SideComicItem from '~/components/SideWrapper/SideComicItem';
 
@@ -32,20 +33,29 @@ function TopComic() {
                 <div ref={lineRef} className="line"></div>
             </div>
 
-            {/* <div className='content'>
-                {tabs.map((tab, i) =>
+            {/* <div className="content">
+                {tabs.map((tab, i) => (
                     <div key={i}>
-                        {isTabActive === `${tab.id}` && <div><p className='title'>{tab.title}</p><p>{tab.content}</p></div>}
+                        {isTabActive === `${tab.id}` && (
+                            <div>
+                                <p className="title">{tab.title}</p>
+                                <p>{tab.content}</p>
+                            </div>
+                        )}
                     </div>
-                )}
+                ))}
             </div> */}
             <SideComicItem
                 imageUrl="https://st.ntcdntempv3.com/data/comics/32/sieu-nang-lap-phuong.jpg"
                 name="Siêu Năng Lập Phương"
+                rank="01"
             >
                 <div className="d-flex justify-content-between lastest-chapter">
                     <Link className="number">Chapter 20</Link>
-                    <span className="time">2 giờ trước</span>
+                    <span className="view d-flex align-items-center">
+                        <AiOutlineEye />
+                        10M
+                    </span>
                 </div>
             </SideComicItem>
         </SideWrapper>

@@ -1,7 +1,20 @@
 .page-title {
     font-size: 2rem;
     font-weight: 400;
-    padding: 0 0 10px;
-    margin-bottom: 0;
+    padding: 0 0 4px;
+    margin-bottom: 6px;
     color: var(--primary-color);
+
+    &.bd-bottom {
+        border-bottom: 2px solid var(--primary-color);
+    }
+
+    &.upper {
+        text-transform: uppercase;
+        font-size: 1.6rem;
+    }
+
+    span {
+        margin: 0 5px;
+    }
 }

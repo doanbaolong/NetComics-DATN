@@ -1,9 +1,18 @@
 import { Link } from 'react-router-dom';
 import './SideComicItem.scss';
 
-function SideComicItem({ imageUrl, comicUrl, name, children }) {
+function SideComicItem({ imageUrl, comicUrl, name, rank = null, children }) {
     return (
         <div className="d-flex align-items-start side-item">
+            {rank && (
+                <div
+                    className={
+                        'rank' + (rank === '01' ? ' one' : rank === '02' ? ' two' : rank === '03' ? ' three' : '')
+                    }
+                >
+                    {rank}
+                </div>
+            )}
             <Link>
                 <img src={imageUrl} alt={name} className="item-img" />
             </Link>

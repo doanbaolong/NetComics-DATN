@@ -1,0 +1,24 @@
+.pagination-container {
+    .pagination {
+        .page-item {
+            .page-link {
+                width: 40px;
+                line-height: 35px;
+                padding: 0 2px;
+                margin: 0 1px 0 0;
+                text-align: center;
+                font-size: 1.5rem;
+                color: #999;
+                border: 1px solid var(--border-color);
+            }
+
+            &.active {
+                .page-link {
+                    background-color: var(--primary-color);
+                    color: var(--white);
+                    border-color: var(--primary-color);
+                }
+            }
+        }
+    }
+}

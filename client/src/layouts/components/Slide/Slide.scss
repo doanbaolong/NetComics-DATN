@@ -1,3 +1,7 @@
+.top-comic {
+    margin-bottom: 24px;
+}
+
 .swiper {
     width: 100%;
     height: 100%;
@@ -27,6 +31,7 @@
         opacity: 0.6;
         transition: all 0.2s ease-in;
         z-index: 900;
+        cursor: pointer;
 
         &:hover {
             opacity: 1;

@@ -5,6 +5,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 
 import userReducer from './userSlice';
 import authReducer from './authSlice';
+import genreReducer from './genreSlice';
 
 const commonConfig = {
     storage,
@@ -21,6 +22,7 @@ const store = configureStore({
     reducer: {
         auth: persistReducer(authConfig, authReducer),
         user: userReducer,
+        genre: genreReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

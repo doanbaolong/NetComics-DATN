@@ -3,10 +3,9 @@
 @import './breakpoints.scss';
 
 // custom bootstrap variables
-// $font-family-sans-serif: Tahoma, sans-serif, Helvetica, Arial;
-// $font-size-base: 1.6rem;
 $primary: #0054ff;
 $secondary: #ee4d2d;
+$success: #00d200;
 
 $container-max-widths: (
     sm: 100%,
@@ -15,15 +14,6 @@ $container-max-widths: (
     xl: 1100px,
     xxl: 1100px,
 );
-$container-padding-x: 3rem;
-
-$btn-padding-y: 8px;
-$btn-padding-x: 8px;
-$btn-border-radius: 2px;
-
-$input-padding-y: 8px;
-$input-padding-x: 8px;
-$input-border-radius: 2px;
 
 @import '~bootstrap/scss/bootstrap.scss';
 
@@ -33,10 +23,15 @@ $input-border-radius: 2px;
     --white: #fff;
     --black: #000;
     --grey: rgba(0, 0, 0, 0.26);
+    --green: #00d200;
+    --green-hover: rgba(0, 210, 0, 0.1);
     --red: #ff3838;
+    --red-hover: rgba(255, 56, 56, 0.1);
     --primary-color: #0054ff;
+    --secondary-color: #ee4d2d;
     --dark-color: #ee4d2d;
     --time-color: #c0c0c0;
+    --border-color: #ddd;
 }
 
 html {
@@ -57,11 +52,30 @@ body {
     text-rendering: optimizeSpeed;
 }
 
+.container {
+    padding: 0 1.5rem;
+}
+
 button,
 input,
 [tabindex] {
     border: none;
     outline: none;
+}
+
+.btn,
+.form-control {
+    font-size: 1.4rem;
+    padding: 6px 8px;
+    border-radius: 4px;
+}
+
+.btn {
+    color: var(--white);
+
+    &:hover {
+        color: var(--white);
+    }
 }
 
 a {
@@ -70,5 +84,24 @@ a {
 
     &:hover {
         color: var(--primary-color);
+    }
+}
+
+.main-content {
+    display: flex;
+
+    @include breakpoint(md) {
+        flex-direction: column;
+    }
+
+    .content {
+        flex: 1;
+        @include breakpoint(md) {
+            width: 100%;
+        }
+
+        .items {
+            padding-right: 15px;
+        }
     }
 }

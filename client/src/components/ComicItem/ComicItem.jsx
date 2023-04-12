@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AiFillEye } from 'react-icons/ai';
 import { FaCommentAlt, FaHeart } from 'react-icons/fa';
@@ -49,4 +50,4 @@ function ComicItem() {
     );
 }
 
-export default ComicItem;
+export default memo(ComicItem);

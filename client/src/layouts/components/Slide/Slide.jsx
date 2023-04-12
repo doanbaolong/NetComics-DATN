@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import Title from '~/components/Title';
 // import { FaCaretRight, FaCaretLeft } from 'react-icons/fa';
 import { GoChevronRight, GoChevronLeft } from 'react-icons/go';
+import { TbChevronRight } from 'react-icons/tb';
 import SlideItem from './SlideItem';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -13,7 +14,7 @@ function Slide() {
     const nextNavigationRef = useRef();
     return (
         <div className="top-comic">
-            <Title>Truyện đề cử</Title>
+            <Title rigthIcon={<TbChevronRight />}>Truyện đề cử</Title>
             <div className="items-slide">
                 <Swiper
                     slidesPerView={2}
@@ -38,7 +39,7 @@ function Slide() {
                     }}
                     rewind={true}
                     autoplay={{
-                        delay: 2500,
+                        delay: 4000,
                         disableOnInteraction: false,
                     }}
                     navigation={true}

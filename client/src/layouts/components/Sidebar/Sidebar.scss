@@ -8,3 +8,30 @@ aside.wrapper {
         width: 100%;
     }
 }
+
+.genre-nav {
+    padding: 0 10px;
+    .genres {
+        .genre-item {
+            border-bottom: 1px solid var(--border-color);
+
+            a {
+                display: block;
+                padding: 10px;
+                font-size: 1.4rem;
+            }
+        }
+
+        .genre-item:first-child {
+            float: none;
+
+            a {
+                padding-top: 0;
+            }
+        }
+
+        .genre-item:last-child {
+            border-bottom: none;
+        }
+    }
+}

@@ -16,6 +16,7 @@ li.nav-item {
         text-transform: uppercase;
         border-right: 1px solid #dedede;
         transition: all 0.15s ease-in;
+        cursor: pointer;
 
         &.active,
         &:hover {

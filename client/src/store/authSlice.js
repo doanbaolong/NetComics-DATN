@@ -40,7 +40,6 @@ export const authSlide = createSlice({
 export const signUp = createAsyncThunk(SIGN_UP, async (payload, thunkAPI) => {
     try {
         const response = await apiSignUp(payload);
-        console.log(response);
         if (response?.data.err === 0) {
             return response.data.token;
         } else {
@@ -55,7 +54,6 @@ export const signUp = createAsyncThunk(SIGN_UP, async (payload, thunkAPI) => {
 export const logIn = createAsyncThunk(LOG_IN, async (payload, thunkAPI) => {
     try {
         const response = await apiLogIn(payload);
-        console.log(response);
         if (response?.data.err === 0) {
             return response.data.token;
         } else {

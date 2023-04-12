@@ -1,12 +1,14 @@
 .form-group {
-
     .input {
         position: relative;
 
         .form-control {
+            padding: 8px;
             padding-right: 3.2rem;
+            border-radius: 2px;
+            font-size: 1.6rem;
         }
-    
+
         .input-icon {
             padding: 5px;
             position: absolute;
@@ -16,7 +18,7 @@
             font-size: 2rem;
             color: var(--grey);
             transition: all 0.2s ease-in;
-    
+
             &:hover {
                 color: #333;
             }

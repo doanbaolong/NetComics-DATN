@@ -6,20 +6,34 @@ function NavItems({ title, name, to, MainIcon, RightIcon, subMenu }) {
     return (
         <li key={name} className="nav-item">
             {subMenu ? (
-                <>
-                    <NavLink
-                        to={to}
-                        className={({ isActive, isPending }) => name + ' nav-link ' + (isActive ? 'active' : '')}
-                    >
-                        {MainIcon ? <MainIcon /> : title}
-                        {RightIcon && (
-                            <span className="right-icon">
-                                <RightIcon />
-                            </span>
-                        )}
-                    </NavLink>
-                    <Dropdown name={name} subMenus={subMenu} />
-                </>
+                to ? (
+                    <>
+                        <NavLink
+                            to={to}
+                            className={({ isActive, isPending }) => name + ' nav-link ' + (isActive ? 'active' : '')}
+                        >
+                            {MainIcon ? <MainIcon /> : title}
+                            {RightIcon && (
+                                <span className="right-icon">
+                                    <RightIcon />
+                                </span>
+                            )}
+                        </NavLink>
+                        <Dropdown name={name} subMenus={subMenu} />
+                    </>
+                ) : (
+                    <>
+                        <span className={name + ' nav-link '}>
+                            {MainIcon ? <MainIcon /> : title}
+                            {RightIcon && (
+                                <span className="right-icon">
+                                    <RightIcon />
+                                </span>
+                            )}
+                        </span>
+                        <Dropdown name={name} subMenus={subMenu} />
+                    </>
+                )
             ) : (
                 <NavLink
                     to={to}

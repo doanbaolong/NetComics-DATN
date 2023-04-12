@@ -1,14 +1,16 @@
 import FollowingComic from './FollowingComic';
 import HistoryComic from './HistoryComic';
 import TopComic from './TopComic';
+import GenresComic from './GenresComic';
 import './Sidebar.scss';
 
-function Sidebar() {
+function Sidebar({ following, history, top, genres }) {
     return (
         <aside className="wrapper">
-            <FollowingComic />
-            <HistoryComic />
-            <TopComic />
+            {following && <FollowingComic />}
+            {history && <HistoryComic />}
+            {top && <TopComic />}
+            {genres && <GenresComic />}
         </aside>
     );
 }

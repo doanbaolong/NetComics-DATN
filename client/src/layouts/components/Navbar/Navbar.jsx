@@ -1,49 +1,46 @@
-import { useEffect, useState } from 'react';
-import { AiFillHome, AiOutlineLike } from 'react-icons/ai';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AiFillHome, AiOutlineLike, AiOutlineEye } from 'react-icons/ai';
 import { FaCaretDown } from 'react-icons/fa';
-import { IoIosEye } from 'react-icons/io';
 import { MdUpdate, MdOutlineCloudUpload, MdIncompleteCircle } from 'react-icons/md';
-import { apiGetGenres } from '~/services/genre';
-import { path } from '~/util/constants';
+
+import { genreSelector } from '~/store/selector';
+import { getGenres } from '~/store/genreSlice';
+import routes from '~/config/routes';
 import NavItems from '../NavItems';
 import './Navbar.scss';
 
 function Navbar() {
-    const [genres, setGenres] = useState([]);
+    const dispatch = useDispatch();
+    const { genres } = useSelector(genreSelector);
 
     useEffect(() => {
-        const fetchGenres = async () => {
-            const response = await apiGetGenres();
-            if (response?.data.err === 0) {
-                setGenres(response.data.response);
-            }
-        };
-        fetchGenres();
+        dispatch(getGenres());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const menuItems = [
-        { title: 'Trang chủ', name: 'home', to: '/', MainIcon: AiFillHome },
-        { title: 'Hot', name: 'hot', to: path.HOT },
-        { title: 'Theo dõi', name: 'follow', to: path.FOLLOW },
-        { title: 'Lịch sử', name: 'history', to: path.HISTORY },
-        { title: 'Thể loại', name: 'genres', to: path.GENRES, RightIcon: FaCaretDown, subMenu: genres },
+        { title: 'Trang chủ', name: 'home', to: routes.home, MainIcon: AiFillHome },
+        { title: 'Hot', name: 'hot', to: routes.hot },
+        { title: 'Theo dõi', name: 'follow', to: routes.follow },
+        { title: 'Lịch sử', name: 'history', to: routes.history },
+        { title: 'Thể loại', name: 'genres', to: routes.genres, RightIcon: FaCaretDown, subMenu: genres },
         {
             title: 'Xếp loại',
             name: 'rating',
-            to: path.RATING,
             RightIcon: FaCaretDown,
             subMenu: [
-                { title: 'Top all', to: '', LeftIcon: IoIosEye },
-                { title: 'Top tháng', to: '', LeftIcon: IoIosEye },
-                { title: 'Top tuần', to: '', LeftIcon: IoIosEye },
-                { title: 'Top ngày', to: '', LeftIcon: IoIosEye },
+                { title: 'Top all', to: '', LeftIcon: AiOutlineEye },
+                { title: 'Top tháng', to: '', LeftIcon: AiOutlineEye },
+                { title: 'Top tuần', to: '', LeftIcon: AiOutlineEye },
+                { title: 'Top ngày', to: '', LeftIcon: AiOutlineEye },
                 { title: 'Truyện full', to: '', LeftIcon: MdIncompleteCircle },
                 { title: 'Yêu thích', to: '', LeftIcon: AiOutlineLike },
                 { title: 'Mới cập nhật', to: '', LeftIcon: MdUpdate },
                 { title: 'Truyện mới', to: '', LeftIcon: MdOutlineCloudUpload },
             ],
         },
-        { title: 'Tìm truyện', name: 'search-comic', to: path.SEARCH_COMIC },
+        { title: 'Tìm truyện', name: 'search-comic', to: routes.searchComic },
     ];
 
     return (

@@ -1,0 +1,21 @@
+.genre-description {
+    margin: 16px 0 24px;
+
+    .info {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1.4rem;
+    }
+}
+
+.filter-wrapper {
+    .filter,
+    .sort {
+        margin-bottom: 15px;
+
+        .filter-title {
+            font-size: 1.4rem;
+        }
+    }
+}

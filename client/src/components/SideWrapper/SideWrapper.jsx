@@ -6,7 +6,7 @@ function SideWrapper({ noTop = false, title, viewAll = false, children }) {
         <div className="right-side">
             {!noTop && (
                 <div className="side-top d-flex align-items-center justify-content-between">
-                    <h2 className="title text-primary">{title}</h2>
+                    <h2 className="title">{title}</h2>
                     {viewAll && <Link className="view-all">Xem tất cả</Link>}
                 </div>
             )}

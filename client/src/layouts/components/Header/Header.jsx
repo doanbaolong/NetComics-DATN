@@ -19,7 +19,7 @@ function Header() {
 
     return (
         <>
-            <header className="wrapper">
+            <header className="header">
                 <nav className="p-0 navbar navbar-expand bg-primary">
                     <div className="d-flex align-items-center container">
                         <Link to="/" className="d-flex align-items-center me-auto navbar-brand">
