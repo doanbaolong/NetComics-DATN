@@ -18,7 +18,7 @@ function Hot() {
     return (
         <>
             <Breadcrumb list={breadcrumb} />
-            <Slide />
+            {/* <Slide /> */}
             <div className="main-content">
                 <div className="content">
                     <div className="items">

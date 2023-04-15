@@ -10,6 +10,10 @@ import Search from '~/pages/Search';
 import ComicDetail from '~/pages/ComicDetail';
 import Login from '~/pages/Login';
 import NotFound from '~/pages/NotFound';
+// admin
+import { AdRootLayout } from '~/layouts';
+import Dashboard from '~/pages/admin/Dashboard';
+import UserManager from '~/pages/admin/UserManager';
 
 // publicRoutes
 const publicRoutes = [
@@ -27,6 +31,12 @@ const publicRoutes = [
 ];
 
 // privateRoutes
-const privateRoutes = [{ path: '/profile', component: Profile }];
+const privateRoutes = [
+    { path: '/profile', component: Profile },
+
+    // admin
+    { path: config.routes.admin, component: Dashboard, layout: AdRootLayout },
+    { path: config.routes.userManager, component: UserManager, layout: AdRootLayout },
+];
 
 export { publicRoutes, privateRoutes };

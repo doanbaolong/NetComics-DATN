@@ -10,6 +10,19 @@ const routes = {
     comic: '/truyen-tranh/:slug',
     rating: '/xep-loai',
     searchComic: '/tim-truyen',
+
+    //admin
+    admin: '/quan-tri',
+
+    userManager: '/quan-tri/nguoi-dung',
+
+    genresManager: '/quan-tri/the-loai',
+    genresManagerAdd: '/quan-tri/the-loai/them-moi',
+    genresManagerEdit: '/quan-tri/the-loai/sua',
+
+    authorManager: '/quan-tri/tac-gia',
+    authorManagerAdd: '/quan-tri/tac-gia/them-moi',
+    authorManagerEdit: '/quan-tri/tac-gia/sua',
 };
 
 export default routes;

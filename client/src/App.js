@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { publicRoutes } from '~/routes';
+import { publicRoutes, privateRoutes } from '~/routes';
 import { RootLayout } from './layouts';
 
 function App() {
@@ -15,13 +15,15 @@ function App() {
                     </Helmet>
                 </HelmetProvider>
                 <Routes>
-                    {publicRoutes.map((route, index) => {
+                    {[...publicRoutes, ...privateRoutes].map((route, index) => {
                         const Page = route.component;
                         const to = route.to;
 
                         let Layout = RootLayout;
 
-                        if (route.layout === null) {
+                        if (route.layout) {
+                            Layout = route.layout;
+                        } else if (route.layout === null) {
                             Layout = Fragment;
                         }
                         return (

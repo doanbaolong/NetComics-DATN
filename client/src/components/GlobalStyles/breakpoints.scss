@@ -11,23 +11,23 @@ $xxl: 1400px;
         }
     }
     @if $breakpoint == md {
-      @media (max-width: #{$lg - 0.02px}) {
-          @content;
-      }
+        @media (max-width: #{$lg - 0.02px}) {
+            @content;
+        }
     }
     @if $breakpoint == lg {
-      @media (max-width: #{$xl - 0.02px}) {
-          @content;
-      }
+        @media (max-width: #{$xl - 0.02px}) {
+            @content;
+        }
     }
     @if $breakpoint == xl {
-      @media (max-width: #{$xxl - 0.02px}) {
-          @content;
-      }
+        @media (max-width: #{$xxl - 0.02px}) {
+            @content;
+        }
     }
     @if $breakpoint == xxl {
-      @media (min-width: $xxl) {
-          @content;
-      }
+        @media (min-width: $xxl) {
+            @content;
+        }
     }
 }

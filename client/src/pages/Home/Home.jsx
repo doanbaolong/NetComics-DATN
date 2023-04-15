@@ -11,7 +11,7 @@ function Home() {
     }
     return (
         <>
-            <Slide />
+            {/* <Slide /> */}
             <div className="main-content">
                 <div className="content">
                     <div className="items">
