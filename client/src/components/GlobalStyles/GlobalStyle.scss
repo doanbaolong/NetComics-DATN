@@ -1,11 +1,13 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'normalize.css';
 @import './breakpoints.scss';
+@import 'react-toastify/dist/ReactToastify.css';
 
 // custom bootstrap variables
 $primary: #0054ff;
 $secondary: #ee4d2d;
 $success: #00d200;
+$info: #6c757d;
 
 $container-max-widths: (
     sm: 100%,
@@ -106,6 +108,29 @@ ul {
 
         .items {
             padding-right: 15px;
+        }
+    }
+}
+
+.manager {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px 15px 30px 15px;
+
+    .form {
+        padding: 15px;
+        background-color: #e4e9f7;
+        margin-top: 15px;
+        border-radius: 5px;
+
+        .form-group {
+            margin-bottom: 8px;
+        }
+
+        .btn {
+            padding: 8px;
+            font-size: 1.6rem;
+            margin-top: 15px;
         }
     }
 }

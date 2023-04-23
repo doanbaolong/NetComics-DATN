@@ -2,7 +2,19 @@ import { memo } from 'react';
 import ConnectForm from '../ConnectForm';
 import './InputForm.scss';
 
-function InputForm({ label, id, type = 'text', placeholder, RightIcon, name, validate, onClick }) {
+function InputForm({
+    textarea = false,
+    label,
+    id,
+    type = 'text',
+    placeholder,
+    value,
+    RightIcon,
+    name,
+    validate,
+    onClick,
+}) {
+    let Comp = textarea ? 'textarea' : 'input';
     return (
         <ConnectForm>
             {({ register, formState: { errors } }) => (
@@ -11,11 +23,12 @@ function InputForm({ label, id, type = 'text', placeholder, RightIcon, name, val
                         {label}
                     </label>
                     <div className="input">
-                        <input
+                        <Comp
                             className="form-control"
                             id={id}
                             type={type}
                             placeholder={placeholder}
+                            value={value}
                             {...register(name, validate)}
                         />
                         {RightIcon && (

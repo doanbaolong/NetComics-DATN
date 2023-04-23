@@ -5,7 +5,7 @@ export const apiSignUp = (payload) =>
         try {
             const response = await instance({
                 method: 'POST',
-                url: '/api/v1/auth/signup',
+                url: '/api/auth/signup',
                 data: payload,
             });
             resolve(response);
@@ -19,7 +19,7 @@ export const apiLogIn = (payload) =>
         try {
             const response = await instance({
                 method: 'POST',
-                url: '/api/v1/auth/login',
+                url: '/api/auth/login',
                 data: payload,
             });
             resolve(response);

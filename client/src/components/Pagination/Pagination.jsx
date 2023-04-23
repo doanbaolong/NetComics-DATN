@@ -7,7 +7,7 @@ function Pagination() {
             <nav aria-label="Pagination">
                 <ul className="pagination">
                     <li className="page-item disabled">
-                        <Link className="page-link" tabindex="-1" aria-disabled="true">
+                        <Link className="page-link" tabIndex="-1" aria-disabled="true">
                             &laquo;
                         </Link>
                     </li>

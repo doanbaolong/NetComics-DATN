@@ -1,13 +1,14 @@
 .adm-sidebar {
-    // position: fixed;
-    // top: 0;
-    // left: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 260px;
     height: 100vh;
     background-color: #212529;
     color: var(--white);
     padding-bottom: 20px;
     transition: all 0.4s ease;
+    z-index: 99;
 
     a {
         color: var(--white);
@@ -130,7 +131,8 @@
 
     &.close {
         .link-name,
-        .right-icon {
+        .right-icon,
+        .collapse {
             display: none;
         }
     }

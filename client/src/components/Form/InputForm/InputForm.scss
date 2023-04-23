@@ -5,7 +5,6 @@
         .form-control {
             padding: 8px;
             padding-right: 3.2rem;
-            border-radius: 2px;
             font-size: 1.6rem;
         }
 
@@ -23,5 +22,9 @@
                 color: #333;
             }
         }
+    }
+
+    textarea {
+        height: 150px;
     }
 }

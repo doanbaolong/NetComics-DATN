@@ -14,7 +14,8 @@ import NotFound from '~/pages/NotFound';
 import { AdRootLayout } from '~/layouts';
 import Dashboard from '~/pages/admin/Dashboard';
 import UserManager from '~/pages/admin/UserManager';
-
+import { GenreManager, GenreManagerAdd, GenreManagerEdit } from '~/pages/admin/GenreManager';
+import { AuthorManager, AuthorManagerAdd, AuthorManagerEdit } from '~/pages/admin/AuthorManager';
 // publicRoutes
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -37,6 +38,14 @@ const privateRoutes = [
     // admin
     { path: config.routes.admin, component: Dashboard, layout: AdRootLayout },
     { path: config.routes.userManager, component: UserManager, layout: AdRootLayout },
+
+    { path: config.routes.genresManager, component: GenreManager, layout: AdRootLayout },
+    { path: config.routes.genresManagerAdd, component: GenreManagerAdd, layout: AdRootLayout },
+    { path: config.routes.genresManagerEdit, component: GenreManagerEdit, layout: AdRootLayout },
+
+    { path: config.routes.authorManager, component: AuthorManager, layout: AdRootLayout },
+    { path: config.routes.authorManagerAdd, component: AuthorManagerAdd, layout: AdRootLayout },
+    { path: config.routes.authorManagerEdit, component: AuthorManagerEdit, layout: AdRootLayout },
 ];
 
 export { publicRoutes, privateRoutes };

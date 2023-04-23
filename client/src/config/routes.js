@@ -18,11 +18,11 @@ const routes = {
 
     genresManager: '/quan-tri/the-loai',
     genresManagerAdd: '/quan-tri/the-loai/them-moi',
-    genresManagerEdit: '/quan-tri/the-loai/sua',
+    genresManagerEdit: '/quan-tri/the-loai/sua/:id',
 
     authorManager: '/quan-tri/tac-gia',
     authorManagerAdd: '/quan-tri/tac-gia/them-moi',
-    authorManagerEdit: '/quan-tri/tac-gia/sua',
+    authorManagerEdit: '/quan-tri/tac-gia/sua/:id',
 };
 
 export default routes;

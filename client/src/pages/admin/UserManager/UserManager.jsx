@@ -1,8 +1,21 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelector } from '~/store/selector';
+import { getUsers } from '~/store/userSlice';
+
 function UserManager() {
+    const dispatch = useDispatch();
+
+    const { users } = useSelector(userSelector);
+
+    useEffect(() => {
+        dispatch(getUsers());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
-        <div className="user-manager">
+        <div className="manager user-manager">
             <table className="table table-striped table-hover table-responsive">
-                <thead className="table-dark">
+                <thead>
                     <tr>
                         <th>#</th>
                         <th>Họ tên</th>
@@ -13,14 +26,16 @@ function UserManager() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                    </tr>
+                    {users.map((user, index) => (
+                        <tr key={user.id}>
+                            <th scope="row">{index + 1}</th>
+                            <td>{user.fullName}</td>
+                            <td>{user.userName}</td>
+                            <td>{user.email}</td>
+                            <td>{user.userName}</td>
+                            <td>{user.address}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

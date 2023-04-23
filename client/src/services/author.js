@@ -1,11 +1,11 @@
 import instance from '~/util/http';
 
-export const apiGetGenres = () =>
+export const apiGetAuthors = () =>
     new Promise(async (resolve, reject) => {
         try {
             const response = await instance({
                 method: 'GET',
-                url: '/api/genre/all',
+                url: '/api/author/all',
             });
             resolve(response);
         } catch (error) {
@@ -13,12 +13,12 @@ export const apiGetGenres = () =>
         }
     });
 
-export const apiCreateGenre = (payload) =>
+export const apiCreateAuthor = (payload) =>
     new Promise(async (resolve, reject) => {
         try {
             const response = await instance({
                 method: 'POST',
-                url: '/api/genre/create',
+                url: '/api/author/create',
                 data: payload,
             });
             resolve(response);
@@ -27,12 +27,12 @@ export const apiCreateGenre = (payload) =>
         }
     });
 
-export const apiGetSingleGenre = (id) =>
+export const apiGetSingleAuthor = (id) =>
     new Promise(async (resolve, reject) => {
         try {
             const response = await instance({
                 method: 'GET',
-                url: '/api/genre/' + id,
+                url: '/api/author/' + id,
             });
             resolve(response);
         } catch (error) {
@@ -40,13 +40,13 @@ export const apiGetSingleGenre = (id) =>
         }
     });
 
-export const apiUpdateGenre = (genre, id) =>
+export const apiUpdateAuthor = (author, id) =>
     new Promise(async (resolve, reject) => {
         try {
             const response = await instance({
                 method: 'PUT',
-                url: '/api/genre/' + id,
-                data: genre,
+                url: '/api/author/' + id,
+                data: author,
             });
             resolve(response);
         } catch (error) {
@@ -54,12 +54,12 @@ export const apiUpdateGenre = (genre, id) =>
         }
     });
 
-export const apiDeleteGenre = (id) =>
+export const apiDeleteAuthor = (id) =>
     new Promise(async (resolve, reject) => {
         try {
             const response = await instance({
                 method: 'DELETE',
-                url: '/api/genre/' + id,
+                url: '/api/author/' + id,
             });
             resolve(response);
         } catch (error) {

@@ -13,6 +13,7 @@ import slogan from '~/assets/images/slogan.png';
 import logo from '~/assets/images/logo.png';
 import logoIcon from '~/assets/images/logo-icon.png';
 import config from '~/config';
+import Alert from '~/components/Alert';
 
 function Login() {
     const location = useLocation();
@@ -77,18 +78,7 @@ function Login() {
                             <div className="d-flex align-items-center justify-content-between">
                                 <h2 className="mb-3">{isSignUp ? 'Đăng ký' : 'Đăng nhập'}</h2>
                             </div>
-                            {error && (
-                                <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {error}
-                                    <button
-                                        type="button"
-                                        className="btn-close"
-                                        data-bs-dismiss="alert"
-                                        aria-label="Close"
-                                        onClick={handleRemoveError}
-                                    ></button>
-                                </div>
-                            )}
+                            {error && <Alert message={error} onClick={handleRemoveError} />}
 
                             <FormProvider {...methods}>
                                 <form onSubmit={handleSubmit(onSubmit)}>

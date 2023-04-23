@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MdSpaceDashboard } from 'react-icons/md';
-import { FaUserFriends, FaCaretDown } from 'react-icons/fa';
+import { FaUserFriends, FaCaretDown, FaUserEdit } from 'react-icons/fa';
 import { BiLogOut } from 'react-icons/bi';
 import { TbMenu2, TbCategory } from 'react-icons/tb';
 import './Sidebar.scss';
@@ -32,15 +32,28 @@ function Sidebar() {
                 { title: 'Danh sách thể loại', path: routes.genresManager },
             ],
         },
+        {
+            id: 4,
+            title: 'Tác giả',
+            leftIcon: <FaUserEdit />,
+            subMenu: [
+                { title: 'Thêm mới', path: routes.authorManagerAdd },
+                { title: 'Danh sách tác giả', path: routes.authorManager },
+            ],
+        },
     ];
     const [isClose, setIsClose] = useState(false);
-    const [isShowMenu, setIsShowMenu] = useState(false);
+    const [isShowMenu, setIsShowMenu] = useState([]);
 
     const handleCloseSidebar = () => {
         setIsClose(!isClose);
     };
-    const handleShowSubMenu = () => {
-        setIsShowMenu(!isShowMenu);
+    const handleShowSubMenu = (index) => {
+        if (isShowMenu.includes(index)) {
+            setIsShowMenu((prev) => prev.filter((item) => item !== index));
+        } else {
+            setIsShowMenu([...isShowMenu, index]);
+        }
     };
 
     return (
@@ -70,18 +83,20 @@ function Sidebar() {
                                     role="button"
                                     aria-expanded="false"
                                     aria-controls="collapse1"
-                                    onClick={handleShowSubMenu}
+                                    onClick={() => handleShowSubMenu(item.id)}
                                 >
                                     <span className="icon-link">{item.leftIcon}</span>
 
                                     <span className="link-name">{item.title}</span>
-                                    <FaCaretDown className={'ms-auto right-icon' + (isShowMenu ? ' show' : '')} />
+                                    <FaCaretDown
+                                        className={'ms-auto right-icon' + (isShowMenu.includes(item.id) ? ' show' : '')}
+                                    />
                                 </Link>
                                 <div className="collapse" id={'collapse' + item.id}>
                                     <ul className="navbar-nav sub-nav ps-4">
                                         {item.subMenu.map((sub) => (
                                             <li key={sub.title}>
-                                                <Link className="nav-link">
+                                                <Link to={sub.path} className="nav-link">
                                                     <span>{sub.title}</span>
                                                 </Link>
                                             </li>
@@ -93,7 +108,7 @@ function Sidebar() {
                                     <ul className="navbar-nav sub-nav ps-4">
                                         {item.subMenu.map((sub) => (
                                             <li key={sub.title}>
-                                                <Link className="nav-link">
+                                                <Link to={sub.path} className="nav-link">
                                                     <span>{sub.title}</span>
                                                 </Link>
                                             </li>
