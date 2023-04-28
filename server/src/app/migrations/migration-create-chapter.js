@@ -1,37 +1,44 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('chapters', {
+    await queryInterface.createTable("chapters", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       comicId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       chapterNumber: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       pictureUrls: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+      },
+      cloudIds: {
+        type: Sequelize.TEXT,
+      },
+      view: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('chapters');
-  }
+    await queryInterface.dropTable("chapters");
+  },
 };

@@ -16,6 +16,8 @@ import Dashboard from '~/pages/admin/Dashboard';
 import UserManager from '~/pages/admin/UserManager';
 import { GenreManager, GenreManagerAdd, GenreManagerEdit } from '~/pages/admin/GenreManager';
 import { AuthorManager, AuthorManagerAdd, AuthorManagerEdit } from '~/pages/admin/AuthorManager';
+import { ComicManager, ComicManagerAdd, ComicManagerDetail, ComicManagerEdit } from '~/pages/admin/ComicManager';
+import { ChapterManagerAdd, ChapterManagerEdit } from '~/pages/admin/ChapterManager';
 // publicRoutes
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -41,11 +43,19 @@ const privateRoutes = [
 
     { path: config.routes.genresManager, component: GenreManager, layout: AdRootLayout },
     { path: config.routes.genresManagerAdd, component: GenreManagerAdd, layout: AdRootLayout },
-    { path: config.routes.genresManagerEdit, component: GenreManagerEdit, layout: AdRootLayout },
+    { path: config.routes.genresManagerEditById, component: GenreManagerEdit, layout: AdRootLayout },
 
     { path: config.routes.authorManager, component: AuthorManager, layout: AdRootLayout },
     { path: config.routes.authorManagerAdd, component: AuthorManagerAdd, layout: AdRootLayout },
-    { path: config.routes.authorManagerEdit, component: AuthorManagerEdit, layout: AdRootLayout },
+    { path: config.routes.authorManagerEditById, component: AuthorManagerEdit, layout: AdRootLayout },
+
+    { path: config.routes.comicManager, component: ComicManager, layout: AdRootLayout },
+    { path: config.routes.comicManagerAdd, component: ComicManagerAdd, layout: AdRootLayout },
+    { path: config.routes.comicManagerEditById, component: ComicManagerEdit, layout: AdRootLayout },
+    { path: config.routes.comicManagerDetailById, component: ComicManagerDetail, layout: AdRootLayout },
+
+    { path: config.routes.chapterManagerAddById, component: ChapterManagerAdd, layout: AdRootLayout },
+    { path: config.routes.chapterManagerEditById, component: ChapterManagerEdit, layout: AdRootLayout },
 ];
 
 export { publicRoutes, privateRoutes };

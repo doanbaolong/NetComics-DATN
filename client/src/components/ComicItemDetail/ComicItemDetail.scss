@@ -1,0 +1,130 @@
+.comic-item-detail {
+    .title-detail {
+        font-size: 2.2rem;
+    }
+
+    .update-time {
+        font-size: 1.3rem;
+        font-style: italic;
+        color: rgba(51, 51, 51, 0.6);
+        margin-bottom: 20px;
+    }
+
+    &.adm .update-time {
+        font-size: 1.5rem;
+    }
+
+    .info-detail {
+        .col-image {
+            padding: 0 15px 0 0;
+
+            img {
+                width: 100%;
+                border-radius: 2px;
+                object-fit: cover;
+            }
+        }
+
+        .col-info {
+            padding: 0 15px;
+
+            .info-list {
+                color: #666;
+
+                .info-row {
+                    .info-title {
+                        display: flex;
+                        align-items: center;
+                        font-weight: 600;
+
+                        span {
+                            margin-left: 6px;
+                        }
+                    }
+                }
+
+                margin-bottom: 16px;
+            }
+
+            .review {
+                font-size: 1.4rem;
+                margin-bottom: 12px;
+
+                &-btn {
+                    span {
+                        margin-right: 5px;
+                    }
+                }
+
+                .rating {
+                    .card {
+                        border: none;
+
+                        span {
+                            color: #666;
+                        }
+                    }
+                }
+            }
+
+            .follow {
+                margin-bottom: 12px;
+
+                &-btn {
+                    svg {
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.adm .info-detail {
+        .col-image {
+            img {
+                max-width: 300px;
+            }
+        }
+        .col-info .review {
+            font-size: 1.6rem;
+        }
+    }
+
+    .detail-content {
+        font-size: 1.4rem;
+
+        p {
+            padding: 0;
+            margin: 0;
+            position: relative;
+
+            &.short-content {
+                max-height: 60px;
+                overflow: hidden;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    height: 20px;
+                    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+                }
+            }
+        }
+
+        .content-more {
+            background-color: transparent;
+        }
+    }
+
+    &.adm .detail-content {
+        font-size: 1.6rem;
+    }
+
+    &.adm svg {
+        font-size: 2.2rem;
+    }
+}

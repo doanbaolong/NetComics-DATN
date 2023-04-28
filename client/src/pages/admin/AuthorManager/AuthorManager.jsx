@@ -40,42 +40,44 @@ function AuthorManager() {
             <Link to={routes.authorManagerAdd} className="btn btn-primary mt-3 mb-2">
                 Thêm tác giả
             </Link>
-            <table className="table table-striped table-hover table-responsive">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Tác giả</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {authors.map((author, index) => (
-                        <tr key={author.id}>
-                            <th scope="row">{index + 1}</th>
-                            <td>{author.name}</td>
-                            <td>
-                                <div className="d-flex align-items-center">
-                                    <Link
-                                        to={`${routes.authorManager}/sua/${author.id}`}
-                                        className="btn btn-warning me-3"
-                                    >
-                                        Sửa
-                                    </Link>
-                                    <Modal
-                                        buttonText="Xóa"
-                                        id={'deleteAuthor' + author.id}
-                                        title="NetComics"
-                                        body="Bạn có chắc chắn muốn xóa tên tác giả này?"
-                                        closeText="Hủy"
-                                        confirmText="Xóa"
-                                        onConfirmClick={() => handleDeleteAuthor(author.id)}
-                                    />
-                                </div>
-                            </td>
+            <div className="table-responsive mt-3">
+                <table className="table table-striped table-hover table-responsive">
+                    <thead className="table-info">
+                        <tr>
+                            <th>#</th>
+                            <th>Tác giả</th>
+                            <th></th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className="table-group-divider">
+                        {authors.map((author, index) => (
+                            <tr key={author.id}>
+                                <th scope="row">{index + 1}</th>
+                                <td>{author.name}</td>
+                                <td>
+                                    <div className="d-flex align-items-center">
+                                        <Link
+                                            to={`${routes.authorManager}/sua/${author.id}`}
+                                            className="btn btn-warning me-3"
+                                        >
+                                            Sửa
+                                        </Link>
+                                        <Modal
+                                            buttonText="Xóa"
+                                            id={'deleteAuthor' + author.id}
+                                            title="NetComics"
+                                            body="Bạn có chắc chắn muốn xóa tên tác giả này?"
+                                            closeText="Hủy"
+                                            confirmText="Xóa"
+                                            onConfirmClick={() => handleDeleteAuthor(author.id)}
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
             <ToastContainer />
         </div>
     );

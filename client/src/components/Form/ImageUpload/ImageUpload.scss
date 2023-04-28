@@ -1,0 +1,61 @@
+.image-upload {
+    .image-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px dashed #999;
+        background-color: var(--white);
+        border-radius: 4px;
+        padding: 40px 0;
+        cursor: pointer;
+
+        .image-label-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.4rem;
+            color: #666;
+            svg {
+                font-size: 4.5rem;
+                color: var(--primary-color);
+            }
+        }
+    }
+    .image-input {
+        display: none;
+    }
+
+    .preview {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+
+        .img-preview {
+            padding-top: 40px;
+            position: relative;
+            width: 33.3333%;
+            margin-right: 20px;
+
+            .title {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: rgb(56, 100, 157);
+                color: var(--white);
+                padding: 5px;
+            }
+
+            .btn {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 5px;
+                margin: 0;
+
+                svg {
+                    font-size: 2.2rem;
+                }
+            }
+        }
+    }
+}

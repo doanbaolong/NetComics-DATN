@@ -7,6 +7,8 @@ import userReducer from './userSlice';
 import authReducer from './authSlice';
 import genreReducer from './genreSlice';
 import authorReducer from './authorSlice';
+import comicReducer from './comicSlice';
+import chapterReducer from './chapterSlice';
 
 const commonConfig = {
     storage,
@@ -25,6 +27,8 @@ const store = configureStore({
         user: userReducer,
         genre: genreReducer,
         author: authorReducer,
+        comic: comicReducer,
+        chapter: chapterReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

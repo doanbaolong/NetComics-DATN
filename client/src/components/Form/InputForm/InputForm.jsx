@@ -4,6 +4,7 @@ import './InputForm.scss';
 
 function InputForm({
     textarea = false,
+    readOnly = false,
     label,
     id,
     type = 'text',
@@ -24,6 +25,7 @@ function InputForm({
                     </label>
                     <div className="input">
                         <Comp
+                            readOnly={readOnly}
                             className="form-control"
                             id={id}
                             type={type}

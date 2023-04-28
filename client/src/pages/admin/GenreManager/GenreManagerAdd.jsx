@@ -34,7 +34,7 @@ function GenreManagerAdd() {
 
     const onSubmit = (data) => {
         const dataTrim = trimString(data);
-        const payload = { ...dataTrim, slug: slugify(data.name) };
+        const payload = { ...dataTrim, slug: slugify(dataTrim.name) };
         dispatch(addGenre(payload));
     };
 
@@ -71,7 +71,18 @@ function GenreManagerAdd() {
                                 },
                             }}
                         />
-                        <InputForm textarea label="Mô tả" placeholder="Mô tả" id="description" name="description" />
+                        <InputForm
+                            textarea
+                            label="Mô tả"
+                            placeholder="Mô tả"
+                            id="description"
+                            name="description"
+                            validate={{
+                                validate: {
+                                    trimStr: (value) => (!!value.trim() ? true : 'Vui lòng nhập tên thể loại'),
+                                },
+                            }}
+                        />
                         <button className="btn btn-success w-100">Thêm mới</button>
                     </form>
                 </FormProvider>

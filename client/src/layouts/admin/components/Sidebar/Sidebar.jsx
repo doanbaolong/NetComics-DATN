@@ -4,10 +4,12 @@ import { MdSpaceDashboard } from 'react-icons/md';
 import { FaUserFriends, FaCaretDown, FaUserEdit } from 'react-icons/fa';
 import { BiLogOut } from 'react-icons/bi';
 import { TbMenu2, TbCategory } from 'react-icons/tb';
+import { GiBookshelf } from 'react-icons/gi';
 import './Sidebar.scss';
 import logo from '~/assets/images/logo.png';
 import logoIcon from '~/assets/images/logo-icon.png';
 import routes from '~/config/routes';
+import { ALL } from '~/util/constants';
 
 function Sidebar() {
     const menuSidebar = [
@@ -39,6 +41,16 @@ function Sidebar() {
             subMenu: [
                 { title: 'Thêm mới', path: routes.authorManagerAdd },
                 { title: 'Danh sách tác giả', path: routes.authorManager },
+            ],
+        },
+        {
+            id: 5,
+            title: 'Truyện tranh',
+            leftIcon: <GiBookshelf />,
+            subMenu: [
+                { title: 'Thêm truyện mới', path: routes.comicManagerAdd },
+                { title: 'Thêm chapter mới', path: routes.chapterManagerAdd + ALL },
+                { title: 'Danh sách truyện tranh', path: routes.comicManager },
             ],
         },
     ];

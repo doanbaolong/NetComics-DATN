@@ -52,7 +52,6 @@ function GenreManagerEdit() {
         const dataTrim = trimString(data);
         const payload = { genre: { ...dataTrim, slug: slugify(data.name) }, id };
         dispatch(updateGenre(payload));
-        navigate(routes.genresManager);
     };
 
     useEffect(() => {
@@ -82,16 +81,23 @@ function GenreManagerEdit() {
                             id="name"
                             name="name"
                             validate={{
-                                required: {
-                                    value: true,
-                                    message: 'Vui lòng nhập tên thể loại',
-                                },
                                 validate: {
-                                    trimStr: (value) => (!!value.trim() ? true : 'Vui lòng nhập tên tác giả'),
+                                    trimStr: (value) => (!!value.trim() ? true : 'Vui lòng nhập tên thể loại'),
                                 },
                             }}
                         />
-                        <InputForm textarea label="Mô tả" placeholder="Mô tả" id="description" name="description" />
+                        <InputForm
+                            textarea
+                            label="Mô tả"
+                            placeholder="Mô tả"
+                            id="description"
+                            name="description"
+                            validate={{
+                                validate: {
+                                    trimStr: (value) => (!!value.trim() ? true : 'Vui lòng nhập tên mô tả'),
+                                },
+                            }}
+                        />
                         <button className="btn btn-warning w-100">Cập nhật</button>
                     </form>
                 </FormProvider>

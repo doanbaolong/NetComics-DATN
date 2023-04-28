@@ -46,3 +46,5 @@ connect();
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
+
+process.env.TZ = "Asia/Ho_Chi_Minh";

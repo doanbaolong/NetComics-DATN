@@ -41,44 +41,46 @@ function GenreManager() {
             <Link to={routes.genresManagerAdd} className="btn btn-primary mt-3 mb-2">
                 Thêm thể loại
             </Link>
-            <table className="table table-striped table-hover table-responsive">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Thể loại</th>
-                        <th>Mô tả</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {genres.map((genre, index) => (
-                        <tr key={genre.id}>
-                            <th scope="row">{index + 1}</th>
-                            <td>{genre.name}</td>
-                            <td>{genre.description}</td>
-                            <td>
-                                <div className="d-flex align-items-center">
-                                    <Link
-                                        to={`${routes.genresManager}/sua/${genre.id}`}
-                                        className="btn btn-warning me-3"
-                                    >
-                                        Sửa
-                                    </Link>
-                                    <Modal
-                                        buttonText="Xóa"
-                                        id={'deleteGenre' + genre.id}
-                                        title="NetComics"
-                                        body="Bạn có chắc chắn muốn xóa thể loại này?"
-                                        closeText="Hủy"
-                                        confirmText="Xóa"
-                                        onConfirmClick={() => handleDeleteGenre(genre.id)}
-                                    />
-                                </div>
-                            </td>
+            <div className="table-responsive mt-3">
+                <table className="table table-striped table-hover table-responsive">
+                    <thead className="table-info">
+                        <tr>
+                            <th>#</th>
+                            <th>Thể loại</th>
+                            <th>Mô tả</th>
+                            <th></th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className="table-group-divider">
+                        {genres.map((genre, index) => (
+                            <tr key={genre.id}>
+                                <th scope="row">{index + 1}</th>
+                                <td>{genre.name}</td>
+                                <td>{genre.description}</td>
+                                <td>
+                                    <div className="d-flex align-items-center">
+                                        <Link
+                                            to={`${routes.genresManager}/sua/${genre.id}`}
+                                            className="btn btn-warning me-3"
+                                        >
+                                            Sửa
+                                        </Link>
+                                        <Modal
+                                            buttonText="Xóa"
+                                            id={'deleteGenre' + genre.id}
+                                            title="NetComics"
+                                            body="Bạn có chắc chắn muốn xóa thể loại này?"
+                                            closeText="Hủy"
+                                            confirmText="Xóa"
+                                            onConfirmClick={() => handleDeleteGenre(genre.id)}
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
             <ToastContainer />
         </div>
     );
