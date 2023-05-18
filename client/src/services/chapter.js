@@ -1,18 +1,5 @@
 import instance from '~/util/http';
 
-// export const apiGetComics = () =>
-//     new Promise(async (resolve, reject) => {
-//         try {
-//             const response = await instance({
-//                 method: 'GET',
-//                 url: '/api/comic/all',
-//             });
-//             resolve(response);
-//         } catch (error) {
-//             reject(error);
-//         }
-//     });
-
 export const apiCreateChapter = (payload) =>
     new Promise(async (resolve, reject) => {
         try {
@@ -33,6 +20,19 @@ export const apiGetSingleChapter = (id) =>
             const response = await instance({
                 method: 'GET',
                 url: '/api/chapter/' + id,
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
+export const apiViewChapter = (id) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await instance({
+                method: 'PUT',
+                url: '/api/chapter/view/' + id,
             });
             resolve(response);
         } catch (error) {

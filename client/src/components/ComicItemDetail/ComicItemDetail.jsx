@@ -2,20 +2,28 @@ import { useEffect, useRef, useState, memo } from 'react';
 import { FaUserEdit, FaHeart, FaPlusSquare } from 'react-icons/fa';
 import { IoLogoRss } from 'react-icons/io';
 import { MdCategory, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
-import { AiFillEye } from 'react-icons/ai';
-import { CgChevronDoubleDown } from 'react-icons/cg';
-import { BsFileEarmarkText } from 'react-icons/bs';
+import { AiFillEye, AiFillStar } from 'react-icons/ai';
 
+import { BsFileEarmarkText } from 'react-icons/bs';
+import { ImCross } from 'react-icons/im';
+import { useSelector } from 'react-redux';
+
+import { authSelector, comicSelector } from '~/store/selector';
 import './ComicItemDetail.scss';
 import Title from '~/components/Title';
-import StarRating from '~/components/StarRating';
+
 import { formatComicDate } from '~/util/formatDate';
 import noImage from '~/assets/images/no-image.jpg';
+import { Link } from 'react-router-dom';
+
+import RatingModal from '../RatingModal/RatingModal';
+import routes from '~/config/routes';
 
 function ComicItemDetail({
     admin = false,
+    id,
     name,
-    otherName = [],
+    otherName,
     updateAt,
     imageUrl,
     authors = [],
@@ -23,12 +31,19 @@ function ComicItemDetail({
     genres = [],
     view,
     rating,
-    follow,
+    countFollow,
     content,
+    isFollowing,
+    followingComicList,
+    onAddFollowing,
+    onRemoveFollowing,
 }) {
     const [detailContentHeight, setDetailContentHeight] = useState(0);
 
     const [isContentMore, setIsContentMore] = useState(true);
+
+    const { currentUser } = useSelector(authSelector);
+    const { comic } = useSelector(comicSelector);
 
     const detailContentRef = useRef();
 
@@ -39,6 +54,7 @@ function ComicItemDetail({
     const handleClickContentMore = () => {
         setIsContentMore(!isContentMore);
     };
+
     return (
         <div className={'comic-item-detail' + (admin ? ' adm' : '')}>
             <h1 className="title-detail text-center text-uppercase">{name}</h1>
@@ -70,7 +86,8 @@ function ComicItemDetail({
                             </div>
                             <div className="row mb-3 info-row">
                                 <div className="col-4 info-title">
-                                    <IoLogoRss /> <span>Tình trạng</span>
+                                    <IoLogoRss />
+                                    <span>Tình trạng</span>
                                 </div>
                                 <div className="col-8">{status}</div>
                             </div>
@@ -79,54 +96,81 @@ function ComicItemDetail({
                                     <MdCategory /> <span>Thể loại</span>
                                 </div>
                                 <div className="col-8">
-                                    {genres.length > 0 ? genres.map((genre) => genre.name).join(', ') : 'Đang cập nhật'}
+                                    {genres.length > 0
+                                        ? genres.map((genre) => (
+                                              <div key={genre.id} className="d-inline-block">
+                                                  <Link className="genre-link" to={routes.genres + genre.slug}>
+                                                      {genre.name}
+                                                  </Link>
+                                                  {genre !== genres[genres.length - 1] && <span> - </span>}
+                                              </div>
+                                          ))
+                                        : 'Đang cập nhật'}
                                 </div>
                             </div>
                             <div className="row mb-3 info-row">
                                 <div className="col-4 info-title">
                                     <AiFillEye /> <span>Lượt xem</span>
                                 </div>
-                                <div className="col-8">0</div>
+                                <div className="col-8">{view}</div>
                             </div>
                         </div>
                         <div className="review">
-                            <span>Xếp hạng: 4.1/5 - 169947 Lượt đánh giá </span>
+                            <span>
+                                Xếp hạng: {rating?.rating}
+                                <AiFillStar /> - {rating?.count} Lượt đánh giá
+                            </span>
                             {!admin && (
                                 <div className="rating mt-3">
-                                    <button
-                                        className="btn btn-info d-flex align-items-center review-btn"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#starRating"
-                                        aria-expanded="false"
-                                        aria-controls="starRating"
-                                    >
-                                        <span>Đánh giá</span> <CgChevronDoubleDown />
-                                    </button>
-                                    <div className="collapse" id="starRating">
-                                        <div className="card card-body">
-                                            <span className="mb-2">Bạn đánh giá thế nào về bộ truyện này? </span>
-                                            <StarRating />
-                                        </div>
-                                    </div>
+                                    <RatingModal comic={comic} ratingAvg={rating?.rating} ratingCount={rating?.count} />
                                 </div>
                             )}
                         </div>
                         <div className="follow d-flex align-items-center">
-                            {!admin && (
-                                <button className="btn btn-success d-flex align-items-center me-3 follow-btn">
-                                    <FaHeart />
-                                    Theo dõi
-                                </button>
-                            )}
+                            {!admin &&
+                                (currentUser ? (
+                                    isFollowing ? (
+                                        <button
+                                            className="btn btn-danger d-flex align-items-center me-3 follow-btn"
+                                            onClick={onRemoveFollowing}
+                                        >
+                                            <ImCross />
+                                            Bỏ theo dõi
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="btn btn-success d-flex justify-content-center align-items-center me-3 follow-btn"
+                                            onClick={onAddFollowing}
+                                        >
+                                            <FaHeart />
+                                            Theo dõi
+                                        </button>
+                                    )
+                                ) : followingComicList.find((item) => item === id) ? (
+                                    <button
+                                        className="btn btn-danger d-flex justify-content-center align-items-center me-3 follow-btn"
+                                        onClick={onRemoveFollowing}
+                                    >
+                                        <ImCross />
+                                        Bỏ theo dõi
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="btn btn-success d-flex justify-content-center align-items-center me-3 follow-btn"
+                                        onClick={onAddFollowing}
+                                    >
+                                        <FaHeart />
+                                        Theo dõi
+                                    </button>
+                                ))}
                             <span>
-                                <b>417.103</b> Lượt theo dõi
+                                <b>{countFollow || 0}</b> Lượt theo dõi
                             </span>
                         </div>
                         {!admin && (
                             <div className="read-action">
-                                <button className="btn btn-secondary me-3">Đọc từ đầu</button>
-                                <button className="btn btn-secondary">Đọc mới nhất</button>
+                                <Link className="btn btn-secondary me-3">Đọc từ đầu</Link>
+                                <Link className="btn btn-secondary">Đọc mới nhất</Link>
                             </div>
                         )}
                     </div>

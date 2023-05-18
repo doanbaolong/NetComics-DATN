@@ -1,14 +1,13 @@
 import { TbChevronRight } from 'react-icons/tb';
 import Title from '~/components/Title';
-import ComicItem from '~/components/ComicItem';
-import { Sidebar, Slide } from '~/layouts/components';
-import Pagination from '~/components/Pagination';
+import ListComicItem from '~/components/ListComicItem';
+import { Sidebar } from '~/layouts/components';
+import { useSelector } from 'react-redux';
+import { comicSelector } from '~/store/selector';
 
 function Home() {
-    const list = [];
-    for (let i = 0; i < 36; i++) {
-        list.push(i);
-    }
+    const { comics } = useSelector(comicSelector);
+
     return (
         <>
             {/* <Slide /> */}
@@ -16,15 +15,10 @@ function Home() {
                 <div className="content">
                     <div className="items">
                         <Title rigthIcon={<TbChevronRight />}>Truyện mới cập nhật</Title>
-                        <div className="row comic-list">
-                            {list.map((i) => (
-                                <ComicItem key={i} />
-                            ))}
-                        </div>
-                        <Pagination />
+                        <ListComicItem list={comics} />
                     </div>
                 </div>
-                <Sidebar following history top />
+                <Sidebar following history />
             </div>
         </>
     );

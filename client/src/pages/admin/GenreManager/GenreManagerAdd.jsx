@@ -83,7 +83,15 @@ function GenreManagerAdd() {
                                 },
                             }}
                         />
-                        <button className="btn btn-success w-100">Thêm mới</button>
+                        <button className="btn btn-success w-100">
+                            {addGenreStatus === 'pending' ? (
+                                <div className="spinner-border text-white" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            ) : (
+                                'Thêm mới'
+                            )}
+                        </button>
                     </form>
                 </FormProvider>
             </div>

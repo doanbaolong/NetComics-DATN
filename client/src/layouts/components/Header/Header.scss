@@ -1,4 +1,9 @@
+@import '../../../components/GlobalStyles/breakpoints.scss';
+
 header.header {
+    nav.navbar {
+        background-color: var(--primary-color);
+    }
     .container {
         height: 56px;
 
@@ -11,29 +16,55 @@ header.header {
         }
 
         .navbar-nav {
+            .toggle-nav {
+                color: var(--white);
+                background: none;
+                padding: 5px;
+                display: flex;
+                align-items: center;
+                transition: all 0.15s ease;
+                display: none;
+
+                @include breakpoint(md) {
+                    display: block;
+                }
+
+                &:hover {
+                    color: #e2e2e2;
+                }
+
+                svg {
+                    font-size: 2.6rem;
+                }
+            }
             .nav-item.dropdown {
                 .nav-link {
-                    padding: 10px;
+                    width: 40px;
+                    height: 40px;
                     border-radius: 50%;
                     font-size: 2rem;
-                    background-color: var(--white);
-                    color: #0054ff;
-                    transition: all 0.15s ease-in;
+                    background-color: #fff;
+                    color: var(--primary-color);
+                    transition: all 0.03s ease-in;
                     display: flex;
                     align-items: center;
-
-                    &:hover {
-                        color: var(--dark-color);
-                    }
+                    justify-content: center;
+                    padding: 0;
 
                     &::after {
                         display: none;
                     }
 
                     .header-avatar {
-                        width: 40px;
-                        height: 40px;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
                         object-fit: cover;
+                    }
+
+                    .notify-bagde {
+                        top: 8px;
+                        right: -8px;
                     }
                 }
 
@@ -41,10 +72,117 @@ header.header {
                     top: calc(100% + 4px);
                     left: auto;
                     right: 0;
+                    z-index: 99999;
+                    color: var(--text-color);
+                    background-color: var(--nav-hover);
+                    border: 1px solid #c2c2c2;
+
+                    &.notifications {
+                        font-size: 1.4rem;
+                        width: 360px;
+                        padding: 10px 0 20px;
+                        max-height: min(100vh - 56px - 96px + 16px, 734px);
+                        overflow-y: auto;
+                        overflow-x: hidden;
+
+                        .title {
+                            padding: 0 10px 10px;
+                            font-size: 1.8rem;
+                            font-weight: bold;
+                            border-bottom: 1px solid #c2c2c2;
+                        }
+
+                        .no-notify {
+                            text-align: center;
+                            padding: 20px 0;
+
+                            svg {
+                                color: #ffb71c;
+                                font-size: 5rem;
+                            }
+
+                            span {
+                                display: block;
+                                margin-top: 10px;
+                            }
+                        }
+
+                        .notify-list {
+                            padding: 6px;
+
+                            & > p {
+                                text-align: end;
+
+                                span {
+                                    cursor: pointer;
+                                    color: var(--primary-color);
+                                    font-size: 1.3rem;
+
+                                    &:hover {
+                                        text-decoration: underline;
+                                    }
+                                }
+                            }
+
+                            .notify-item {
+                                padding: 6px;
+                                display: flex;
+                                align-items: start;
+                                border-radius: 4px;
+                                text-align: start;
+                                background-color: transparent;
+
+                                &:hover {
+                                    background-color: var(--sidebar-item-hover);
+                                }
+
+                                .avatar-wrapper {
+                                    padding-right: 10px;
+
+                                    .avatar {
+                                        width: 60px;
+                                        height: 60px;
+                                        object-fit: cover;
+                                        border-radius: 50%;
+                                    }
+                                }
+
+                                .notify-content {
+                                    flex: 1;
+                                    .content {
+                                        color: var(--text-color);
+
+                                        p {
+                                            margin-bottom: 0;
+                                        }
+
+                                        span {
+                                            font-weight: bold;
+                                        }
+                                    }
+
+                                    .time {
+                                        color: var(--primary-color);
+                                        font-size: 1.2rem;
+                                    }
+                                }
+
+                                .unread {
+                                    color: var(--primary-color);
+                                    font-size: 1.4rem;
+                                    padding-left: 20px;
+                                    height: 60px;
+                                    display: flex;
+                                    align-items: center;
+                                }
+                            }
+                        }
+                    }
 
                     .dropdown-item {
                         padding: 5px 30px;
                         font-size: 1.6rem;
+                        color: var(--text-color);
                     }
                 }
             }

@@ -1,9 +1,9 @@
 import { memo } from 'react';
 
-function Modal({ buttonText, id, title, body, closeText, confirmText, onConfirmClick }) {
+function Modal({ buttonText, id, title, body, btnColor = 'danger', closeText, confirmText, onConfirmClick }) {
     return (
         <div>
-            <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#${id}`}>
+            <button type="button" className={'btn btn-' + btnColor} data-bs-toggle="modal" data-bs-target={`#${id}`}>
                 {buttonText}
             </button>
 
@@ -28,7 +28,7 @@ function Modal({ buttonText, id, title, body, closeText, confirmText, onConfirmC
                             </button>
                             <button
                                 type="button"
-                                className="btn btn-danger"
+                                className={'btn btn-' + btnColor}
                                 data-bs-dismiss="modal"
                                 onClick={onConfirmClick}
                             >

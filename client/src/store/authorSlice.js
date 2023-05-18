@@ -233,7 +233,6 @@ export const getAuthors = createAsyncThunk(GET_AUTHORS, async (payload, thunkAPI
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
         return thunkAPI.rejectWithValue(error.response.data);
     }
 });
@@ -247,7 +246,6 @@ export const addAuthor = createAsyncThunk(ADD_AUTHOR, async (payload, thunkAPI) 
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
         return thunkAPI.rejectWithValue(error.response.data);
     }
 });
@@ -261,7 +259,6 @@ export const getSingleAuthor = createAsyncThunk(GET_SINGLE_AUTHOR, async (id, th
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
         return thunkAPI.rejectWithValue(error.response.data);
     }
 });
@@ -275,7 +272,6 @@ export const updateAuthor = createAsyncThunk(UPDATE_AUTHOR, async (payload, thun
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
         return thunkAPI.rejectWithValue(error.response.data);
     }
 });
@@ -287,7 +283,6 @@ export const deleteAuthor = createAsyncThunk(DELETE_AUTHOR, async (id, thunkAPI)
             return response.data.response;
         }
     } catch (error) {
-        console.log('Error', error.response.data);
         return thunkAPI.rejectWithValue(error.response.data);
     }
 });

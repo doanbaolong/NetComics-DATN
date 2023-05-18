@@ -5,7 +5,6 @@ import { ToastContainer } from 'react-toastify';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import { toastSuccess } from '~/util/toastify';
 import { getSingleComic, updateComic } from '~/store/comicSlice';
 import { getAuthors } from '~/store/authorSlice';
 import { getGenres } from '~/store/genreSlice';
@@ -37,7 +36,7 @@ function ComicManagerEdit() {
     const dispatch = useDispatch();
 
     const methods = useForm();
-    const { handleSubmit, reset, setValue } = methods;
+    const { handleSubmit, setValue } = methods;
     const { comic, updateComicMessage, updateComicStatus } = useSelector(comicSelector);
     const { authors } = useSelector(authorSelector);
     const { genres } = useSelector(genreSelector);
@@ -61,11 +60,11 @@ function ComicManagerEdit() {
 
     useEffect(() => {
         let authorOpts = authors.reduce((acc, author) => {
-            let option = { value: author.id, label: author.name };
+            let option = { value: author.id, label: author?.name };
             return [...acc, option];
         }, []);
         let genreOpts = genres.reduce((acc, genre) => {
-            let option = { value: genre.id, label: genre.name };
+            let option = { value: genre.id, label: genre?.name };
             return [...acc, option];
         }, []);
         setAuthorOptions(authorOpts);
@@ -73,13 +72,13 @@ function ComicManagerEdit() {
     }, [authors, genres]);
 
     useEffect(() => {
-        if (comic.Authors && comic.Genres) {
+        if (comic?.Authors && comic?.Genres) {
             const currAuthors = comic.Authors.reduce((acc, author) => {
-                let option = { value: author.id, label: author.name };
+                let option = { value: author.id, label: author?.name };
                 return [...acc, option];
             }, []);
             const currGenres = comic.Genres.reduce((acc, genre) => {
-                let option = { value: genre.id, label: genre.name };
+                let option = { value: genre.id, label: genre?.name };
                 return [...acc, option];
             }, []);
             setCurrentAuthors(currAuthors);
@@ -89,7 +88,11 @@ function ComicManagerEdit() {
 
     useEffect(() => {
         const fields = ['name', 'otherName', 'content', 'status'];
-        fields.forEach((field) => setValue(field, comic[field]));
+        fields.forEach((field) => {
+            if (comic && comic[field]) {
+                setValue(field, comic[field]);
+            }
+        });
         setValue(
             'genres',
             currentGenres.map((cur) => cur.value),
@@ -132,7 +135,7 @@ function ComicManagerEdit() {
         for (let key in dataTrim) {
             formData.append(key, dataTrim[key] || '');
         }
-        formData.append('slug', slugify(dataTrim.name));
+        formData.append('slug', slugify(dataTrim?.name));
         image && formData.append('image', image);
         // for (const [key, value] of formData) {
         //     console.log(`${key}: ${value}\n`);
@@ -200,16 +203,22 @@ function ComicManagerEdit() {
                             label="Trạng thái"
                             selectName="status"
                             options={statusOptions}
-                            defaultValue={statusOptions.find((statusOption) => statusOption.value === comic.status)}
+                            defaultValue={statusOptions.find((statusOption) => statusOption.value === comic?.status)}
                         />
 
                         <ImageUpload
                             onChange={handleChangeImage}
                             previewURL={imagePreview && imagePreview}
-                            imageUrl={comic.image}
+                            imageUrl={comic?.image}
                         />
                         <button type="submit" className="btn btn-success w-100">
-                            Cập nhật
+                            {updateComicStatus === 'pending' ? (
+                                <div className="spinner-border text-white" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            ) : (
+                                'Cập nhật'
+                            )}
                         </button>
                     </form>
                 </FormProvider>

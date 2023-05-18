@@ -1,12 +1,13 @@
 .comic-item-detail {
     .title-detail {
         font-size: 2.2rem;
+        color: var(--text-color);
     }
 
     .update-time {
         font-size: 1.3rem;
         font-style: italic;
-        color: rgba(51, 51, 51, 0.6);
+        color: var(--time-color);
         margin-bottom: 20px;
     }
 
@@ -29,16 +30,27 @@
             padding: 0 15px;
 
             .info-list {
-                color: #666;
+                color: var(--detail-text-color);
 
                 .info-row {
                     .info-title {
-                        display: flex;
-                        align-items: center;
                         font-weight: 600;
 
+                        svg {
+                            line-height: 2.4rem;
+                        }
                         span {
                             margin-left: 6px;
+                        }
+                    }
+
+                    .genre-link {
+                        display: inline-block;
+                        color: var(--primary-color);
+                        margin-right: 4px;
+
+                        &:hover {
+                            text-decoration: underline;
                         }
                     }
                 }
@@ -49,6 +61,17 @@
             .review {
                 font-size: 1.4rem;
                 margin-bottom: 12px;
+                color: var(--text-color);
+
+                span {
+                    display: inline-flex;
+                    align-items: center;
+
+                    svg {
+                        margin: 0 2px;
+                        color: #ffb71c;
+                    }
+                }
 
                 &-btn {
                     span {
@@ -60,8 +83,21 @@
                     .card {
                         border: none;
 
-                        span {
+                        & > span {
                             color: #666;
+                        }
+
+                        .log-in-btn {
+                            padding: 5px;
+                            width: 100px;
+                            text-align: center;
+                            border: 1px solid #666;
+                            background-color: #fff;
+                            border-radius: 2px;
+
+                            &:hover {
+                                border-color: var(--primary-color);
+                            }
                         }
                     }
                 }
@@ -69,11 +105,16 @@
 
             .follow {
                 margin-bottom: 12px;
+                color: var(--text-color);
 
                 &-btn {
                     svg {
                         margin-right: 5px;
                     }
+                }
+
+                .follow-btn {
+                    min-width: 110px;
                 }
             }
         }
@@ -92,6 +133,7 @@
 
     .detail-content {
         font-size: 1.4rem;
+        color: var(--text-color);
 
         p {
             padding: 0;

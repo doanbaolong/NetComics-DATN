@@ -9,6 +9,26 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.belongsToMany(models.Comic, {
+        through: models.History,
+        as: "histories",
+        foreignKey: "userId",
+      });
+      User.belongsToMany(models.Comic, {
+        through: models.Follow,
+        as: "follows",
+        foreignKey: "userId",
+      });
+      User.belongsToMany(models.Comic, {
+        through: models.Rating,
+        as: "ratings",
+        foreignKey: "userId",
+      });
+      User.hasMany(models.Rating, { foreignKey: "userId" });
+
+      User.hasMany(models.Comment, { foreignKey: "userId" });
+      User.hasMany(models.Reply, { foreignKey: "userId" });
+      User.hasMany(models.Notification, { foreignKey: "userId" });
     }
   }
   User.init(
@@ -20,7 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       gender: DataTypes.BOOLEAN,
       avatar: DataTypes.STRING,
-      role: DataTypes.STRING,
+      status: DataTypes.STRING,
+      statusMessage: DataTypes.STRING,
+      isVerified: DataTypes.BOOLEAN,
+      emailToken: DataTypes.STRING,
     },
     {
       sequelize,

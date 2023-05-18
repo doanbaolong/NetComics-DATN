@@ -12,15 +12,15 @@ li.nav-item {
         align-items: center;
         padding: 0 30px;
         font-size: 1.4rem;
-        color: var(--black);
+        color: var(--text-color);
         text-transform: uppercase;
-        border-right: 1px solid #dedede;
-        transition: all 0.15s ease-in;
+        border-right: 1px solid var(--nav-border);
+        transition: all 0.03s ease-in;
         cursor: pointer;
 
         &.active,
         &:hover {
-            background-color: var(--white);
+            background-color: var(--nav-hover);
             color: var(--primary-color);
         }
 

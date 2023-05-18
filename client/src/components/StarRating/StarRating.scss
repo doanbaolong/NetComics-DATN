@@ -1,6 +1,30 @@
 .star-rating {
     display: inline-flex;
+    align-items: end;
     cursor: pointer;
+
+    &.disabled {
+        pointer-events: none;
+    }
+
+    &.medium .stars .star svg {
+        margin-top: 6px;
+        font-size: 2.2rem;
+    }
+
+    &.small {
+        .stars .star {
+            svg {
+                margin-top: 6px;
+                font-size: 1.4rem;
+            }
+        }
+        .time-rating {
+            font-size: 1.1rem;
+            margin-left: 10px;
+            line-height: 1.1;
+        }
+    }
 
     .stars {
         position: relative;
@@ -18,9 +42,18 @@
             }
 
             svg {
-                font-size: 2.4rem;
+                font-size: 3rem;
                 color: #ffb71c;
             }
         }
     }
+}
+
+.time-rating {
+    margin-left: 20px;
+    font-size: 1.3rem;
+}
+
+.current-rating {
+    margin-top: 6px;
 }

@@ -62,7 +62,7 @@ function ChapterManagerEdit() {
 
     useEffect(() => {
         return () => {
-            if (imagesPreview.length > 0) {
+            if (imagesPreview?.length > 0) {
                 for (let imagePreview of imagesPreview) {
                     URL.revokeObjectURL(imagePreview);
                 }
@@ -98,9 +98,6 @@ function ChapterManagerEdit() {
             });
         }
 
-        // for (const [key, value] of formData) {
-        //     console.log(`${key}: ${value}\n`);
-        // }
         const payload = { formData, chapterId };
         dispatch(updateChapter(payload));
     };
@@ -110,7 +107,7 @@ function ChapterManagerEdit() {
             <Breadcrumb list={breadcrumb} />
             <h2>Sửa Chapter</h2>
             <Link to={routes.comicManagerDetail + comicId} className="btn btn-primary mt-3 mb-3">
-                {`Truyện tranh ${comic.name}`}
+                {`Truyện tranh ${comic?.name}`}
             </Link>
             <div className="form-wrapper">
                 {error && <Alert message={error} onClick={handleRemoveError} />}
@@ -123,7 +120,7 @@ function ChapterManagerEdit() {
                         encType="multipart/form-data"
                     >
                         <p>Truyện tranh</p>
-                        <p className="text-center text-uppercase fw-bold">{comic.name}</p>
+                        <p className="text-center text-uppercase fw-bold">{comic?.name}</p>
                         <div className="chapter-form">
                             <span className="chapter-form-label">Thông tin chương</span>
                             <InputForm
@@ -131,11 +128,6 @@ function ChapterManagerEdit() {
                                 placeholder="Chương số"
                                 id="chapterNumber"
                                 name="chapterNumber"
-                                validate={{
-                                    validate: {
-                                        trimStr: (value) => (!!value.trim() ? true : 'Vui lòng nhập số chương'),
-                                    },
-                                }}
                             />
                             <InputForm label="Tiêu đề chương" placeholder="Tiêu đề chương" id="title" name="title" />
                             <ImageUpload
@@ -143,12 +135,18 @@ function ChapterManagerEdit() {
                                 onChange={handleChangeImage}
                                 hasImages={images.length > 0 ? true : false}
                                 previewURL={imagesPreview.length > 0 && imagesPreview}
-                                imageUrl={chapter.pictureUrls && JSON.parse(chapter.pictureUrls)}
+                                imageUrl={chapter?.pictureUrls && JSON.parse(chapter?.pictureUrls)}
                             />
                         </div>
 
                         <button type="submit" className="btn btn-success w-100">
-                            Cập nhật
+                            {updateChapterStatus === 'pending' ? (
+                                <div className="spinner-border text-white" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            ) : (
+                                'Cập nhật'
+                            )}
                         </button>
                     </form>
                 </FormProvider>

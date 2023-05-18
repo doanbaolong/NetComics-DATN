@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       chapterNumber: {
-        type: Sequelize.STRING,
+        type: Sequelize.FLOAT,
       },
       title: {
         type: Sequelize.STRING,
@@ -27,6 +27,9 @@ module.exports = {
       view: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
+      },
+      chapterUpdatedAt: {
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,

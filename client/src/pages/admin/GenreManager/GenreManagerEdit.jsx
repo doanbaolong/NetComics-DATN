@@ -98,7 +98,15 @@ function GenreManagerEdit() {
                                 },
                             }}
                         />
-                        <button className="btn btn-warning w-100">Cập nhật</button>
+                        <button className="btn btn-warning w-100">
+                            {updateGenreStatus === 'pending' ? (
+                                <div className="spinner-border text-white" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            ) : (
+                                'Cập nhật'
+                            )}
+                        </button>
                     </form>
                 </FormProvider>
             </div>

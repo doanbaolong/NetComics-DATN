@@ -40,6 +40,19 @@ export const apiGetSingleGenre = (id) =>
         }
     });
 
+export const apiGetSingleGenreBySlug = (slug) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await instance({
+                method: 'GET',
+                url: '/api/genre/slug/' + slug,
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
 export const apiUpdateGenre = (genre, id) =>
     new Promise(async (resolve, reject) => {
         try {

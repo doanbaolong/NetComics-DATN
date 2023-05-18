@@ -1,0 +1,68 @@
+.profile-action {
+    .profile-title {
+        text-transform: uppercase;
+        font-weight: bold;
+        position: relative;
+        color: var(--text-color);
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            border: 3px solid var(--primary-color);
+        }
+    }
+
+    .banner {
+        margin-top: 30px;
+        color: var(--text-color);
+        border-bottom: 2px solid #f9f6f6;
+
+        .info-title {
+            padding: 6px 16px;
+            color: var(--primary-color);
+            background-color: var(--primary-color-hover);
+            border-radius: 4px 4px 0 0;
+
+            span {
+                margin-left: 4px;
+            }
+        }
+
+        .edit-link {
+            color: var(--primary-color);
+        }
+    }
+
+    .info-detail {
+        .row {
+            margin: 15px 0;
+
+            .title {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .alert {
+        margin: 15px 0 0 0;
+    }
+
+    form {
+        label {
+            margin-top: 15px;
+        }
+
+        .gender-input {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+
+            .input {
+                margin-right: 30px;
+            }
+        }
+    }
+}

@@ -1,0 +1,94 @@
+.auth-container.adm-login {
+    // padding: 40px 0;
+
+    .auth-row {
+        min-height: 100vh;
+        width: 100%;
+        padding: 1rem 0;
+        margin: 0;
+
+        .auth-box {
+            // padding-left: 36px;
+
+            .auth-form {
+                width: 400px;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 1.2rem 3rem;
+                border-radius: 5px;
+                background-color: var(--white);
+                box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+
+                .logo {
+                    width: 40px;
+                    height: auto;
+                    margin-right: 10px;
+                }
+
+                h2 {
+                    margin-top: 16px;
+                }
+
+                .note {
+                    font-size: 1.2rem;
+                    font-style: italic;
+                }
+
+                .ruler {
+                    display: flex;
+                    align-items: center;
+                    margin: 24px 0 16px;
+
+                    .line {
+                        height: 1px;
+                        background-color: #dbdbdb;
+                        width: 100%;
+                        flex: 1;
+                    }
+
+                    span {
+                        color: #999;
+                        padding: 0 20px;
+                        font-size: 1.2rem;
+                    }
+                }
+
+                .social-btn {
+                    background-color: var(--white);
+                    border: 1px solid var(--grey);
+
+                    svg {
+                        font-size: 2rem;
+                    }
+
+                    span {
+                        color: #000;
+                    }
+                }
+
+                p {
+                    margin-top: 16px;
+
+                    span {
+                        color: var(--grey);
+                    }
+
+                    a {
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+
+    .btn {
+        padding: 8px;
+        border-radius: 2px;
+        font-size: 1.6rem;
+    }
+
+    .form-control {
+        border-radius: 2px;
+        font-size: 1.6rem;
+    }
+}

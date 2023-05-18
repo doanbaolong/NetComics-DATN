@@ -18,7 +18,21 @@ export const chapterSlice = createSlice({
         updateChapterStatus: '',
         deleteChapterStatus: '',
     },
-    reducers: {},
+    reducers: {
+        reset: (state, action) => ({
+            ...state,
+            getChaptersMessage: '',
+            getSingleChapterMessage: '',
+            addChapterMessage: '',
+            updateChapterMessage: '',
+            deleteChapterMessage: '',
+            getChaptersStatus: '',
+            getSingleChapterStatus: '',
+            addChapterStatus: '',
+            updateChapterStatus: '',
+            deleteChapterStatus: '',
+        }),
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getChapters.pending, (state, action) => ({
@@ -77,6 +91,7 @@ export const chapterSlice = createSlice({
             .addCase(addChapter.fulfilled, (state, action) => ({
                 ...state,
                 chapters: [action.payload, ...state.chapters],
+                chapter: action.payload,
                 getChaptersMessage: '',
                 getSingleChapterMessage: '',
                 addChapterMessage: '',

@@ -1,9 +1,9 @@
 main.main {
-    background-color: #f0f2f5;
+    background-color: var(--main-bg-color);
 
     .main-container {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        background-color: var(--white);
+        padding: 15px 0;
+        min-height: calc(100vh - 56px - 40px - 225px);
+        background-color: var(--main-container-bg-color);
     }
 }

@@ -9,6 +9,10 @@ import genreReducer from './genreSlice';
 import authorReducer from './authorSlice';
 import comicReducer from './comicSlice';
 import chapterReducer from './chapterSlice';
+import followReducer from './followSlice';
+import historyReducer from './historySlice';
+import commentReducer from './commentSlice';
+import notificationReducer from './notificationSlice';
 
 const commonConfig = {
     storage,
@@ -18,7 +22,7 @@ const commonConfig = {
 const authConfig = {
     ...commonConfig,
     key: 'auth',
-    whitelist: ['isLoggedIn', 'token'],
+    whitelist: ['isLoggedIn', 'token', 'role'],
 };
 
 const store = configureStore({
@@ -29,6 +33,10 @@ const store = configureStore({
         author: authorReducer,
         comic: comicReducer,
         chapter: chapterReducer,
+        follow: followReducer,
+        history: historyReducer,
+        comment: commentReducer,
+        notification: notificationReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

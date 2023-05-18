@@ -1,0 +1,25 @@
+.to-top {
+    position: fixed;
+    right: 10px;
+    bottom: 40px;
+    background-color: transparent;
+    padding: 6px;
+    border: 2px solid #999;
+    border-radius: 4px;
+    opacity: 0.6;
+    transition: all 0.1s ease;
+    display: none;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &.show {
+        display: inline;
+    }
+
+    svg {
+        font-size: 2.6rem;
+        color: rgb(255, 0, 128);
+    }
+}

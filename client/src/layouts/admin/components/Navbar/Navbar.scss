@@ -30,7 +30,7 @@
                 font-size: 2rem;
                 padding: 15px;
                 border-right: none;
-                opacity: 0.6;
+                opacity: 0.9;
 
                 &:hover {
                     background-color: transparent;
@@ -38,6 +38,17 @@
                     color: var(--black);
                     font-size: 2rem;
                 }
+            }
+
+            .adm-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .dropdown-toggle::after {
+                display: none;
             }
 
             .dropdown-menu {

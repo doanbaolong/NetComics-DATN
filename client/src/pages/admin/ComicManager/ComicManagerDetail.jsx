@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -6,7 +6,7 @@ import { RiListUnordered } from 'react-icons/ri';
 
 import { toastSuccess } from '~/util/toastify';
 import { getSingleComic } from '~/store/comicSlice';
-import { chapterSelector, comicSelector } from '~/store/selector';
+import { chapterSelector, comicSelector, followSelector } from '~/store/selector';
 import routes from '~/config/routes';
 import Modal from '~/components/Modal';
 import ComicItemDetail from '~/components/ComicItemDetail';
@@ -14,6 +14,7 @@ import Breadcrumb from '~/components/Breadcrumb';
 import Title from '~/components/Title';
 import { formatChapterDate } from '~/util/formatDate';
 import { deleteChapter } from '~/store/chapterSlice';
+import { getCountFollow } from '~/store/followSlice';
 
 function ComicManagerDetail() {
     const { id } = useParams();
@@ -26,10 +27,37 @@ function ComicManagerDetail() {
     const dispatch = useDispatch();
     const { comic } = useSelector(comicSelector);
     const { deleteChapterStatus } = useSelector(chapterSelector);
+    const { followers } = useSelector(followSelector);
+
+    const [totalView, setTotalView] = useState(0);
+    const [ratingComic, setRatingComic] = useState({ count: 0, rating: 0 });
 
     useEffect(() => {
         dispatch(getSingleComic(id));
     }, [dispatch, id]);
+
+    useEffect(() => {
+        if (comic && comic?.slug) {
+            dispatch(getCountFollow(comic?.slug));
+        }
+    }, [comic, comic?.slug, dispatch]);
+
+    useEffect(() => {
+        const total = comic?.Chapters?.reduce((acc, chap) => acc + chap.view, 0);
+        setTotalView(total);
+    }, [comic?.Chapters]);
+
+    useEffect(() => {
+        if (comic?.Ratings) {
+            const total = comic.Ratings?.length;
+            const totalRating = comic.Ratings?.reduce((acc, cur) => acc + cur?.rating, 0);
+
+            if (total && totalRating) {
+                const rating = (totalRating / total).toFixed(1);
+                setRatingComic({ count: total, rating: rating });
+            }
+        }
+    }, [comic?.Ratings]);
 
     const handleDeleteChapter = (id) => {
         dispatch(deleteChapter(id));
@@ -49,14 +77,18 @@ function ComicManagerDetail() {
             </Link>
             <ComicItemDetail
                 admin
-                otherName={comic.otherName}
-                name={comic.name}
-                imageUrl={comic.image}
-                updateAt={comic.updatedAt}
-                status={comic.status}
-                authors={comic.Authors}
-                genres={comic.Genres}
-                content={comic.content}
+                id={comic?.id}
+                name={comic?.name}
+                otherName={comic?.otherName && comic.otherName}
+                updateAt={comic?.updatedAt}
+                imageUrl={comic?.image}
+                status={comic?.status}
+                authors={comic?.Authors}
+                genres={comic?.Genres}
+                countFollow={followers}
+                view={totalView}
+                rating={ratingComic}
+                content={comic?.content}
             />
 
             <div className="item-detail">
@@ -64,10 +96,10 @@ function ComicManagerDetail() {
                     <Title leftIcon={<RiListUnordered />} borderBottom uppercase>
                         Danh sách chương
                     </Title>
-                    <Link to={routes.chapterManagerAdd + comic.id} className="btn btn-primary my-2 me-3">
+                    <Link to={routes.chapterManagerAdd + comic?.id} className="btn btn-primary my-2 me-3">
                         Thêm chap
                     </Link>
-                    {Array.isArray(comic.Chapters) && comic.Chapters.length > 0 ? (
+                    {Array.isArray(comic?.Chapters) && comic?.Chapters?.length > 0 ? (
                         <>
                             <div className="row">
                                 <div className="row col-10 row-heading">
@@ -78,7 +110,7 @@ function ComicManagerDetail() {
                             </div>
 
                             <div className="chapters">
-                                {Array.isArray(comic.Chapters) &&
+                                {Array.isArray(comic?.Chapters) &&
                                     comic.Chapters.map((chapter) => (
                                         <div key={chapter.id} className="row mb-1">
                                             <div className="col-10">
@@ -107,7 +139,7 @@ function ComicManagerDetail() {
                                                     aria-labelledby={'chapterBackdropLabel' + chapter.id}
                                                     aria-hidden="true"
                                                 >
-                                                    <div className="modal-dialog modal-lg modal-dialog-scrollable">
+                                                    <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                                                         <div className="modal-content">
                                                             <div className="modal-header">
                                                                 <h1

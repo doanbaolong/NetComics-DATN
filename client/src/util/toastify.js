@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
-export const toastSuccess = (messsage) =>
+export const toastSuccess = (messsage, position = 'top-right') =>
     toast.success(messsage, {
-        position: 'top-right',
+        position: position,
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,

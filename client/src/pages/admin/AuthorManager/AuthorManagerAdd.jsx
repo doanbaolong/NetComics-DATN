@@ -69,7 +69,15 @@ function AuthorManagerAdd() {
                                 },
                             }}
                         />
-                        <button className="btn btn-success w-100">Thêm mới</button>
+                        <button className="btn btn-success w-100">
+                            {addAuthorStatus === 'pending' ? (
+                                <div className="spinner-border text-white" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            ) : (
+                                'Thêm mới'
+                            )}
+                        </button>
                     </form>
                 </FormProvider>
             </div>

@@ -7,6 +7,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyle from './components/GlobalStyles';
 import { store, persistor } from './store';
+import DataProvider from './context';
+
 moment().tz('Asia/Ho_Chi_Minh').format();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +16,9 @@ root.render(
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <GlobalStyle>
-                    <App />
+                    <DataProvider>
+                        <App />
+                    </DataProvider>
                 </GlobalStyle>
             </PersistGate>
         </Provider>

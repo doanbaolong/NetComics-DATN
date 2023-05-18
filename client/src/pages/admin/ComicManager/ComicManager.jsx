@@ -9,6 +9,7 @@ import { comicSelector } from '~/store/selector';
 import routes from '~/config/routes';
 import Modal from '~/components/Modal';
 import Breadcrumb from '~/components/Breadcrumb';
+import Pagination from '~/components/Pagination';
 import noImage from '~/assets/images/no-image.jpg';
 
 function ComicManager() {
@@ -19,10 +20,6 @@ function ComicManager() {
 
     const dispatch = useDispatch();
     const { comics, deleteComicStatus } = useSelector(comicSelector);
-
-    useEffect(() => {
-        dispatch(getComics());
-    }, [dispatch]);
 
     const handleDeleteComic = (id) => {
         dispatch(deleteComic(id));
@@ -105,6 +102,7 @@ function ComicManager() {
                         ))}
                     </tbody>
                 </table>
+                <Pagination />
             </div>
             <ToastContainer />
         </div>

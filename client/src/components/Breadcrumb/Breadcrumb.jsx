@@ -13,9 +13,7 @@ function Breadcrumb({ list }) {
                         </li>
                     ) : (
                         <li key={index} className="breadcrumb-item">
-                            <NavLink to={item.to} className="text-primary">
-                                {item.title}
-                            </NavLink>
+                            <NavLink to={item.to}>{item.title}</NavLink>
                         </li>
                     ),
                 )}

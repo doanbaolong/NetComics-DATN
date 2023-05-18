@@ -9,17 +9,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Chapter.belongsTo(models.Comic);
+      Chapter.belongsTo(models.Comic, { foreignKey: "comicId" });
+
+      Chapter.hasMany(models.Comment, { foreignKey: "chapterId" });
+      Chapter.hasMany(models.Reply, { foreignKey: "chapterId" });
+      Chapter.hasMany(models.Notification, { foreignKey: "chapterId" });
     }
   }
   Chapter.init(
     {
       comicId: DataTypes.INTEGER,
-      chapterNumber: DataTypes.INTEGER,
+      chapterNumber: DataTypes.FLOAT,
       title: DataTypes.STRING,
       pictureUrls: DataTypes.TEXT,
       cloudIds: DataTypes.TEXT,
       view: DataTypes.INTEGER,
+      chapterUpdatedAt: DataTypes.DATE,
     },
     {
       sequelize,

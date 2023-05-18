@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FcGoogle } from 'react-icons/fc';
+// import { FcGoogle } from 'react-icons/fc';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -20,26 +20,46 @@ function Login() {
     const navigate = useNavigate();
     const isSignUp = location.pathname === config.routes.signUp;
     const dispatch = useDispatch();
-    const { isLoggedIn, message } = useSelector(authSelector);
+    const { isLoggedIn, currentUser, message, logInStatus, signUpStatus } = useSelector(authSelector);
     const methods = useForm();
-    const { handleSubmit, getValues, reset } = methods;
+    const { handleSubmit, setFocus, getValues, reset } = methods;
 
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [isShowCfPassword, setIsShowCfPassword] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
-        isLoggedIn && navigate(config.routes.home);
-    }, [isLoggedIn, navigate]);
-
-    useEffect(() => {
         message && setError(message);
     }, [message]);
+
+    useEffect(() => {
+        if (isSignUp) {
+            setFocus('fullName');
+        } else {
+            setFocus('userName');
+        }
+    }, [isSignUp, setFocus]);
 
     useEffect(() => {
         reset();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSignUp]);
+
+    useEffect(() => {
+        if (isLoggedIn && currentUser?.isVerified) {
+            if (currentUser.status === 'active') {
+                navigate(config.routes.home);
+            } else {
+                setError(`Tài khoản của bạn đã bị khóa do ${currentUser.statusMessage}`);
+            }
+        }
+    }, [currentUser, dispatch, isLoggedIn, navigate]);
+
+    useEffect(() => {
+        if (currentUser && !currentUser?.isVerified) {
+            navigate(config.routes.verifyEmail);
+        }
+    }, [currentUser, currentUser?.isVerified, navigate]);
 
     const handleShowHidePassword = () => {
         setIsShowPassword(!isShowPassword);
@@ -83,16 +103,20 @@ function Login() {
                             <FormProvider {...methods}>
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     <div className="mb-5">
-                                        {isSignUp && (
+                                        {isSignUp ? (
                                             <>
                                                 <InputForm
                                                     placeholder={'Họ tên'}
                                                     id={'fullname'}
                                                     name={'fullName'}
                                                     validate={{
-                                                        required: {
-                                                            value: true,
-                                                            message: 'Vui lòng nhập họ tên của bạn',
+                                                        validate: {
+                                                            trimStr: (value) =>
+                                                                !!value.trim() ? true : 'Vui lòng nhập tên của bạn',
+                                                            matchPattern: (v) =>
+                                                                /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/g.test(
+                                                                    v,
+                                                                ) || 'Họ tên không hợp lệ',
                                                         },
                                                     }}
                                                 />
@@ -102,36 +126,53 @@ function Login() {
                                                     id={'email'}
                                                     name={'email'}
                                                     validate={{
-                                                        required: {
-                                                            value: true,
-                                                            message: 'Vui lòng nhập email của bạn',
+                                                        validate: {
+                                                            trimStr: (value) =>
+                                                                !!value.trim() ? true : 'Vui lòng nhập email',
+                                                            matchPattern: (v) =>
+                                                                /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+                                                                'Email không hợp lệ',
                                                         },
                                                     }}
                                                 />
-                                            </>
-                                        )}
-                                        <InputForm
-                                            placeholder={'Tên tài khoản'}
-                                            id={'username'}
-                                            name={'userName'}
-                                            validate={{
-                                                required: { value: true, message: 'Vui lòng nhập tài khoản của bạn' },
-                                            }}
-                                        />
-                                        <InputForm
-                                            placeholder={'Mật khẩu'}
-                                            type={isShowPassword ? 'text' : 'password'}
-                                            id={'password'}
-                                            RightIcon={isShowPassword ? AiFillEyeInvisible : AiFillEye}
-                                            name={'password'}
-                                            validate={{
-                                                required: { value: true, message: 'Vui lòng nhập mật khẩu của bạn' },
-                                                minLength: { value: 6, message: 'Mật khẩu phải lớn hơn 6 kí tự' },
-                                            }}
-                                            onClick={handleShowHidePassword}
-                                        />
-                                        {isSignUp && (
-                                            <>
+                                                <InputForm
+                                                    placeholder={'Tên tài khoản'}
+                                                    id={'username'}
+                                                    name={'userName'}
+                                                    validate={{
+                                                        validate: {
+                                                            trimStr: (value) =>
+                                                                !!value.trim() ? true : 'Vui lòng nhập tên tài khoản',
+                                                            minLength: (v) =>
+                                                                v.length >= 4 ||
+                                                                'Tên tài khoản có ít nhất 4 kí tự, chỉ chứa các chữ cái, số và dấu gạch dưới',
+                                                            matchPattern: (v) =>
+                                                                /^[a-zA-Z0-9_]+$/.test(v) ||
+                                                                'Tên tài khoản có ít nhất 4 kí tự, chỉ chứa các chữ cái, số và dấu gạch dưới',
+                                                        },
+                                                    }}
+                                                />
+                                                <InputForm
+                                                    placeholder={'Mật khẩu'}
+                                                    type={isShowPassword ? 'text' : 'password'}
+                                                    id={'password'}
+                                                    RightIcon={isShowPassword ? AiFillEyeInvisible : AiFillEye}
+                                                    name={'password'}
+                                                    validate={{
+                                                        required: {
+                                                            value: true,
+                                                            message: 'Vui lòng nhập mật khẩu của bạn',
+                                                        },
+                                                        validate: {
+                                                            matchPattern: (v) =>
+                                                                /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(
+                                                                    v,
+                                                                ) ||
+                                                                'Mật khẩu chứa ít nhất 6 kí tự, chứa ít nhất 1 chữ cái, 1 số và 1 kí tự đặc biệt',
+                                                        },
+                                                    }}
+                                                    onClick={handleShowHidePassword}
+                                                />
                                                 <InputForm
                                                     placeholder={'Nhập lại mật khẩu'}
                                                     type={isShowCfPassword ? 'text' : 'password'}
@@ -142,10 +183,6 @@ function Login() {
                                                             value: true,
                                                             message: 'Vui lòng nhập mật khẩu của bạn',
                                                         },
-                                                        minLength: {
-                                                            value: 6,
-                                                            message: 'Mật khẩu phải lớn hơn 6 kí tự',
-                                                        },
                                                         validate: (value) => {
                                                             const { password } = getValues();
                                                             return password === value || 'Mật khẩu không trùng khớp';
@@ -155,19 +192,62 @@ function Login() {
                                                     onClick={handleShowHideCfPassword}
                                                 />
                                                 <span className="form-text note">
-                                                    Chú ý: Mật khẩu chứa ít nhất 6 kí tự
+                                                    Chú ý: Mật khẩu chứa ít nhất 6 kí tự, chứa ít nhất một chữ cái, một
+                                                    số và một kí tự đặc biệt
                                                 </span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <InputForm
+                                                    placeholder={'Tên tài khoản / Email'}
+                                                    id={'username'}
+                                                    name={'userName'}
+                                                    validate={{
+                                                        validate: {
+                                                            trimStr: (value) =>
+                                                                !!value.trim() ? true : 'Vui lòng nhập tên tài khoản',
+                                                        },
+                                                    }}
+                                                />
+                                                <InputForm
+                                                    placeholder={'Mật khẩu'}
+                                                    type={isShowPassword ? 'text' : 'password'}
+                                                    id={'password'}
+                                                    RightIcon={isShowPassword ? AiFillEyeInvisible : AiFillEye}
+                                                    name={'password'}
+                                                    validate={{
+                                                        required: {
+                                                            value: true,
+                                                            message: 'Vui lòng nhập mật khẩu của bạn',
+                                                        },
+                                                    }}
+                                                    onClick={handleShowHidePassword}
+                                                />
                                             </>
                                         )}
                                     </div>
 
                                     <button className="btn btn-primary w-100 text-uppercase">
-                                        {isSignUp ? 'Đăng ký' : 'Đăng nhập'}
+                                        {isSignUp ? (
+                                            signUpStatus === 'pending' ? (
+                                                <div className="spinner-border text-white" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </div>
+                                            ) : (
+                                                'Đăng ký'
+                                            )
+                                        ) : logInStatus === 'pending' ? (
+                                            <div className="spinner-border text-white" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                        ) : (
+                                            'Đăng nhập'
+                                        )}
                                     </button>
                                 </form>
                             </FormProvider>
 
-                            <div className="ruler">
+                            {/* <div className="ruler">
                                 <div className="line"></div>
                                 <span className="text-uppercase">Hoặc</span>
                                 <div className="line"></div>
@@ -181,7 +261,7 @@ function Login() {
                                 <span className="ms-3">
                                     {isSignUp ? 'Đăng ký bằng Google' : 'Đăng nhập bằng Google'}
                                 </span>
-                            </button>
+                            </button> */}
 
                             <p className="text-center">
                                 {isSignUp ? (

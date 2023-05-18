@@ -9,6 +9,7 @@ router.post(
   chapterController.upload,
   chapterController.createChapter
 );
+router.put("/view/:id", chapterController.viewChapter);
 router.get("/:id", chapterController.getSingleChapter);
 router.put("/:id", chapterController.upload, chapterController.updateChapter);
 router.delete("/:id", chapterController.deleteChapter);

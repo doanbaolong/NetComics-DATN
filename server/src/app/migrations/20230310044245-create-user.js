@@ -31,7 +31,18 @@ module.exports = {
       avatar: {
         type: Sequelize.STRING,
       },
-      role: {
+      status: {
+        type: Sequelize.STRING,
+        defaultValue: "active",
+      },
+      statusMessage: {
+        type: Sequelize.STRING,
+      },
+      isVerified: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      emailToken: {
         type: Sequelize.STRING,
       },
       createdAt: {

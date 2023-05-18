@@ -67,9 +67,22 @@ const getSingleChapter = async (req, res) => {
   }
 };
 
+const viewChapter = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await chapterServices.viewChapterService(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({
+      err: -1,
+      msg: "Failed at Chapter controller: " + error,
+    });
+  }
+};
+
 const updateChapter = async (req, res) => {
   try {
-    if (!req.body.chapterNumber)
+    if (!req.body?.chapterNumber)
       return res.status(400).json({
         err: 1,
         msg: "Missing input",
@@ -89,8 +102,8 @@ const updateChapter = async (req, res) => {
     }
 
     const info = {
-      chapterNumber: req.body.chapterNumber,
-      title: req.body.title,
+      chapterNumber: req.body?.chapterNumber,
+      title: req.body?.title || "",
       pictureUrls: urls.length > 0 ? JSON.stringify(urls) : "",
       cloudIds: ids.length > 0 ? JSON.stringify(ids) : "",
     };
@@ -102,7 +115,7 @@ const updateChapter = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       err: -1,
-      msg: "Failed at Comic controller: " + error,
+      msg: "Failed at Chapter controller: " + error,
     });
   }
 };
@@ -141,6 +154,7 @@ module.exports = {
   getChapters,
   createChapter,
   getSingleChapter,
+  viewChapter,
   updateChapter,
   deleteChapter,
   upload,

@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SideWrapper from '~/components/SideWrapper';
 import { genreSelector } from '~/store/selector';
+import routes from '~/config/routes';
+import { ALL } from '~/util/constants';
 
 function GenresComic() {
     const { genres } = useSelector(genreSelector);
@@ -11,11 +13,21 @@ function GenresComic() {
             <div className="genre-nav">
                 <div className="genres d-flex flex-wrap">
                     <div className="genre-item w-100">
-                        <Link>Tất cả thể loại</Link>
+                        <NavLink
+                            to={routes.genres + ALL}
+                            className={({ isActive, isPending }) => 'nav-link ' + (isActive ? 'active' : '')}
+                        >
+                            Tất cả thể loại
+                        </NavLink>
                     </div>
                     {genres.map((genre) => (
                         <div key={genre.slug} className="genre-item w-50">
-                            <Link>{genre.name}</Link>
+                            <NavLink
+                                to={routes.genres + genre.slug}
+                                className={({ isActive, isPending }) => 'nav-link ' + (isActive ? 'active' : '')}
+                            >
+                                {genre.name}
+                            </NavLink>
                         </div>
                     ))}
                 </div>

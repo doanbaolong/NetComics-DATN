@@ -6,10 +6,11 @@
         li {
             display: inline-block;
             color: var(--primary-color);
+            min-width: 140px;
             padding: 5px 10px;
             position: relative;
             opacity: 0.8;
-            transition: all 0.1s ease;
+            transition: all 0.2s ease;
             cursor: pointer;
 
             &:hover {

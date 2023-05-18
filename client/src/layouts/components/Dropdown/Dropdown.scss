@@ -8,7 +8,7 @@
     min-height: 148px;
     padding: 8px 0;
     border-radius: 0 0 4px 4px;
-    background-color: var(--white);
+    background-color: var(--nav-hover);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
     position: absolute;
     z-index: 999;
@@ -32,7 +32,7 @@
             display: flex;
             align-items: center;
             padding: 8px 10px;
-            color: #333;
+            color: var(--text-color);
             font-size: 1.5rem;
             transition: all 0.15s ease;
 
@@ -47,4 +47,8 @@
             }
         }
     }
+}
+
+.navbar-dropdown-show {
+    padding: 0 28px;
 }

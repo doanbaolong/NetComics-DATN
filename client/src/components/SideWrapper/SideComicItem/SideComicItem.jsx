@@ -13,7 +13,7 @@ function SideComicItem({ imageUrl, comicUrl, name, rank = null, children }) {
                     {rank}
                 </div>
             )}
-            <Link>
+            <Link to={comicUrl}>
                 <img src={imageUrl} alt={name} className="item-img" />
             </Link>
             <div className="item-info">

@@ -1,12 +1,36 @@
+@import '../../../components/GlobalStyles/breakpoints.scss';
+
 nav.nav-bar {
-    background-color: #ececec;
-    border-bottom: 1px solid #dedede;
-    // position: sticky;
-    // box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
-    // top: 0;
-    z-index: 9999;
+    background-color: var(--nav-bg-color);
+    border-bottom: 1px solid var(--nav-border);
+    position: sticky;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+    top: 0;
+    z-index: 999;
+
+    @include breakpoint(md) {
+        display: none;
+    }
 
     .nav-list {
         margin-bottom: 0;
+    }
+}
+
+nav.nav-bar-collapse {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: calc(100vh - 56px);
+    z-index: 999;
+    background-color: var(--nav-bg-color);
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: none;
+
+    &.show {
+        display: block;
     }
 }

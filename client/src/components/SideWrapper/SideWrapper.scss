@@ -13,7 +13,7 @@
             margin-bottom: 0;
             padding: 10px 0;
             font-weight: bold;
-            color: #146289;
+            color: var(--sidebar-title-color);
         }
 
         .view-all {
@@ -38,10 +38,10 @@
             text-align: center;
             font-size: 1.5rem;
             padding: 10px 0;
-            background-color: #fff;
             border-top-left-radius: 4px;
             border-top-right-radius: 4px;
             border-bottom: 4px solid transparent;
+            color: var(--sidebar-title-color);
             opacity: 0.6;
             cursor: pointer;
             transition: all 0.5s ease;
@@ -54,7 +54,7 @@
 
             &.active {
                 opacity: 1;
-                color: #146289;
+                color: var(--sidebar-title-color);
             }
         }
 
@@ -65,7 +65,7 @@
             width: 113px;
             height: 5px;
             border-radius: 15px;
-            background-color: #146289;
+            background-color: var(--sidebar-title-color);
             transition: all 0.2s ease;
         }
     }

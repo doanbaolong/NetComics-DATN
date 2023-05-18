@@ -65,6 +65,23 @@ const getSingleGenreService = (id) => {
   });
 };
 
+const getSingleGenreBySlugService = (slug) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Genre.findOne({
+        where: { slug },
+      });
+      resolve({
+        err: response ? 0 : 1,
+        msg: response ? "OK" : "Thể loại không tồn tại",
+        response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const updateGenreService = (genre, id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -108,6 +125,7 @@ module.exports = {
   getGenresService,
   creatGenreService,
   getSingleGenreService,
+  getSingleGenreBySlugService,
   updateGenreService,
   deleteGenreService,
 };

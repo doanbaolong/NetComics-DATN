@@ -1,10 +1,11 @@
-.breadcrumb {
-    margin-bottom: 18px;
+ol.breadcrumb {
+    padding: 0 15px;
 
     .breadcrumb-item {
         font-size: 1.4rem;
 
         a {
+            color: var(--primary-color);
             &:hover {
                 text-decoration: underline;
             }

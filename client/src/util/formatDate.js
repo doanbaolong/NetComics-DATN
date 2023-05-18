@@ -1,12 +1,14 @@
 import moment from 'moment';
 
+export const formatNormalDate = (date) => moment(date).format('DD/MM/YYYY');
+
 export const formatComicDate = (date) => moment(date).format('HH:mm DD/MM/YYYY');
 
 export const formatChapterDate = (chapterUpdate) => {
     const now = moment();
     const date = moment(chapterUpdate);
     const daysInMonth = moment(chapterUpdate, 'YYYY-MM').daysInMonth();
-    const seconds = now.diff(date);
+    const seconds = now.diff(date, 'seconds');
     const minutes = now.diff(date, 'minutes');
     const hours = now.diff(date, 'hours');
     const days = now.diff(date, 'days');

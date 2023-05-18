@@ -13,6 +13,47 @@ export const apiGetComics = () =>
         }
     });
 
+export const apiGetComicsLimit = (query) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await instance({
+                method: 'GET',
+                url: '/api/comic/limit',
+                params: query,
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
+export const apiSearchComic = (query) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await instance({
+                method: 'GET',
+                url: '/api/comic/search',
+                params: query,
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
+export const apiGetComicsByGenreLimit = (page, limit, genre) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await instance({
+                method: 'GET',
+                url: `/api/comic/limit/${genre}?page=${page}&limit=${limit}`,
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
 export const apiCreateComic = (payload) =>
     new Promise(async (resolve, reject) => {
         try {
@@ -33,6 +74,19 @@ export const apiGetSingleComic = (id) =>
             const response = await instance({
                 method: 'GET',
                 url: '/api/comic/' + id,
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
+export const apiGetSingleComicBySlug = (slug) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await instance({
+                method: 'GET',
+                url: '/api/comic/slug/' + slug,
             });
             resolve(response);
         } catch (error) {

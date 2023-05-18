@@ -5,7 +5,10 @@ const getChaptersService = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await db.Chapter.findAll(
-        { order: [["createdAt", "DESC"]] },
+        {
+          order: [["chapterNumber", "DESC"]],
+          attributes: { exclude: ["cloudIds"] },
+        },
         { raw: true }
       );
       resolve({
@@ -22,12 +25,33 @@ const getChaptersService = () => {
 const creatChapterService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Chapter.create(data);
-      resolve({
-        err: response ? 0 : 1,
-        msg: response ? "OK" : "Failed to create Chapter",
-        response,
+      const response = await db.Chapter.create({
+        ...data,
+        chapterUpdatedAt: Date.now(),
       });
+      if (response) {
+        const comic = await db.Comic.findOne({
+          where: { id: response.comicId },
+        });
+        await db.Comic.update(
+          {
+            chapterUpdatedAt: response.chapterUpdatedAt,
+            chapterNumber: comic.chapterNumber + 1,
+          },
+          { where: { id: comic.id } }
+        );
+        resolve({
+          err: 0,
+          msg: "OK",
+          response,
+        });
+      } else {
+        resolve({
+          err: 1,
+          msg: "Failed to create Chapter",
+          response,
+        });
+      }
     } catch (error) {
       reject(error);
     }
@@ -39,6 +63,8 @@ const getSingleChapterService = (id) => {
     try {
       const response = await db.Chapter.findOne({
         where: { id },
+        include: [{ model: db.Comic, attributes: ["id"] }],
+        attributes: { exclude: ["cloudIds"] },
       });
       resolve({
         err: response ? 0 : 1,
@@ -51,7 +77,65 @@ const getSingleChapterService = (id) => {
   });
 };
 
+const viewChapterService = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const chapter = await db.Chapter.findOne({ where: { id } });
+      if (!chapter) {
+        resolve({
+          err: 1,
+          msg: "Chapter không tồn tại",
+        });
+      } else {
+        chapter.view += 1;
+        await chapter.save();
+        resolve({
+          err: 0,
+          msg: "View tăng 1",
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const updateChapterService = (chapter, id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const chapterFind = await db.Chapter.findOne({
+        where: { id: id },
+      });
+
+      let publicIds = [];
+      if (chapterFind?.cloudIds) {
+        publicIds = JSON.parse(chapterFind.cloudIds);
+
+        for (let publicId of publicIds) {
+          await cloudinary.destroy(publicId);
+        }
+      }
+
+      const response = await db.Chapter.update(
+        { ...chapter, chapterUpdatedAt: Date.now() },
+        { where: { id } }
+      );
+      await db.Comic.update(
+        { chapterUpdatedAt: response.chapterUpdatedAt },
+        { where: { id: response.comicId } }
+      );
+
+      resolve({
+        err: 0,
+        msg: "Updated",
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const deleteChapterService = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       const ChapterFind = await db.Chapter.findOne({
@@ -66,21 +150,15 @@ const updateChapterService = (chapter, id) => {
           await cloudinary.destroy(publicId);
         }
       }
-
-      await db.Chapter.update(chapter, { where: { id: id } });
-      resolve({
-        err: 0,
-        msg: "Updated",
+      const comic = await db.Comic.findOne({
+        where: { id: ChapterFind.comicId },
       });
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
-
-const deleteChapterService = (id) => {
-  return new Promise(async (resolve, reject) => {
-    try {
+      await db.Comic.update(
+        {
+          chapterNumber: comic.chapterNumber - 1,
+        },
+        { where: { id: comic.id } }
+      );
       const response = await db.Chapter.destroy({ where: { id: id } });
 
       resolve({
@@ -99,4 +177,5 @@ module.exports = {
   getSingleChapterService,
   updateChapterService,
   deleteChapterService,
+  viewChapterService,
 };

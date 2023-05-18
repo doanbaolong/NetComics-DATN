@@ -1,4 +1,12 @@
 .form-group {
+    label {
+        color: var(--text-color);
+
+        &.form-check-label {
+            margin: 0;
+            padding-left: 10px;
+        }
+    }
     .input {
         position: relative;
 

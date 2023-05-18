@@ -3,11 +3,11 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { Link, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { toastSuccess } from '~/util/toastify';
 import { getComics, getSingleComic } from '~/store/comicSlice';
-import { addChapter } from '~/store/chapterSlice';
+import { addChapter, chapterSlice } from '~/store/chapterSlice';
 import { comicSelector, chapterSelector } from '~/store/selector';
 import Breadcrumb from '~/components/Breadcrumb';
 import InputForm from '~/components/Form/InputForm';
@@ -16,6 +16,7 @@ import { trimString } from '~/util/trimString';
 import ImageUpload from '~/components/Form/ImageUpload';
 import SelectForm from '~/components/Form/SelectForm';
 import { ALL } from '~/util/constants';
+import { DataContext } from '~/context/GlobalState';
 
 function ChapterManagerAdd() {
     const { comicId } = useParams();
@@ -26,12 +27,15 @@ function ChapterManagerAdd() {
         { title: 'Thêm chapter', to: routes.chapterManagerAdd + comicId },
     ];
 
+    const state = useContext(DataContext);
+    const socket = state.socket;
+
     const methods = useForm();
     const { handleSubmit, resetField, setValue } = methods;
 
     const dispatch = useDispatch();
     const { comic, comics } = useSelector(comicSelector);
-    const { addChapterMessage, addChapterStatus } = useSelector(chapterSelector);
+    const { addChapterMessage, addChapterStatus, chapter } = useSelector(chapterSelector);
 
     const [error, setError] = useState('');
     const [images, setImages] = useState([]);
@@ -49,22 +53,22 @@ function ChapterManagerAdd() {
 
     useEffect(() => {
         if (comicId !== ALL) {
-            if (comic.name) {
+            if (comic?.name) {
                 setLink({ title: `Truyện tranh ${comic.name}`, to: routes.comicManagerDetail + comicId });
             } else {
                 setLink({ title: 'Tất cả truyện tranh', to: routes.comicManager });
             }
         }
-    }, [comic.name, comicId]);
+    }, [comic?.name, comicId]);
 
     useEffect(() => {
         const fields = ['comic'];
-        fields.forEach((field) => setValue(field, comic.name));
+        fields.forEach((field) => setValue(field, comic?.name));
     }, [comic, comicId, setValue]);
 
     useEffect(() => {
         const comicOpts = comics.reduce((acc, comic) => {
-            let option = { value: comic.id, label: comic.name };
+            let option = { value: comic?.id, label: comic?.name };
             return [...acc, option];
         }, []);
         setComicOptions(comicOpts);
@@ -80,8 +84,19 @@ function ChapterManagerAdd() {
             resetField('chapterNumber');
             resetField('title');
             setImagesPreview([]);
+
+            if (socket) {
+                socket.emit('newChapter', {
+                    comicId,
+                    chapterId: chapter?.id,
+                    read: false,
+                    type: 2,
+                });
+            }
+
+            dispatch(chapterSlice.actions.reset());
         }
-    }, [addChapterStatus, resetField]);
+    }, [addChapterStatus, chapter?.id, comicId, dispatch, resetField, socket]);
 
     useEffect(() => {
         return () => {
@@ -194,7 +209,13 @@ function ChapterManagerAdd() {
                         </div>
 
                         <button type="submit" className="btn btn-success w-100">
-                            Thêm mới
+                            {addChapterStatus === 'pending' ? (
+                                <div className="spinner-border text-white" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            ) : (
+                                'Thêm mới'
+                            )}
                         </button>
                     </form>
                 </FormProvider>

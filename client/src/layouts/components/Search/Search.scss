@@ -1,4 +1,24 @@
 @import '../../../components/GlobalStyles/breakpoints.scss';
+
+.search-result {
+    .search-input-wrapper {
+        width: 100%;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+        border-radius: 8px;
+        max-height: min((100vh - 56px) - 96px, 734px);
+        // min-height: 176px;
+        background: var(--white);
+        width: 432px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        .search-title {
+            padding: 8px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+    }
+}
 .search-form {
     width: 432px;
     height: 40px;
@@ -6,6 +26,7 @@
     background-color: #fff;
     border-radius: 20px;
     padding-left: 16px;
+    position: relative;
 
     .search-input {
         height: 100%;
@@ -13,19 +34,69 @@
         border-radius: 0;
     }
 
+    .btn-search {
+        background-color: #fff;
+        height: 100%;
+        width: 48px;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        font-size: 2.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #8f969e;
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 0;
+            width: 2px;
+            height: 30px;
+            background-color: rgba(23, 25, 36, 0.12);
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgba(22, 24, 35, 0.06);
+        }
+
+        &:active {
+            background-color: rgba(22, 24, 35, 0.09);
+        }
+    }
+
+    .clear-btn {
+        background-color: transparent;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 6px;
+        color: #8f969e;
+    }
+
+    .loading {
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: calc(40px + 12px);
+        top: 50%;
+        z-index: 99;
+        animation: spinner 0.8s linear infinite;
+    }
+
+    @keyframes spinner {
+        from {
+            transform: translateY(-50%) rotate(0);
+        }
+        to {
+            transform: translateY(-50%) rotate(360deg);
+        }
+    }
+
     @include breakpoint(md) {
         width: 300px;
     }
-    // .search-btn {
-    //     width: 48px;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //     height: 100%;
-    //     font-size: 2rem;
-    //     color: #212529;
-    //     background-color: transparent;
-    //     border-radius: 20px;
-    //     transition: all 0.2s ease-in;
-    // }
 }

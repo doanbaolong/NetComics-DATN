@@ -166,7 +166,13 @@ function ComicManagerAdd() {
 
                         <ImageUpload onChange={handleChangeImage} previewURL={imagePreview && imagePreview} />
                         <button type="submit" className="btn btn-success w-100">
-                            Thêm mới
+                            {addComicStatus === 'pending' ? (
+                                <div className="spinner-border text-white" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            ) : (
+                                'Thêm mới'
+                            )}
                         </button>
                     </form>
                 </FormProvider>

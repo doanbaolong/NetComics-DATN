@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './FilterButton.scss';
 
-function FilterButton({ to, href, primary = false, secondary = false, active = false, leftIcon, children }) {
+function FilterButton({ to, href, primary = false, secondary = false, active = false, leftIcon, onClick, children }) {
     let Comp = 'button';
     if (to) {
         Comp = Link;
@@ -19,6 +19,7 @@ function FilterButton({ to, href, primary = false, secondary = false, active = f
     return (
         <div className="w-25 filter-wrapper">
             <Comp
+                onClick={onClick}
                 className={
                     'd-flex w-100 align-items-center justify-content-center filter-btn' +
                     (color !== '' ? ` ${color}` : color) +

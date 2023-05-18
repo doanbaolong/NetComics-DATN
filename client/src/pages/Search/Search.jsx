@@ -1,15 +1,17 @@
 import Select from 'react-select';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CgChevronDoubleDownR, CgChevronDoubleUpR } from 'react-icons/cg';
 import { GoCheck } from 'react-icons/go';
 import { RiCloseLine } from 'react-icons/ri';
 
 import './Search.scss';
-import { genreSelector } from '~/store/selector';
+import { comicSelector, genreSelector } from '~/store/selector';
 import routes from '~/config/routes';
 import Breadcrumb from '~/components/Breadcrumb';
 import ComicItem from '~/components/ComicItem';
+import ListComicItem from '~/components/ListComicItem/ListComicItem';
+import { getComicsLimit } from '~/store/comicSlice';
 
 function Search() {
     const breadcrumb = [
@@ -18,40 +20,38 @@ function Search() {
     ];
 
     const options = {
-        chapterCount: [
+        minChapter: [
             { value: 0, label: '> 0 chapter' },
             { value: 50, label: '> 50 chapter' },
             { value: 100, label: '> 100 chapter' },
             { value: 200, label: '> 200 chapter' },
         ],
         status: [
-            { value: 'all', label: 'Tất cả' },
-            { value: 'Hoàn thành', label: 'Hoàn thành' },
-            { value: 'Đang tiến hành', label: 'Đang tiến hành' },
+            { value: -1, label: 'Tất cả' },
+            { value: 2, label: 'Hoàn thành' },
+            { value: 1, label: 'Đang tiến hành' },
         ],
         sort: [
-            { value: 'new chapters', label: 'Chapter mới' },
-            { value: 'new comics', label: 'Truyện mới' },
-            { value: 'most viewed', label: 'Xem nhiều nhất' },
-            { value: 'most viewed month', label: 'Xem nhiều nhất tháng' },
-            { value: 'most viewed week', label: 'Xem nhiều nhất tuần' },
-            { value: 'most viewed day', label: 'Xem nhiều nhất hôm nay' },
-            { value: 'most followed', label: 'Theo dõi nhiều nhất' },
-            { value: 'most commented', label: 'Bình luận nhiều nhất' },
-            { value: 'most chapter count', label: 'Số chapter nhiều nhất' },
+            { value: 0, label: 'Chapter mới' },
+            { value: 1, label: 'Truyện mới' },
+            { value: 2, label: 'Theo dõi nhiều nhất' },
+            { value: 3, label: 'Số chapter nhiều nhất' },
         ],
     };
 
+    const dispatch = useDispatch();
+
     const { genres } = useSelector(genreSelector);
+    const { comics } = useSelector(comicSelector);
 
     const [tickedGenres, setTickedGenres] = useState([]);
     const [crossedGenres, setCrossedGenres] = useState([]);
     const [isHiddenAdvSearch, setIsHiddenAdvSearch] = useState(false);
-
-    const list = [];
-    for (let i = 0; i < 36; i++) {
-        list.push(i);
-    }
+    const [minChapter, setMinChapter] = useState(0);
+    const [status, setStatus] = useState(-1);
+    const [sort, setSort] = useState(0);
+    const [query, setQuery] = useState({ genre: '', nogenre: '', minchapter: 0, status: -1, sort: -1 });
+    const [advSearchQuery, setAdvSearchQuery] = useState();
 
     const handleCheckGenre = (genre) => {
         if (!tickedGenres.includes(genre) && !crossedGenres.includes(genre)) {
@@ -66,8 +66,55 @@ function Search() {
         }
     };
 
+    useEffect(() => {
+        if (tickedGenres.length > 0) {
+            setQuery((prev) => ({ ...prev, genre: tickedGenres.join() }));
+        } else {
+            setQuery((prev) => ({ ...prev, genre: '' }));
+        }
+        if (crossedGenres.length > 0) {
+            setQuery((prev) => ({ ...prev, nogenre: crossedGenres.join() }));
+        } else {
+            setQuery((prev) => ({ ...prev, nogenre: '' }));
+        }
+        if (minChapter !== 0) {
+            setQuery((prev) => ({ ...prev, minchapter: minChapter }));
+        } else {
+            setQuery((prev) => ({ ...prev, minchapter: 0 }));
+        }
+        if (status !== -1) {
+            setQuery((prev) => ({ ...prev, status: status }));
+        } else {
+            setQuery((prev) => ({ ...prev, status: -1 }));
+        }
+        if (sort !== -1) {
+            setQuery((prev) => ({ ...prev, sort: sort }));
+        } else {
+            setQuery((prev) => ({ ...prev, sort: 0 }));
+        }
+    }, [crossedGenres, minChapter, sort, status, tickedGenres]);
+
     const handleHiddenAdvSearch = () => {
         setIsHiddenAdvSearch(!isHiddenAdvSearch);
+    };
+
+    const handleChangeMinChapter = (selected) => {
+        setMinChapter(selected.value);
+    };
+
+    const handleChangeStatus = (selected) => {
+        setStatus(selected.value);
+    };
+
+    const handleChangeSort = (selected) => {
+        setSort(selected.value);
+    };
+
+    const handleSearch = () => {
+        if (query) {
+            setAdvSearchQuery(query);
+            // dispatch(getComicsLimit(query));
+        }
     };
 
     return (
@@ -76,10 +123,10 @@ function Search() {
             <div className="main-content">
                 <div className="content">
                     <div className="items">
-                        <h1 className="text-center">Tìm truyện nâng cao</h1>
+                        <h1 className="text-center search-title">Tìm truyện nâng cao</h1>
                         <div>
                             <div className="text-center my-4">
-                                <button className="btn btn-primary btn-show-search" onClick={handleHiddenAdvSearch}>
+                                <button className="btn btn-show-search" onClick={handleHiddenAdvSearch}>
                                     <span
                                         className="d-flex align-items-center justify-content-center"
                                         type="button"
@@ -120,7 +167,7 @@ function Search() {
                                             <span>Truyện có thể thuộc hoặc không thuộc thể loại này</span>
                                         </div>
                                     </div>
-                                    <div className="row">
+                                    <div className="row filter-row">
                                         <div className="col-sm-2 fw-bold px-4">Thể loại</div>
                                         <div className="col-10">
                                             <div className="row">
@@ -132,20 +179,20 @@ function Search() {
                                                         <div
                                                             className={
                                                                 'genre-item' +
-                                                                (tickedGenres.includes(genre.name)
+                                                                (tickedGenres.includes(genre.id)
                                                                     ? ' tick'
-                                                                    : crossedGenres.includes(genre.name)
+                                                                    : crossedGenres.includes(genre.id)
                                                                     ? ' cross'
                                                                     : '')
                                                             }
                                                             title={genre.description}
-                                                            onClick={() => handleCheckGenre(genre.name)}
+                                                            onClick={() => handleCheckGenre(genre.id)}
                                                         >
                                                             <span>{genre.name}</span>
                                                             <span className="genre-check-box">
-                                                                {tickedGenres.includes(genre.name) ? (
+                                                                {tickedGenres.includes(genre.id) ? (
                                                                     <GoCheck />
-                                                                ) : crossedGenres.includes(genre.name) ? (
+                                                                ) : crossedGenres.includes(genre.id) ? (
                                                                     <RiCloseLine />
                                                                 ) : (
                                                                     ''
@@ -157,14 +204,15 @@ function Search() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="row mt-3">
+                                    <div className="row mt-3 filter-row">
                                         <div className="col-sm-2 fw-bold px-4">Số lượng chapter</div>
                                         <div className="col-sm-4 px-4">
                                             <Select
                                                 className="advsearch-select-container"
                                                 classNamePrefix="advsearch-select"
-                                                options={options.chapterCount}
-                                                defaultValue={options.chapterCount[0]}
+                                                options={options.minChapter}
+                                                defaultValue={options.minChapter[0]}
+                                                onChange={handleChangeMinChapter}
                                                 isSearchable={false}
                                             />
                                         </div>
@@ -175,11 +223,12 @@ function Search() {
                                                 classNamePrefix="advsearch-select"
                                                 options={options.status}
                                                 defaultValue={options.status[0]}
+                                                onChange={handleChangeStatus}
                                                 isSearchable={false}
                                             />
                                         </div>
                                     </div>
-                                    <div className="row mt-4">
+                                    <div className="row mt-4 filter-row">
                                         <div className="col-sm-2 fw-bold px-4">Sắp xếp theo</div>
                                         <div className="col-sm-4 px-4">
                                             <Select
@@ -187,23 +236,22 @@ function Search() {
                                                 classNamePrefix="advsearch-select"
                                                 options={options.sort}
                                                 defaultValue={options.sort[0]}
+                                                onChange={handleChangeSort}
                                                 isSearchable={false}
                                             />
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-sm-4 offset-sm-2 px-4 pb-4 mt-4">
-                                            <button className="btn btn-success text-white">Tìm kiếm</button>
+                                            <button className="btn btn-success text-white" onClick={handleSearch}>
+                                                Tìm kiếm
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="row comic-list">
-                            {list.map((i) => (
-                                <ComicItem key={i} />
-                            ))}
-                        </div>
+                        <ListComicItem advSearch advSearchQuery={advSearchQuery} list={comics} />
                     </div>
                 </div>
             </div>

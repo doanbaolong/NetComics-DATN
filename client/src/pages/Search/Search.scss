@@ -1,8 +1,16 @@
-.btn-show-search {
+.search-title {
+    color: var(--text-color);
+}
+
+.btn.btn-show-search {
     border-radius: 4px;
     font-size: 1.4rem;
     min-width: 164px;
+    background-color: var(--primary-color);
 
+    &:hover {
+        background-color: var(--primary-color);
+    }
     svg {
         margin-left: 4px;
     }
@@ -15,6 +23,7 @@
 .instruction-item {
     margin-bottom: 8px;
     font-size: 1.4rem;
+    color: var(--text-color);
 
     .check {
         width: 20px;
@@ -22,17 +31,22 @@
         border: 1px solid var(--border-color);
         border-radius: 2px;
         cursor: pointer;
+        background-color: #fff;
 
         &.tick {
             background-color: var(--green);
-            color: var(--white);
+            color: #fff;
         }
 
         &.cross {
             background-color: var(--red);
-            color: var(--white);
+            color: #fff;
         }
     }
+}
+
+.filter-row {
+    color: var(--text-color);
 }
 
 .advsearch-box {

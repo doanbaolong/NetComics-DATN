@@ -10,6 +10,8 @@ import logo from '~/assets/images/logo.png';
 import logoIcon from '~/assets/images/logo-icon.png';
 import routes from '~/config/routes';
 import { ALL } from '~/util/constants';
+import { useDispatch } from 'react-redux';
+import { authSlide } from '~/store/authSlice';
 
 function Sidebar() {
     const menuSidebar = [
@@ -54,6 +56,9 @@ function Sidebar() {
             ],
         },
     ];
+
+    const dispatch = useDispatch();
+
     const [isClose, setIsClose] = useState(false);
     const [isShowMenu, setIsShowMenu] = useState([]);
 
@@ -143,7 +148,11 @@ function Sidebar() {
                 ))}
             </ul>
             <div className="logout">
-                <Link className="nav-link d-flex align-items-center">
+                <Link
+                    to={routes.adminLogin}
+                    className="nav-link d-flex align-items-center"
+                    onClick={() => dispatch(authSlide.actions.logOut())}
+                >
                     <span className="icon-link">
                         <BiLogOut />
                     </span>
