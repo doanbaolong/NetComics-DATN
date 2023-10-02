@@ -9,31 +9,34 @@ import noAvatar from '~/assets/images/no-avatar-1.png';
 import './RatingModal.scss';
 import { AiFillStar } from 'react-icons/ai';
 import RatingItem from './RatingItem';
+import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 
-function RatingModal({ comic, ratingAvg, ratingCount }) {
+function RatingModal({ ratingList = [], currentUserRating, ratingAvg, ratingCount, onDeleteRating }) {
     const { currentUser } = useSelector(authSelector);
     const [isRated, setIsRated] = useState(false);
 
     useEffect(() => {
-        if (currentUser && comic?.Ratings) {
-            const find = comic.Ratings.find((item) => item.userId === currentUser?.id);
-            if (find) {
-                setIsRated(true);
-            }
+        if (currentUserRating) {
+            setIsRated(true);
+        } else {
+            setIsRated(false);
         }
-    }, [comic?.Ratings, currentUser]);
+    }, [currentUserRating]);
 
     return (
         <>
-            <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target={'#ratingBackdrop'}>
+            <button
+                className="btn btn-primary see-rating"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target={'#ratingBackdrop'}
+            >
                 Xem đánh giá
             </button>
 
             <div
                 className="modal fade"
                 id={'ratingBackdrop'}
-                data-bs-backdrop="static"
-                data-bs-keyboard="false"
                 tabIndex="-1"
                 aria-labelledby={'ratingBackdropLabel'}
                 aria-hidden="true"
@@ -56,10 +59,10 @@ function RatingModal({ comic, ratingAvg, ratingCount }) {
                                         {ratingAvg} <AiFillStar />
                                     </p>
                                     <span className="rating-count">
-                                        {ratingCount ? `${ratingCount} Lượt đánh giá` : ''}{' '}
+                                        {ratingCount ? `${ratingCount} Bài đánh giá` : 'Chưa có bài đánh giá nào'}{' '}
                                     </span>
                                     <div className="rating-list">
-                                        {comic?.Ratings?.map((rating, index) => (
+                                        {ratingList?.map((rating, index) => (
                                             <RatingItem key={index} rating={rating} />
                                         ))}
                                     </div>
@@ -71,8 +74,28 @@ function RatingModal({ comic, ratingAvg, ratingCount }) {
                             {currentUser ? (
                                 isRated ? (
                                     <div className="auth-rating">
-                                        <span>Đánh giá của bạn:</span>
-                                        <StarRating />
+                                        <span>Bài đánh giá của bạn:</span>
+                                        <StarRating currentUserRating={currentUserRating} />
+                                        <div className="dropdown">
+                                            <button
+                                                className="btn btn-secondary dropdown-toggle"
+                                                type="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                <HiOutlineDotsHorizontal />
+                                            </button>
+                                            <ul className="dropdown-menu">
+                                                <li>
+                                                    <button
+                                                        className="dropdown-item text-center"
+                                                        onClick={onDeleteRating}
+                                                    >
+                                                        <span>Xóa</span>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 ) : (
                                     <>
@@ -89,7 +112,7 @@ function RatingModal({ comic, ratingAvg, ratingCount }) {
                                                 />
                                             </div>
 
-                                            <StarRating />
+                                            <StarRating currentUserRating={currentUserRating} />
                                         </div>
                                     </>
                                 )

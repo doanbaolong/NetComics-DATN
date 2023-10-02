@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { toastSuccess } from '~/util/toastify';
-import { deleteComic, getComics } from '~/store/comicSlice';
+import { comicSlice, deleteComic, getComicsLimit } from '~/store/comicSlice';
 import { comicSelector } from '~/store/selector';
 import routes from '~/config/routes';
 import Modal from '~/components/Modal';
 import Breadcrumb from '~/components/Breadcrumb';
 import Pagination from '~/components/Pagination';
 import noImage from '~/assets/images/no-image.jpg';
+import { LIMIT } from '~/util/constants';
+import './ComicManager.scss';
 
 function ComicManager() {
     const breadcrumb = [
@@ -18,19 +20,33 @@ function ComicManager() {
         { title: 'Truyện tranh', to: routes.comicManager },
     ];
 
+    const [searchParams] = useSearchParams();
     const dispatch = useDispatch();
     const { comics, deleteComicStatus } = useSelector(comicSelector);
+
+    const navigate = useNavigate();
 
     const handleDeleteComic = (id) => {
         dispatch(deleteComic(id));
     };
 
     useEffect(() => {
+        document.title = 'Danh Sách Truyện | NetComics';
+    }, []);
+
+    useEffect(() => {
         if (deleteComicStatus === 'success') {
             toastSuccess('Xóa truyện thành công');
-            dispatch(getComics());
+            dispatch(
+                getComicsLimit({ page: searchParams.get('page') ? +searchParams.get('page') - 1 : 0, limit: LIMIT }),
+            );
+            dispatch(comicSlice.actions.reset());
         }
-    }, [deleteComicStatus, dispatch]);
+    }, [deleteComicStatus, dispatch, searchParams]);
+
+    const handleOnClick = (e) => {
+        e.stopPropagation();
+    };
     return (
         <div className="manager comic-manager">
             <Breadcrumb list={breadcrumb} />
@@ -53,38 +69,40 @@ function ComicManager() {
                     </thead>
                     <tbody className="table-group-divider">
                         {comics.map((comic, index) => (
-                            <tr key={comic.id}>
+                            <tr key={comic.id} onClick={() => navigate(routes.comicManagerDetail + comic.id)}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{comic.name}</td>
-                                <td>
+                                <td className="name">{comic.name}</td>
+                                <td className="image">
                                     <img
                                         src={comic.image ? process.env.REACT_APP_SERVER_URL + comic.image : noImage}
                                         alt=""
                                     />
                                 </td>
-                                <td>
+                                <td className="genres">
                                     {comic.Genres?.length > 0
                                         ? comic.Genres.map((genre) => genre.name).join(' - ')
                                         : 'Chưa cập nhật'}
                                 </td>
-                                <td>
+                                <td className="authors">
                                     {comic.Authors?.length > 0
                                         ? comic.Authors.map((author) => author.name).join(' - ')
                                         : 'Chưa cập nhật'}
                                 </td>
-                                <td>{comic.status}</td>
-                                <td>
+                                <td className="status">{comic.status}</td>
+                                <td className="actions">
                                     <div className="d-flex align-items-center">
                                         <Link
-                                            to={routes.comicManagerDetail + comic.id}
-                                            className="btn btn-primary me-3"
+                                            to={routes.chapterManagerAdd + comic.id}
+                                            className="btn btn-success me-2"
+                                            onClick={handleOnClick}
                                         >
-                                            Chi tiết
+                                            Thêm chap
                                         </Link>
-                                        <Link to={routes.chapterManagerAdd + comic.id} className="btn btn-success me-3">
-                                            Thêm chapter
-                                        </Link>
-                                        <Link to={routes.comicManagerEdit + comic.id} className="btn btn-warning me-3">
+                                        <Link
+                                            to={routes.comicManagerEdit + comic.id}
+                                            className="btn btn-warning me-2"
+                                            onClick={handleOnClick}
+                                        >
                                             Sửa
                                         </Link>
                                         <Modal
@@ -95,6 +113,7 @@ function ComicManager() {
                                             closeText="Hủy"
                                             confirmText="Xóa"
                                             onConfirmClick={() => handleDeleteComic(comic.id)}
+                                            loading={deleteComicStatus === 'pending'}
                                         />
                                     </div>
                                 </td>

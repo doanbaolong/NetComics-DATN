@@ -6,9 +6,6 @@
     "host": "127.0.0.1",
     "dialect": "mysql",
     "logging": false,
-    "dialectOptions": {
-      "useUTC": false
-    },
     "timezone": "+07:00"
   },
   "test": {
@@ -16,7 +13,10 @@
     "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "dialectOptions": {
+      "useUTC": false
+    }
   },
   "production": {
     "username": "root",

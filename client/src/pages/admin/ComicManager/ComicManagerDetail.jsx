@@ -33,14 +33,18 @@ function ComicManagerDetail() {
     const [ratingComic, setRatingComic] = useState({ count: 0, rating: 0 });
 
     useEffect(() => {
+        document.title = 'Chi Tiết Truyện | NetComics';
+    }, []);
+
+    useEffect(() => {
         dispatch(getSingleComic(id));
     }, [dispatch, id]);
 
     useEffect(() => {
-        if (comic && comic?.slug) {
-            dispatch(getCountFollow(comic?.slug));
+        if (comic && comic?.id) {
+            dispatch(getCountFollow(comic?.id));
         }
-    }, [comic, comic?.slug, dispatch]);
+    }, [comic, comic?.id, dispatch]);
 
     useEffect(() => {
         const total = comic?.Chapters?.reduce((acc, chap) => acc + chap.view, 0);
@@ -193,9 +197,11 @@ function ComicManagerDetail() {
                                                 </Link>
                                                 <Modal
                                                     buttonText="Xóa"
-                                                    id={'deleteComic' + comic.id}
+                                                    id={'deleteChapter' + chapter.id}
                                                     title="NetComics"
-                                                    body="Bạn có chắc chắn muốn xóa chapter này?"
+                                                    body={`Bạn có chắc chắn muốn xóa Chapter ${chapter.chapterNumber}${
+                                                        chapter.title && ': ' + chapter.title
+                                                    }?`}
                                                     closeText="Hủy"
                                                     confirmText="Xóa"
                                                     onConfirmClick={() => handleDeleteChapter(chapter.id)}

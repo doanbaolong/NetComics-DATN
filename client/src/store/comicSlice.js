@@ -6,7 +6,6 @@ import {
     apiUpdateComic,
     apiDeleteComic,
     apiGetComicsLimit,
-    apiGetSingleComicBySlug,
     apiGetComicsByGenreLimit,
     apiSearchComic,
 } from '~/services/comic';
@@ -17,7 +16,6 @@ import {
     GET_SINGLE_COMIC,
     UPDATE_COMIC,
     DELETE_COMIC,
-    GET_SINGLE_COMIC_BY_SLUG,
     GET_COMICS_BY_GENRE_LIMIT,
     SEARCH_COMIC,
 } from './constant';
@@ -26,42 +24,58 @@ export const comicSlice = createSlice({
     name: 'comic',
     initialState: {
         comics: [],
+        searchComics: [],
         comic: null,
         count: 0,
+        searchCount: 0,
         limit: 0,
-        getComicsByGenreMessage: '',
-        getComicsLimitMessage: '',
-        getSingleComicMessage: '',
-        getSingleComicBySlugMessage: '',
         addComicMessage: '',
         updateComicMessage: '',
         deleteComicMessage: '',
         getComicsByGenreStatus: '',
         getComicsLimitStatus: '',
+        getComicsStatus: '',
         getSingleComicStatus: '',
-        getSingleComicBySlugStatus: '',
         addComicStatus: '',
         updateComicStatus: '',
         deleteComicStatus: '',
         searchComicMessage: '',
         searchComicStatus: '',
     },
-    reducers: {},
+    reducers: {
+        reset: (state, action) => ({
+            ...state,
+            comics: [],
+            searchComics: [],
+            comic: null,
+            count: 0,
+            searchCount: 0,
+            limit: 0,
+            addComicMessage: '',
+            updateComicMessage: '',
+            deleteComicMessage: '',
+            getComicsByGenreStatus: '',
+            getComicsLimitStatus: '',
+            getComicsStatus: '',
+            getSingleComicStatus: '',
+            addComicStatus: '',
+            updateComicStatus: '',
+            deleteComicStatus: '',
+            searchComicMessage: '',
+            searchComicStatus: '',
+        }),
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getComicsLimit.pending, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: 'pending',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -74,17 +88,13 @@ export const comicSlice = createSlice({
                 count: action.payload?.count,
                 limit: action.payload?.limit,
                 comic: null,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: 'success',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -93,17 +103,60 @@ export const comicSlice = createSlice({
             }))
             .addCase(getComicsLimit.rejected, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: action.payload,
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: 'rejected',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
+                addComicStatus: '',
+                updateComicStatus: '',
+                deleteComicStatus: '',
+                searchComicMessage: '',
+                searchComicStatus: '',
+            }))
+            .addCase(getComics.pending, (state, action) => ({
+                ...state,
+                addComicMessage: '',
+                updateComicMessage: '',
+                deleteComicMessage: '',
+                getComicsByGenreStatus: '',
+                getComicsLimitStatus: '',
+                getComicsStatus: 'pending',
+                getSingleComicStatus: '',
+                addComicStatus: '',
+                updateComicStatus: '',
+                deleteComicStatus: '',
+                searchComicMessage: '',
+                searchComicStatus: '',
+            }))
+            .addCase(getComics.fulfilled, (state, action) => ({
+                ...state,
+                comics: action.payload,
+                comic: null,
+                addComicMessage: '',
+                updateComicMessage: '',
+                deleteComicMessage: '',
+                getComicsByGenreStatus: '',
+                getComicsLimitStatus: '',
+                getComicsStatus: 'success',
+                getSingleComicStatus: '',
+                addComicStatus: '',
+                updateComicStatus: '',
+                deleteComicStatus: '',
+                searchComicMessage: '',
+                searchComicStatus: '',
+            }))
+            .addCase(getComics.rejected, (state, action) => ({
+                ...state,
+                addComicMessage: '',
+                updateComicMessage: '',
+                deleteComicMessage: action.payload,
+                getComicsByGenreStatus: '',
+                getComicsLimitStatus: '',
+                getComicsStatus: 'rejected',
+                getSingleComicStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -112,17 +165,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(getComicsByGenreLimit.pending, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: 'pending',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -134,17 +183,13 @@ export const comicSlice = createSlice({
                 comics: action.payload?.rows,
                 count: action.payload?.count,
                 limit: action.payload?.limit,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: 'success',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -153,17 +198,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(getComicsByGenreLimit.rejected, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: action.payload,
                 getComicsByGenreStatus: 'rejected',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -172,17 +213,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(addComic.pending, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: 'pending',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -192,17 +229,13 @@ export const comicSlice = createSlice({
             .addCase(addComic.fulfilled, (state, action) => ({
                 ...state,
                 comics: [action.payload, ...state.comics],
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: 'success',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -211,17 +244,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(addComic.rejected, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: action.payload,
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: 'rejected',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -230,17 +259,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(getSingleComic.pending, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: 'pending',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -250,17 +275,13 @@ export const comicSlice = createSlice({
             .addCase(getSingleComic.fulfilled, (state, action) => ({
                 ...state,
                 comic: action.payload,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: 'success',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -269,75 +290,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(getSingleComic.rejected, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: action.payload,
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: 'rejected',
-                getSingleComicBySlugStatus: '',
-                addComicStatus: '',
-                updateComicStatus: '',
-                deleteComicStatus: '',
-                searchComicMessage: '',
-                searchComicStatus: '',
-            }))
-            .addCase(getSingleComicBySlug.pending, (state, action) => ({
-                ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
-                addComicMessage: '',
-                updateComicMessage: '',
-                deleteComicMessage: '',
-                getComicsByGenreStatus: '',
-                getComicsLimitStatus: '',
-                getSingleComicStatus: '',
-                getSingleComicBySlugStatus: 'pending',
-                addComicStatus: '',
-                updateComicStatus: '',
-                deleteComicStatus: '',
-                searchComicMessage: '',
-                searchComicStatus: '',
-            }))
-            .addCase(getSingleComicBySlug.fulfilled, (state, action) => ({
-                ...state,
-                comic: action.payload,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
-                addComicMessage: '',
-                updateComicMessage: '',
-                deleteComicMessage: '',
-                getComicsByGenreStatus: '',
-                getComicsLimitStatus: '',
-                getSingleComicStatus: '',
-                getSingleComicBySlugStatus: 'success',
-                addComicStatus: '',
-                updateComicStatus: '',
-                deleteComicStatus: '',
-                searchComicMessage: '',
-                searchComicStatus: '',
-            }))
-            .addCase(getSingleComicBySlug.rejected, (state, action) => ({
-                ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: action.payload,
-                addComicMessage: '',
-                updateComicMessage: '',
-                deleteComicMessage: '',
-                getComicsByGenreStatus: '',
-                getComicsLimitStatus: '',
-                getSingleComicStatus: '',
-                getSingleComicBySlugStatus: 'rejected',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -346,17 +305,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(updateComic.pending, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: 'pending',
                 deleteComicStatus: '',
@@ -365,17 +320,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(updateComic.fulfilled, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: 'success',
                 deleteComicStatus: '',
@@ -384,17 +335,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(updateComic.rejected, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: action.payload,
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: 'rejected',
                 deleteComicStatus: '',
@@ -403,17 +350,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(deleteComic.pending, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: 'pending',
@@ -422,17 +365,13 @@ export const comicSlice = createSlice({
             }))
             .addCase(deleteComic.fulfilled, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: 'success',
@@ -441,78 +380,62 @@ export const comicSlice = createSlice({
             }))
             .addCase(deleteComic.rejected, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: action.payload,
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: 'rejected',
                 searchComicMessage: '',
                 searchComicStatus: '',
             }))
-            .addCase(searchComics.pending, (state, action) => ({
+            .addCase(searchComic.pending, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
                 searchComicMessage: '',
                 searchComicStatus: 'pending',
             }))
-            .addCase(searchComics.fulfilled, (state, action) => ({
+            .addCase(searchComic.fulfilled, (state, action) => ({
                 ...state,
-                comics: action.payload?.rows,
-                count: action.payload?.count,
+                searchComics: action.payload?.rows,
+                searchCount: action.payload?.count,
                 limit: action.payload?.limit,
                 comic: null,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
                 searchComicMessage: '',
                 searchComicStatus: 'success',
             }))
-            .addCase(searchComics.rejected, (state, action) => ({
+            .addCase(searchComic.rejected, (state, action) => ({
                 ...state,
-                getComicsByGenreMessage: '',
-                getComicsLimitMessage: '',
-                getSingleComicBySlugMessage: '',
-                getSingleComicMessage: '',
                 addComicMessage: '',
                 updateComicMessage: '',
                 deleteComicMessage: '',
                 getComicsByGenreStatus: '',
                 getComicsLimitStatus: '',
+                getComicsStatus: '',
                 getSingleComicStatus: '',
-                getSingleComicBySlugStatus: '',
                 addComicStatus: '',
                 updateComicStatus: '',
                 deleteComicStatus: '',
@@ -531,8 +454,7 @@ export const getComics = createAsyncThunk(GET_COMICS, async (payload, thunkAPI) 
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -545,8 +467,7 @@ export const getComicsLimit = createAsyncThunk(GET_COMICS_LIMIT, async (page, th
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -559,12 +480,11 @@ export const getComicsByGenreLimit = createAsyncThunk(GET_COMICS_BY_GENRE_LIMIT,
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
-export const searchComics = createAsyncThunk(SEARCH_COMIC, async (page, thunkAPI) => {
+export const searchComic = createAsyncThunk(SEARCH_COMIC, async (page, thunkAPI) => {
     try {
         const response = await apiSearchComic(page);
         if (response?.data.err === 0) {
@@ -573,8 +493,7 @@ export const searchComics = createAsyncThunk(SEARCH_COMIC, async (page, thunkAPI
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -587,8 +506,7 @@ export const addComic = createAsyncThunk(ADD_COMIC, async (payload, thunkAPI) =>
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -601,22 +519,7 @@ export const getSingleComic = createAsyncThunk(GET_SINGLE_COMIC, async (id, thun
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
-    }
-});
-
-export const getSingleComicBySlug = createAsyncThunk(GET_SINGLE_COMIC_BY_SLUG, async (slug, thunkAPI) => {
-    try {
-        const response = await apiGetSingleComicBySlug(slug);
-        if (response?.data.err === 0) {
-            return response.data.response;
-        } else {
-            return thunkAPI.rejectWithValue(response.data.msg);
-        }
-    } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -629,8 +532,7 @@ export const updateComic = createAsyncThunk(UPDATE_COMIC, async (payload, thunkA
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -641,8 +543,7 @@ export const deleteComic = createAsyncThunk(DELETE_COMIC, async (id, thunkAPI) =
             return response.data.response;
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 

@@ -9,7 +9,11 @@ function Title({ leftIcon, rigthIcon, borderBottom = false, uppercase = false, c
     }
     return (
         <h2 className={classNames}>
-            {leftIcon} <span>{children}</span> {rigthIcon}
+            <span className="title">
+                {leftIcon}
+                <span className="text">{children}</span>
+                {rigthIcon}
+            </span>
         </h2>
     );
 }

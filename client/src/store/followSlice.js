@@ -21,179 +21,143 @@ export const followSlice = createSlice({
         followers: 0,
         followCount: 0,
         followLimit: 0,
-        getFollowingComicsMessage: '',
-        addFollowingComicMessage: '',
-        deleteFollowingComicMessage: '',
         getFollowingComicsStatus: '',
         addFollowingComicStatus: '',
         deleteFollowingComicStatus: '',
-        getFollowingComicsByIdsMessage: '',
         getFollowingComicsByIdsStatus: '',
+        getCountFollowStatus: '',
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(getFollowingComics.pending, (state, action) => ({
                 ...state,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: 'pending',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: '',
             }))
             .addCase(getFollowingComics.fulfilled, (state, action) => ({
                 ...state,
                 followingComics: action.payload?.rows,
                 followCount: action.payload?.count,
                 followLimit: action.payload?.limit,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: 'success',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: '',
             }))
             .addCase(getFollowingComics.rejected, (state, action) => ({
                 ...state,
-                getFollowingComicsMessage: action.payload,
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: 'rejected',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: '',
             }))
             .addCase(addFollowingComic.pending, (state, action) => ({
                 ...state,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: 'pending',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: '',
             }))
             .addCase(addFollowingComic.fulfilled, (state, action) => ({
                 ...state,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: 'success',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: '',
             }))
             .addCase(addFollowingComic.rejected, (state, action) => ({
                 ...state,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: action.payload,
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: 'rejected',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: '',
             }))
             .addCase(deleteFollowingComic.pending, (state, action) => ({
                 ...state,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: 'pending',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: '',
             }))
             .addCase(deleteFollowingComic.fulfilled, (state, action) => ({
                 ...state,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: 'success',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: '',
             }))
             .addCase(deleteFollowingComic.rejected, (state, action) => ({
                 ...state,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: action.payload,
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: 'rejected',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: '',
+            }))
+            .addCase(getCountFollow.pending, (state, action) => ({
+                ...state,
+                followers: action.payload,
+                getFollowingComicsStatus: '',
+                addFollowingComicStatus: '',
+                deleteFollowingComicStatus: '',
+                getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: 'pending',
             }))
             .addCase(getCountFollow.fulfilled, (state, action) => ({
                 ...state,
                 followers: action.payload,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: 'success',
             }))
             .addCase(getCountFollow.rejected, (state, action) => ({
                 ...state,
                 followers: 0,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: action.payload,
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: '',
+                getCountFollowStatus: 'rejected',
             }))
             .addCase(getFollowingComicsByComicIds.pending, (state, action) => ({
                 ...state,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: 'pending',
+                getCountFollowStatus: '',
             }))
             .addCase(getFollowingComicsByComicIds.fulfilled, (state, action) => ({
                 ...state,
                 followingComics: action.payload?.rows,
                 followCount: action.payload?.count,
                 followLimit: action.payload?.limit,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: '',
                 getFollowingComicsByIdsStatus: 'success',
+                getCountFollowStatus: '',
             }))
             .addCase(getFollowingComicsByComicIds.rejected, (state, action) => ({
                 ...state,
-                getFollowingComicsMessage: '',
-                addFollowingComicMessage: '',
-                deleteFollowingComicMessage: '',
                 getFollowingComicsStatus: '',
                 addFollowingComicStatus: '',
                 deleteFollowingComicStatus: '',
-                getFollowingComicsByIdsMessage: action.payload,
                 getFollowingComicsByIdsStatus: 'rejected',
+                getCountFollowStatus: '',
             }));
     },
 });
@@ -207,7 +171,7 @@ export const getFollowingComics = createAsyncThunk(GET_FOLLOWING_COMICS, async (
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -220,20 +184,20 @@ export const getFollowingComicsByComicIds = createAsyncThunk(GET_FOLLOWING_COMIC
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
-export const getCountFollow = createAsyncThunk(GET_COUNT_FOLLOW, async (slug, thunkAPI) => {
+export const getCountFollow = createAsyncThunk(GET_COUNT_FOLLOW, async (id, thunkAPI) => {
     try {
-        const response = await apiGetCountFollow(slug);
+        const response = await apiGetCountFollow(id);
         if (response?.data.err === 0) {
             return response.data.response;
         } else {
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -246,7 +210,7 @@ export const addFollowingComic = createAsyncThunk(ADD_FOLLOWING_COMIC, async (pa
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -257,7 +221,7 @@ export const deleteFollowingComic = createAsyncThunk(DELETE_FOLLOWING_COMIC, asy
             return response.data.response;
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 

@@ -45,6 +45,10 @@ function ComicManagerAdd() {
     const [genreOptions, setGenreOptions] = useState([]);
 
     useEffect(() => {
+        document.title = 'Thêm Truyện | NetComics';
+    }, []);
+
+    useEffect(() => {
         dispatch(getAuthors());
         dispatch(getGenres());
     }, [dispatch]);

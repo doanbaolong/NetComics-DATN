@@ -8,7 +8,7 @@ function ToTopButton() {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY >= 200) {
+            if (window.scrollY >= 150) {
                 setShowGoToTop(true);
             } else {
                 setShowGoToTop(false);

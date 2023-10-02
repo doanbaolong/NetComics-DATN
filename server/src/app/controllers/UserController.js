@@ -31,11 +31,13 @@ const updateUser = async (req, res) => {
       email,
       userName,
       address,
-      gender,
       avatar: req.file
         ? "/uploads/avatars/" + req.file.filename
         : req.body.avatar || null,
     };
+    if (gender !== -1) {
+      info.gender = gender;
+    }
     const response = await userServices.updateUserService(info, id);
     return res.status(200).json(response);
   } catch (error) {

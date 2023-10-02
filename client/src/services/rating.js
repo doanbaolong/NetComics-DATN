@@ -13,3 +13,17 @@ export const apiAddRatingComic = (rating, userId, comicId) =>
             reject(error);
         }
     });
+
+export const apiGetRatings = (comicId, query) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await instance({
+                method: 'GET',
+                url: `/api/notify/${comicId}`,
+                params: query,
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });

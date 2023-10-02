@@ -1,10 +1,13 @@
+@import '../../../components/GlobalStyles/breakpoints.scss';
+
 .adm-main {
     .main-container {
-        padding: 20px;
+        // padding: 20px;
         position: relative;
         left: 260px;
         top: 70px;
-        background-color: #e4e9f7;
+        // background-color: #e4e9f7;
+        background-color: #fff;
         min-height: calc(100vh - 70px);
         width: calc(100% - 260px);
         transition: all 0.4s ease;
@@ -16,5 +19,10 @@
     .main-container {
         left: 80px;
         width: calc(100% - 80px);
+
+        @include breakpoint(md) {
+            left: 0;
+            width: 100%;
+        }
     }
 }

@@ -25,9 +25,10 @@ import Chapter from '~/pages/Chapter';
 const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.homePage, to: config.routes.home },
-    { path: '*', component: NotFound },
     { path: config.routes.follow, component: Following },
+    { path: config.routes.followAccount, component: Following },
     { path: config.routes.history, component: History },
+    { path: config.routes.historyAccount, component: History },
     { path: config.routes.genresBySlug, component: Genres },
     { path: config.routes.searchComic, component: Search },
     { path: config.routes.searchResult, component: SearchResult },
@@ -36,10 +37,11 @@ const publicRoutes = [
     { path: config.routes.logIn, component: Login, layout: null },
     { path: config.routes.signUp, component: Login, layout: null },
     { path: config.routes.adminLogin, component: AdmLogin, layout: null },
+    { path: config.routes.verifyEmail, component: VerifyEmail, layout: null },
+    { path: '*', component: NotFound },
 ];
 
 const privateUserRoutes = [
-    { path: config.routes.verifyEmail, component: VerifyEmail, layout: null },
     { path: config.routes.profile, component: Profile },
     { path: config.routes.profileEdit, component: Profile },
     { path: config.routes.profileChangePassword, component: Profile },
@@ -66,6 +68,7 @@ const privateAdminRoutes = [
 
     { path: config.routes.chapterManagerAddById, component: ChapterManagerAdd, layout: AdRootLayout },
     { path: config.routes.chapterManagerEditById, component: ChapterManagerEdit, layout: AdRootLayout },
+    { path: '*', component: NotFound, layout: AdRootLayout },
 ];
 
 export { publicRoutes, privateUserRoutes, privateAdminRoutes };

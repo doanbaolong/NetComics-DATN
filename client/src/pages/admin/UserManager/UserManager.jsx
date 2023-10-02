@@ -8,6 +8,7 @@ import { userSelector } from '~/store/selector';
 import { getUsers, lockUser } from '~/store/userSlice';
 import { toastSuccess } from '~/util/toastify';
 import noAvatar from '~/assets/images/no-avatar-1.png';
+import './UserManager.scss';
 
 function UserManager() {
     const breadcrumb = [
@@ -22,6 +23,10 @@ function UserManager() {
     const { users, lockUserStatus } = useSelector(userSelector);
 
     const [statusMessage, setStatusMessage] = useState('');
+
+    useEffect(() => {
+        document.title = 'Danh Sách Người Dùng | NetComics';
+    }, []);
 
     useEffect(() => {
         dispatch(getUsers());
@@ -65,7 +70,7 @@ function UserManager() {
                         {users.map((user, index) => (
                             <tr key={user.id}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{user.fullName}</td>
+                                <td className="fullname">{user.fullName}</td>
                                 <td>
                                     <img
                                         src={user.avatar ? process.env.REACT_APP_SERVER_URL + user.avatar : noAvatar}
@@ -73,10 +78,10 @@ function UserManager() {
                                         className="avatar"
                                     />
                                 </td>
-                                <td>{user.email}</td>
-                                <td>{user.userName}</td>
-                                <td>{user.address}</td>
-                                <td>
+                                <td className="email">{user.email}</td>
+                                <td className="username">{user.userName}</td>
+                                <td className="address">{user.address}</td>
+                                <td className="actions">
                                     {user.status === 'active' ? (
                                         <>
                                             <button

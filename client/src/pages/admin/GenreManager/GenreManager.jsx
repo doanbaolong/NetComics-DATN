@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { toastSuccess } from '~/util/toastify';
-import { deleteGenre, getGenres } from '~/store/genreSlice';
+import { deleteGenre, genreSlice, getGenres } from '~/store/genreSlice';
 import { genreSelector } from '~/store/selector';
 import routes from '~/config/routes';
 import Modal from '~/components/Modal';
 import Breadcrumb from '~/components/Breadcrumb';
+import './GenreManager.scss';
 
 function GenreManager() {
     const breadcrumb = [
@@ -18,6 +19,10 @@ function GenreManager() {
 
     const dispatch = useDispatch();
     const { genres, deleteGenreStatus } = useSelector(genreSelector);
+
+    useEffect(() => {
+        document.title = 'Danh Sách Thể Loại | NetComics';
+    }, []);
 
     useEffect(() => {
         dispatch(getGenres());
@@ -31,6 +36,7 @@ function GenreManager() {
         if (deleteGenreStatus === 'success') {
             toastSuccess('Xóa thể loại thành công');
             dispatch(getGenres());
+            dispatch(genreSlice.actions.reset());
         }
     }, [deleteGenreStatus, dispatch]);
 
@@ -42,7 +48,7 @@ function GenreManager() {
                 Thêm thể loại
             </Link>
             <div className="table-responsive mt-3">
-                <table className="table table-striped table-hover table-responsive">
+                <table className="table table-striped table-hover">
                     <thead className="table-info">
                         <tr>
                             <th>#</th>
@@ -55,9 +61,9 @@ function GenreManager() {
                         {genres.map((genre, index) => (
                             <tr key={genre.id}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{genre.name}</td>
-                                <td>{genre.description}</td>
-                                <td>
+                                <td className="name">{genre.name}</td>
+                                <td className="description">{genre.description}</td>
+                                <td className="actions">
                                     <div className="d-flex align-items-center">
                                         <Link
                                             to={`${routes.genresManager}/sua/${genre.id}`}
@@ -73,6 +79,7 @@ function GenreManager() {
                                             closeText="Hủy"
                                             confirmText="Xóa"
                                             onConfirmClick={() => handleDeleteGenre(genre.id)}
+                                            loading={deleteGenreStatus === 'pending'}
                                         />
                                     </div>
                                 </td>

@@ -13,11 +13,11 @@ function Footer() {
                         </Link>
 
                         <div className="row mt-4 footer-link">
-                            <div className="col-6">
-                                <Link to="">Về NetComics</Link>
+                            <div className="col-6 mb-2">
+                                <Link to="/">Về NetComics</Link>
                             </div>
-                            <div className="col-6">
-                                <Link to="">Chính sách bảo mật</Link>
+                            <div className="col-6 mb-2">
+                                <Link to="/">Chính sách bảo mật</Link>
                             </div>
                         </div>
                     </div>

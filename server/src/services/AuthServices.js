@@ -60,7 +60,7 @@ const signUpService = async ({ fullName, email, userName, password }) => {
                 role: "user",
               },
               process.env.SECRET_KEY,
-              { expiresIn: "2d" }
+              { expiresIn: "7d" }
             );
           resolve({
             err: 0,
@@ -104,7 +104,7 @@ const logInService = async ({ userName, password }) => {
             role: "user",
           },
           process.env.SECRET_KEY,
-          { expiresIn: "2d" }
+          { expiresIn: "7d" }
         );
 
       resolve({
@@ -176,7 +176,7 @@ const verifyEmailService = async (emailToken) => {
             role: "user",
           },
           process.env.SECRET_KEY,
-          { expiresIn: "2d" }
+          { expiresIn: "7d" }
         );
         resolve({
           err: 0,

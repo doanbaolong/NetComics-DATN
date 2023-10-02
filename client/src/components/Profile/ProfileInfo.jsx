@@ -23,23 +23,23 @@ function ProfileInfo({ info }) {
 
             <div className="info-detail">
                 <div className="row">
-                    <div className="col-2 title">Họ tên:</div>
-                    <div className="col-10">{info?.fullName}</div>
+                    <div className="col-12 col-lg-2 title">Họ tên:</div>
+                    <div className="col-12 col-lg-10">{info?.fullName}</div>
                 </div>
                 <div className="row">
-                    <div className="col-2 title">Email:</div>
-                    <div className="col-10">{info?.email}</div>
+                    <div className="col-12 col-lg-2 title">Email:</div>
+                    <div className="col-12 col-lg-10">{info?.email}</div>
                 </div>
                 {info?.address && (
                     <div className="row">
-                        <div className="col-2 title">Địa chỉ:</div>
-                        <div className="col-10">{info?.address}</div>
+                        <div className="col-12 col-lg-2 title">Địa chỉ:</div>
+                        <div className="col-12 col-lg-10">{info?.address}</div>
                     </div>
                 )}
                 {(info?.gender === 1 || info?.gender === 0) && (
                     <div className="row">
-                        <div className="col-2 title">Giới tính:</div>
-                        <div className="col-10">{info?.gender === 1 ? 'Nam' : 'Nữ'}</div>
+                        <div className="col-12 col-lg-2 title">Giới tính:</div>
+                        <div className="col-12 col-lg-10">{info?.gender === 1 ? 'Nam' : 'Nữ'}</div>
                     </div>
                 )}
             </div>

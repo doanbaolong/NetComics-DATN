@@ -1,8 +1,12 @@
 import { memo } from 'react';
 
-function Modal({ buttonText, id, title, body, btnColor = 'danger', closeText, confirmText, onConfirmClick }) {
+function Modal({ buttonText, id, title, body, btnColor = 'danger', closeText, confirmText, loading, onConfirmClick }) {
+    const handleOnClick = (e) => {
+        e.stopPropagation();
+    };
+
     return (
-        <div>
+        <div onClick={handleOnClick}>
             <button type="button" className={'btn btn-' + btnColor} data-bs-toggle="modal" data-bs-target={`#${id}`}>
                 {buttonText}
             </button>
@@ -23,16 +27,22 @@ function Modal({ buttonText, id, title, body, btnColor = 'danger', closeText, co
                         </div>
                         <div className="modal-body">{body || 'Are you sure you want to save?'}</div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-info" data-bs-dismiss="modal">
-                                {closeText || 'Close'}
-                            </button>
                             <button
                                 type="button"
                                 className={'btn btn-' + btnColor}
                                 data-bs-dismiss="modal"
                                 onClick={onConfirmClick}
                             >
-                                {confirmText || 'Save'}
+                                {loading ? (
+                                    <div className="spinner-border text-white" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>
+                                ) : (
+                                    confirmText || 'Save'
+                                )}
+                            </button>
+                            <button type="button" className="btn btn-info" data-bs-dismiss="modal">
+                                {closeText || 'Close'}
                             </button>
                         </div>
                     </div>

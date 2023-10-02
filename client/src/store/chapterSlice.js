@@ -7,8 +7,6 @@ export const chapterSlice = createSlice({
     initialState: {
         chapters: [],
         chapter: {},
-        getChaptersMessage: '',
-        getSingleChapterMessage: '',
         addChapterMessage: '',
         updateChapterMessage: '',
         deleteChapterMessage: '',
@@ -21,8 +19,8 @@ export const chapterSlice = createSlice({
     reducers: {
         reset: (state, action) => ({
             ...state,
-            getChaptersMessage: '',
-            getSingleChapterMessage: '',
+            chapters: [],
+            chapter: {},
             addChapterMessage: '',
             updateChapterMessage: '',
             deleteChapterMessage: '',
@@ -37,8 +35,6 @@ export const chapterSlice = createSlice({
         builder
             .addCase(getChapters.pending, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -51,8 +47,6 @@ export const chapterSlice = createSlice({
             .addCase(getChapters.fulfilled, (state, action) => ({
                 ...state,
                 chapters: action.payload,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -64,8 +58,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(getChapters.rejected, (state, action) => ({
                 ...state,
-                getChaptersMessage: action.payload,
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -77,8 +69,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(addChapter.pending, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -92,8 +82,6 @@ export const chapterSlice = createSlice({
                 ...state,
                 chapters: [action.payload, ...state.chapters],
                 chapter: action.payload,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -105,8 +93,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(addChapter.rejected, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: action.payload,
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -118,8 +104,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(getSingleChapter.pending, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -132,8 +116,6 @@ export const chapterSlice = createSlice({
             .addCase(getSingleChapter.fulfilled, (state, action) => ({
                 ...state,
                 chapter: action.payload,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -145,8 +127,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(getSingleChapter.rejected, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: action.payload,
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -158,8 +138,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(updateChapter.pending, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -171,8 +149,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(updateChapter.fulfilled, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -184,8 +160,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(updateChapter.rejected, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: action.payload,
                 deleteChapterMessage: '',
@@ -197,8 +171,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(deleteChapter.pending, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -210,8 +182,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(deleteChapter.fulfilled, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: '',
@@ -223,8 +193,6 @@ export const chapterSlice = createSlice({
             }))
             .addCase(deleteChapter.rejected, (state, action) => ({
                 ...state,
-                getChaptersMessage: '',
-                getSingleChapterMessage: '',
                 addChapterMessage: '',
                 updateChapterMessage: '',
                 deleteChapterMessage: action.payload,
@@ -246,8 +214,7 @@ export const getChapters = createAsyncThunk(GET_CHAPTERS, async (payload, thunkA
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -260,8 +227,7 @@ export const addChapter = createAsyncThunk(ADD_CHAPTER, async (payload, thunkAPI
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -274,8 +240,7 @@ export const getSingleChapter = createAsyncThunk(GET_SINGLE_CHAPTER, async (id, 
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -288,8 +253,7 @@ export const updateChapter = createAsyncThunk(UPDATE_CHAPTER, async (payload, th
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -300,8 +264,7 @@ export const deleteChapter = createAsyncThunk(DELETE_CHAPTER, async (id, thunkAP
             return response.data.response;
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 

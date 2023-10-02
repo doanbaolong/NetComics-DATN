@@ -13,8 +13,6 @@ export const authorSlice = createSlice({
     initialState: {
         authors: [],
         author: {},
-        getAuthorsMessage: '',
-        getSingleAuthorMessage: '',
         addAuthorMessage: '',
         updateAuthorMessage: '',
         deleteAuthorMessage: '',
@@ -24,13 +22,23 @@ export const authorSlice = createSlice({
         updateAuthorStatus: '',
         deleteAuthorStatus: '',
     },
-    reducers: {},
+    reducers: {
+        reset: (state, action) => ({
+            ...state,
+            addAuthorMessage: '',
+            updateAuthorMessage: '',
+            deleteAuthorMessage: '',
+            getAuthorsStatus: '',
+            getSingleAuthorStatus: '',
+            addAuthorStatus: '',
+            updateAuthorStatus: '',
+            deleteAuthorStatus: '',
+        }),
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getAuthors.pending, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -43,8 +51,6 @@ export const authorSlice = createSlice({
             .addCase(getAuthors.fulfilled, (state, action) => ({
                 ...state,
                 authors: action.payload,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -56,8 +62,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(getAuthors.rejected, (state, action) => ({
                 ...state,
-                getAuthorsMessage: action.payload,
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -69,8 +73,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(addAuthor.pending, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -83,8 +85,6 @@ export const authorSlice = createSlice({
             .addCase(addAuthor.fulfilled, (state, action) => ({
                 ...state,
                 authors: [action.payload, ...state.authors],
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -96,8 +96,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(addAuthor.rejected, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: action.payload,
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -109,8 +107,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(getSingleAuthor.pending, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -123,8 +119,6 @@ export const authorSlice = createSlice({
             .addCase(getSingleAuthor.fulfilled, (state, action) => ({
                 ...state,
                 author: action.payload,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -136,8 +130,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(getSingleAuthor.rejected, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: action.payload,
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -149,8 +141,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(updateAuthor.pending, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -162,8 +152,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(updateAuthor.fulfilled, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -175,8 +163,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(updateAuthor.rejected, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: action.payload,
                 deleteAuthorMessage: '',
@@ -188,8 +174,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(deleteAuthor.pending, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -201,8 +185,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(deleteAuthor.fulfilled, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: '',
@@ -210,8 +192,6 @@ export const authorSlice = createSlice({
             }))
             .addCase(deleteAuthor.rejected, (state, action) => ({
                 ...state,
-                getAuthorsMessage: '',
-                getSingleAuthorMessage: '',
                 addAuthorMessage: '',
                 updateAuthorMessage: '',
                 deleteAuthorMessage: action.payload,
@@ -233,7 +213,7 @@ export const getAuthors = createAsyncThunk(GET_AUTHORS, async (payload, thunkAPI
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -246,7 +226,7 @@ export const addAuthor = createAsyncThunk(ADD_AUTHOR, async (payload, thunkAPI) 
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -259,7 +239,7 @@ export const getSingleAuthor = createAsyncThunk(GET_SINGLE_AUTHOR, async (id, th
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -272,7 +252,7 @@ export const updateAuthor = createAsyncThunk(UPDATE_AUTHOR, async (payload, thun
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -283,7 +263,7 @@ export const deleteAuthor = createAsyncThunk(DELETE_AUTHOR, async (id, thunkAPI)
             return response.data.response;
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 

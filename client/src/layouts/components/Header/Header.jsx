@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { FiSun } from 'react-icons/fi';
 import { HiMenu } from 'react-icons/hi';
 import { BsMoonStars } from 'react-icons/bs';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -20,14 +20,21 @@ import config from '~/config';
 import noAvatar from '~/assets/images/no-avatar-5.png';
 import Navbar from '../Navbar';
 import Notification from '../Notification';
+import { useWindowSize } from '~/hooks';
 
 function Header() {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const { chapterSlug } = useParams();
 
     const { isLoggedIn, currentUser } = useSelector(authSelector);
 
     const [isShowMobileNavbar, setShowMobileNavbar] = useState(false);
     const [theme, setTheme] = useState(localStorage.getItem('dark-theme') ? 'dark' : 'light');
+
+    const headerRef = useRef();
+
+    const windowSize = useWindowSize();
 
     useEffect(() => {
         if (isShowMobileNavbar) {
@@ -45,6 +52,28 @@ function Header() {
         setShowMobileNavbar(!isShowMobileNavbar);
     };
 
+    useEffect(() => {
+        setShowMobileNavbar(false);
+    }, [location]);
+
+    useEffect(() => {
+        if (windowSize.innerWidth > 992) {
+            setShowMobileNavbar(false);
+        }
+    }, [windowSize.innerWidth]);
+
+    useEffect(() => {
+        if (windowSize.innerWidth <= 992) {
+            if (chapterSlug) {
+                headerRef?.current?.classList.remove('sticky');
+            } else {
+                headerRef?.current?.classList.add('sticky');
+            }
+        } else {
+            headerRef?.current?.classList.remove('sticky');
+        }
+    }, [chapterSlug, windowSize.innerWidth]);
+
     const handleToggleTheme = () => {
         if (theme === 'dark') {
             localStorage.removeItem('dark-theme');
@@ -55,26 +84,30 @@ function Header() {
         }
     };
 
+    const handleLogout = () => {
+        dispatch(authSlide.actions.logOut());
+    };
+
     return (
         <>
-            <header className="header">
+            <header ref={headerRef} className="header">
                 <nav className="p-0 navbar navbar-expand">
                     <div className="d-flex align-items-center container">
-                        <Link to="/" className="d-flex align-items-center me-auto navbar-brand">
+                        <Link to={config.routes.home} className="d-flex align-items-center me-auto navbar-brand">
                             <img src={favicon} alt="NetComics" className="img-fluid img-logo" />
-                            <img src={logo} alt="NetComics" className="img-fluid img-logo" />
+                            <img src={logo} alt="NetComics" className="img-fluid img-logo img-logo-name" />
                         </Link>
 
                         <Search />
 
-                        <div className="d-flex align-items-center gap-4 ms-auto navbar-nav">
-                            <button className="toggle-nav" onClick={handleToggleNavbar}>
+                        <div className="d-flex align-items-center ms-auto navbar-nav">
+                            <button className="toggle-nav ms-4" onClick={handleToggleNavbar}>
                                 <HiMenu />
                             </button>
 
                             <HeaderButton
                                 icon={theme === 'dark' ? <FiSun /> : <BsMoonStars />}
-                                tooltipTitle="Đổi theme"
+                                tooltipTitle={theme === 'dark' ? 'Sáng' : 'Tối'}
                                 onClick={handleToggleTheme}
                             />
 
@@ -83,7 +116,7 @@ function Header() {
                             <div className="nav-item dropdown">
                                 <Tippy content="Tài khoản">
                                     <Link
-                                        className="nav-link dropdown-toggle"
+                                        className="nav-link dropdown-toggle ms-4"
                                         id="navbarDropdown"
                                         role="button"
                                         data-bs-toggle="dropdown"
@@ -121,7 +154,8 @@ function Header() {
                                             </Link>
                                             <Link
                                                 className="dropdown-item"
-                                                onClick={() => dispatch(authSlide.actions.logOut())}
+                                                to={config.routes.home}
+                                                onClick={handleLogout}
                                             >
                                                 Đăng xuất
                                             </Link>

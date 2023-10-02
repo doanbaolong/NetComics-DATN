@@ -31,6 +31,26 @@ const addRating = async (req, res) => {
   }
 };
 
+const getRatings = async (req, res) => {
+  try {
+    const { type, page, limit } = req.query;
+    const comicId = req.params.comicId;
+    const response = await ratingServices.getRatingsService(
+      comicId,
+      page,
+      limit,
+      type
+    );
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({
+      err: -1,
+      msg: "Failed at rating controller: " + error,
+    });
+  }
+};
+
 module.exports = {
   addRating,
+  getRatings,
 };

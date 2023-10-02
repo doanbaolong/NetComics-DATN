@@ -1,20 +1,17 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useContext, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import './StarRating.scss';
-import { toastSuccess } from '~/util/toastify';
 import { authSelector, comicSelector } from '~/store/selector';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getSingleComicBySlug } from '~/store/comicSlice';
-import { apiAddRatingComic } from '~/services/rating';
+import { useSelector } from 'react-redux';
 import Stars from './Stars';
+import { DataContext } from '~/context/GlobalState';
 
-function StarRating() {
-    const { slug } = useParams();
-    const dispatch = useDispatch();
-
+function StarRating({ currentUserRating }) {
     const { currentUser } = useSelector(authSelector);
     const { comic } = useSelector(comicSelector);
+
+    const state = useContext(DataContext);
+    const socket = state.socket;
 
     const [rating, setRating] = useState(-1);
     const [hover, setHover] = useState(-1);
@@ -26,15 +23,12 @@ function StarRating() {
     const [ratingText, setRatingText] = useState('');
 
     useEffect(() => {
-        if (currentUser && comic?.Ratings) {
-            const find = comic.Ratings.find((item) => item.userId === currentUser?.id);
-            if (find) {
-                setCurrentRating(find?.rating);
-                setCurrentContent(find?.content);
-                setCurrentRatingTime(find?.createdAt);
-            }
+        if (currentUserRating) {
+            setCurrentRating(currentUserRating?.rating);
+            setCurrentContent(currentUserRating?.content);
+            setCurrentRatingTime(currentUserRating?.createdAt);
         }
-    }, [comic?.Ratings, currentUser]);
+    }, [currentUserRating]);
 
     useEffect(() => {
         if (currentRating > 0) {
@@ -44,14 +38,12 @@ function StarRating() {
         }
     }, [currentRating]);
 
+    //Real time
+
     const handleRating = async (rating, userId, comicId) => {
         if (rating && userId && comicId) {
             if (currentRating <= 0) {
-                const response = await apiAddRatingComic(rating, userId, comicId);
-                if (response?.data.err === 0) {
-                    toastSuccess('Đánh giá thành công', 'bottom-right');
-                    dispatch(getSingleComicBySlug(slug));
-                }
+                socket?.emit('rating:create', { rating, userId, comicId });
             }
         }
     };
@@ -88,7 +80,7 @@ function StarRating() {
                             value={ratingText}
                             onChange={handleChange}
                         ></textarea>
-                        <button className="btn btn-success">Đánh giá</button>
+                        <button className="btn btn-success rating-btn">Đánh giá</button>
                     </>
                 )}
             </form>

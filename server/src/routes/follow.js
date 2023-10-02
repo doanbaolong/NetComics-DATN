@@ -5,7 +5,7 @@ const followController = require("../app/controllers/FollowController");
 
 router.get("/ids", followController.getFollowingComicByComicIds);
 router.get("/:userId", followController.getFollowingComic);
-router.get("/count/:slug", followController.getCountFollow);
+router.get("/count/:id", followController.getCountFollow);
 router.post("/:userId/:comicId", followController.addFollowingComic);
 router.post(
   "/check-following/:userId/:comicId",

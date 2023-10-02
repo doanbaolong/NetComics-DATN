@@ -24,6 +24,10 @@ function Login() {
     const [error, setError] = useState('');
 
     useEffect(() => {
+        document.title = 'Đăng nhập Admin | NetComics';
+    }, []);
+
+    useEffect(() => {
         message && setError(message);
     }, [message]);
 

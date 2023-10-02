@@ -28,12 +28,13 @@ export const apiGetHistoryComicsByComicIds = (query) =>
         }
     });
 
-export const apiAddHistoryComic = (userId, comicId) =>
+export const apiAddHistoryComic = (userId, comicId, chapterIds, chapterId) =>
     new Promise(async (resolve, reject) => {
         try {
             const response = await instance({
                 method: 'POST',
                 url: `/api/history/${userId}/${comicId}`,
+                params: { chapterIds, chapterId },
             });
             resolve(response);
         } catch (error) {

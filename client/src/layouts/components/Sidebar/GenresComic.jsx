@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SideWrapper from '~/components/SideWrapper';
@@ -9,7 +10,7 @@ function GenresComic() {
     const { genres } = useSelector(genreSelector);
 
     return (
-        <SideWrapper title="Thể loại">
+        <SideWrapper title="Thể loại" hide>
             <div className="genre-nav">
                 <div className="genres d-flex flex-wrap">
                     <div className="genre-item w-100">
@@ -36,4 +37,4 @@ function GenresComic() {
     );
 }
 
-export default GenresComic;
+export default memo(GenresComic);

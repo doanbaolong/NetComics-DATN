@@ -5,35 +5,39 @@
 
         li {
             display: inline-block;
-            color: var(--primary-color);
-            min-width: 140px;
-            padding: 5px 10px;
-            position: relative;
-            opacity: 0.8;
-            transition: all 0.2s ease;
-            cursor: pointer;
 
-            &:hover {
-                background-color: rgb(35, 35, 243, 0.1);
-                border-top-right-radius: 4px;
-                border-top-left-radius: 4px;
-                opacity: 1;
-            }
+            a {
+                display: inline-block;
+                color: var(--primary-color);
+                min-width: 140px;
+                padding: 5px 10px;
+                position: relative;
+                opacity: 0.8;
+                transition: all 0.2s ease;
+                cursor: pointer;
 
-            &.active {
-                font-weight: bold;
-                opacity: 1;
-            }
+                &:hover {
+                    background-color: rgb(35, 35, 243, 0.1);
+                    border-top-right-radius: 4px;
+                    border-top-left-radius: 4px;
+                    opacity: 1;
+                }
 
-            &.active::after {
-                content: '';
-                position: absolute;
-                bottom: -2px;
-                left: 0;
-                right: 0;
-                height: 4px;
-                background-color: var(--primary-color);
-                z-index: 99;
+                &.active {
+                    font-weight: bold;
+                    opacity: 1;
+                }
+
+                &.active::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -2px;
+                    left: 0;
+                    right: 0;
+                    height: 4px;
+                    background-color: var(--primary-color);
+                    z-index: 99;
+                }
             }
         }
     }

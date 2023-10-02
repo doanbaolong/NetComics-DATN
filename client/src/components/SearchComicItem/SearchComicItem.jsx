@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './SearchComicItem.scss';
 import noImage from '~/assets/images/no-image.jpg';
 import routes from '~/config/routes';
@@ -6,11 +8,12 @@ import routes from '~/config/routes';
 function SearchComicItem({ data }) {
     return (
         <div className="search-comic">
-            <Link to={`${routes.comic}${data?.slug}`} className="search-comic-link">
-                <img
+            <Link to={`${routes.comic}${data?.slug}-${data?.id}`} className="search-comic-link">
+                <LazyLoadImage
                     src={data?.image ? process.env.REACT_APP_SERVER_URL + data?.image : noImage}
                     alt={data?.name}
                     className="comic-img"
+                    effect="opacity"
                 />
                 <div className="info">
                     <h3 className="name">{data?.name} </h3>

@@ -6,8 +6,9 @@ import { authSelector } from '~/store/selector';
 import noAvatar from '~/assets/images/no-avatar-2.jpg';
 import routes from '~/config/routes';
 import { authSlide } from '~/store/authSlice';
+import { TbMenu2 } from 'react-icons/tb';
 
-function Navbar() {
+function Navbar({ isOpen, onCloseSidebar }) {
     const dispatch = useDispatch();
     const { currentAdmin } = useSelector(authSelector);
 
@@ -17,7 +18,10 @@ function Navbar() {
                 <div className="container-fluid">
                     <ul className="nav-bar d-flex align-items-center justify-content-between">
                         <li className="nav-item nav-title">
-                            <span>Trang chủ</span>
+                            <button className={'sidebar-toggler' + (isOpen ? ' open' : '')} onClick={onCloseSidebar}>
+                                <TbMenu2 />
+                            </button>
+                            <span>NetComics</span>
                         </li>
                         <li className="nav-item dropdown">
                             <Link

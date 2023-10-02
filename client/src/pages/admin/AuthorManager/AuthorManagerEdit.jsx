@@ -23,14 +23,18 @@ function AuthorManagerEdit() {
 
     const dispatch = useDispatch();
     const { id } = useParams();
+    const { author, getSingleAuthorMessage, updateAuthorMessage, updateAuthorStatus } = useSelector(authorSelector);
+
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        document.title = 'Sửa Tác Giả | NetComics';
+    }, []);
 
     useEffect(() => {
         dispatch(getSingleAuthor(id));
     }, [dispatch, id]);
 
-    const { author, getSingleAuthorMessage, updateAuthorMessage, updateAuthorStatus } = useSelector(authorSelector);
-
-    const [error, setError] = useState('');
     useEffect(() => {
         getSingleAuthorMessage ? setError(getSingleAuthorMessage) : setError('');
     }, [getSingleAuthorMessage]);

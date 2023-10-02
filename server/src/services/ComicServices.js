@@ -2,6 +2,7 @@ const db = require("../app/models/index");
 const { Op } = require("sequelize");
 const fs = require("fs");
 const cloudinary = require("../util/cloudinary");
+const redisClient = require("../app/config/redis");
 
 const getComicsService = () => {
   return new Promise(async (resolve, reject) => {
@@ -20,6 +21,11 @@ const getComicsService = () => {
               attributes: ["id", "chapterNumber", "updatedAt"],
               limit: 3,
               order: [["chapterNumber", "DESC"]],
+            },
+            {
+              model: db.User,
+              as: "histories",
+              attributes: ["id"],
             },
           ],
         },
@@ -111,6 +117,11 @@ const getComicsLimitService = (page, limit, query) => {
               limit: 3,
               order: [["chapterNumber", "DESC"]],
             },
+            {
+              model: db.User,
+              as: "histories",
+              attributes: ["id"],
+            },
           ],
           offset: page * +limit || 0,
           limit: +limit,
@@ -174,6 +185,11 @@ const searchComicsService = (page, limit, type, query) => {
               limit: 3,
               order: [["chapterNumber", "DESC"]],
             },
+            {
+              model: db.User,
+              as: "histories",
+              attributes: ["id"],
+            },
           ],
           offset: page * pageLimit || 0,
           limit: pageLimit,
@@ -216,6 +232,11 @@ const getComicsLimitByGenreService = (page, limit, genre) => {
               attributes: ["id", "chapterNumber", "chapterUpdatedAt"],
               limit: 3,
               order: [["chapterNumber", "DESC"]],
+            },
+            {
+              model: db.User,
+              as: "histories",
+              attributes: ["id"],
             },
           ],
           offset: page * +limit || 0,
@@ -320,9 +341,28 @@ const getSingleComicService = (id) => {
         { raw: true },
         { nest: true }
       );
+
+      if (response) {
+        // redisClient.setEx(`comic:${id}`,3600,JSON.stringify({
+        //     err: 0,
+        //     msg: "OK",
+        //     response,
+        //   })
+        // );
+        redisClient.setEx(
+          `comic:${id}`,
+          3600,
+          JSON.stringify({
+            err: 0,
+            msg: "OK",
+            response,
+          })
+        );
+      }
+
       resolve({
         err: response ? 0 : 1,
-        msg: response ? "OK" : "Chapter không tồn tại",
+        msg: response ? "OK" : "Truyện không tồn tại",
         response,
       });
     } catch (error) {
@@ -348,6 +388,7 @@ const getSingleComicBySlugService = (slug) => {
             },
             {
               model: db.Chapter,
+              attributes: { exclude: ["pictureUrls", "cloudIds"] },
             },
             {
               model: db.Rating,
@@ -425,6 +466,7 @@ const updateComicService = (comic, id) => {
               })
           );
         }
+        redisClient.del(`comic:${id}`);
 
         resolve({
           err: 0,
@@ -454,6 +496,7 @@ const deleteComicService = (id) => {
       await db.Chapter.destroy({ where: { comicId: id } });
       await db.Comic_Author.destroy({ where: { comicId: id } });
       await db.Comic_Genre.destroy({ where: { comicId: id } });
+      redisClient.del(`comic:${id}`);
       const response = await db.Comic.destroy({ where: { id: id } });
 
       resolve({

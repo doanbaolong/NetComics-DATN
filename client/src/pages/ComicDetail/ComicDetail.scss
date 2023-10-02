@@ -2,6 +2,7 @@
     .list-chapter {
         .row-heading {
             margin: 12px 0 6px;
+            color: var(--text-color);
         }
 
         .chapters {
@@ -13,6 +14,11 @@
             border-radius: 5px;
             box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.12);
             font-size: 1.4rem;
+            margin-bottom: 15px;
+
+            &.no-chapter {
+                color: var(--text-color);
+            }
 
             /* width */
             &::-webkit-scrollbar {
@@ -54,8 +60,16 @@
 
                 .small-info {
                     font-size: 1.3rem;
-                    color: #c0c0c0;
+                    color: var(--time-color);
                     font-style: italic;
+                }
+
+                .chapter-number.read {
+                    color: var(--time-color);
+
+                    &:hover {
+                        color: var(--primary-color);
+                    }
                 }
             }
         }

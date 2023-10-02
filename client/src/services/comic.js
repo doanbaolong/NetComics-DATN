@@ -81,19 +81,6 @@ export const apiGetSingleComic = (id) =>
         }
     });
 
-export const apiGetSingleComicBySlug = (slug) =>
-    new Promise(async (resolve, reject) => {
-        try {
-            const response = await instance({
-                method: 'GET',
-                url: '/api/comic/slug/' + slug,
-            });
-            resolve(response);
-        } catch (error) {
-            reject(error);
-        }
-    });
-
 export const apiUpdateComic = (comic, id) =>
     new Promise(async (resolve, reject) => {
         try {

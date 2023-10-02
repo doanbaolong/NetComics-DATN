@@ -21,9 +21,6 @@ export const genreSlice = createSlice({
     initialState: {
         genres: [],
         genre: {},
-        getGenresMessage: '',
-        getSingleGenreMessage: '',
-        getSingleGenreBySlugMessage: '',
         addGenreMessage: '',
         updateGenreMessage: '',
         deleteGenreMessage: '',
@@ -34,14 +31,23 @@ export const genreSlice = createSlice({
         updateGenreStatus: '',
         deleteGenreStatus: '',
     },
-    reducers: {},
+    reducers: {
+        reset: (state, action) => ({
+            ...state,
+            addAuthorMessage: '',
+            updateAuthorMessage: '',
+            deleteAuthorMessage: '',
+            getAuthorsStatus: '',
+            getSingleAuthorStatus: '',
+            addAuthorStatus: '',
+            updateAuthorStatus: '',
+            deleteAuthorStatus: '',
+        }),
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getGenres.pending, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -55,9 +61,6 @@ export const genreSlice = createSlice({
             .addCase(getGenres.fulfilled, (state, action) => ({
                 ...state,
                 genres: action.payload,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -70,9 +73,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(getGenres.rejected, (state, action) => ({
                 ...state,
-                getGenresMessage: action.payload,
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -85,9 +85,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(addGenre.pending, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -101,9 +98,6 @@ export const genreSlice = createSlice({
             .addCase(addGenre.fulfilled, (state, action) => ({
                 ...state,
                 genres: [action.payload, ...state.genres],
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -116,9 +110,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(addGenre.rejected, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: action.payload,
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -131,9 +122,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(getSingleGenre.pending, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -147,9 +135,6 @@ export const genreSlice = createSlice({
             .addCase(getSingleGenre.fulfilled, (state, action) => ({
                 ...state,
                 genre: action.payload,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -162,9 +147,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(getSingleGenre.rejected, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: action.payload,
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -177,9 +159,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(getSingleGenreBySlug.pending, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -193,9 +172,6 @@ export const genreSlice = createSlice({
             .addCase(getSingleGenreBySlug.fulfilled, (state, action) => ({
                 ...state,
                 genre: action.payload,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -208,9 +184,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(getSingleGenreBySlug.rejected, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: action.payload,
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -223,9 +196,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(updateGenre.pending, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -238,9 +208,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(updateGenre.fulfilled, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -253,9 +220,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(updateGenre.rejected, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: action.payload,
                 deleteGenreMessage: '',
@@ -268,9 +232,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(deleteGenre.pending, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -283,9 +244,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(deleteGenre.fulfilled, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: '',
@@ -298,9 +256,6 @@ export const genreSlice = createSlice({
             }))
             .addCase(deleteGenre.rejected, (state, action) => ({
                 ...state,
-                getGenresMessage: '',
-                getSingleGenreMessage: '',
-                getSingleGenreBySlugMessage: '',
                 addGenreMessage: '',
                 updateGenreMessage: '',
                 deleteGenreMessage: action.payload,
@@ -323,8 +278,7 @@ export const getGenres = createAsyncThunk(GET_GENRES, async (payload, thunkAPI) 
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -337,8 +291,7 @@ export const addGenre = createAsyncThunk(ADD_GENRE, async (payload, thunkAPI) =>
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -351,8 +304,7 @@ export const getSingleGenre = createAsyncThunk(GET_SINGLE_GENRE, async (id, thun
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -365,8 +317,7 @@ export const getSingleGenreBySlug = createAsyncThunk(GET_SINGLE_GENRE_BY_SLUG, a
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -377,8 +328,7 @@ export const updateGenre = createAsyncThunk(UPDATE_GENRE, async (payload, thunkA
             return response.data.response;
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -389,8 +339,7 @@ export const deleteGenre = createAsyncThunk(DELETE_GENRE, async (id, thunkAPI) =
             return response.data.response;
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 

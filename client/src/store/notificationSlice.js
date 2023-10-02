@@ -20,7 +20,7 @@ export const notificationSlice = createSlice({
             }))
             .addCase(getNotifications.fulfilled, (state, action) => ({
                 ...state,
-                notifications: action.payload?.response,
+                notifications: action.payload?.rows,
                 unread: action.payload?.unread,
                 getNotificationsMessage: '',
                 getNotificationsStatus: 'success',
@@ -35,14 +35,14 @@ export const notificationSlice = createSlice({
 
 export const getNotifications = createAsyncThunk(GET_NOTIFICATION, async (payload, thunkAPI) => {
     try {
-        const response = await apiGetNotifications(payload);
+        const response = await apiGetNotifications(payload.userId, payload.query);
         if (response?.data.err === 0) {
             return response.data.response;
         } else {
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 

@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { TbChevronRight } from 'react-icons/tb';
 import { FcSearch } from 'react-icons/fc';
 import Breadcrumb from '~/components/Breadcrumb';
 import Title from '~/components/Title';
@@ -19,21 +18,21 @@ function SearchResult() {
 
     const { state } = useLocation();
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
 
     const [keyword, setKeyword] = useState(searchParams.get('keyword') || '');
+
+    useEffect(() => {
+        document.title = 'Kết quả tìm kiếm | NetComics';
+    }, []);
 
     useEffect(() => {
         if (state?.keyword) {
             setKeyword(state?.keyword);
         }
-    }, [setSearchParams, state?.keyword]);
+    }, [state?.keyword]);
 
-    useEffect(() => {
-        setSearchParams({ keyword });
-    }, [keyword, setSearchParams]);
-
-    const { count, comics } = useSelector(comicSelector);
+    const { searchCount, searchComics, searchComicStatus } = useSelector(comicSelector);
 
     return (
         <>
@@ -41,21 +40,27 @@ function SearchResult() {
             <div className="main-content">
                 <div className="content">
                     <div className="items">
-                        <Title rigthIcon={<TbChevronRight />}>Kết quả tìm kiếm</Title>
-                        {count > 0 ? (
-                            <div className="search-result-title">
-                                <FcSearch />
-                                <p>
-                                    Tìm thấy <span className="fw-bold">{count}</span> truyện
-                                </p>
-                            </div>
-                        ) : (
-                            <div className="no-result">
-                                <img src={noResult} alt="no-result" />
-                                <p>Không tìm thấy truyện</p>
-                            </div>
-                        )}
-                        <ListComicItem search searchQuery={searchParams.get('keyword')} list={comics} />
+                        <Title>Kết quả tìm kiếm</Title>
+                        {searchComicStatus !== 'pending' &&
+                            (searchCount > 0 ? (
+                                <div className="search-result-title">
+                                    <FcSearch />
+                                    <p>
+                                        Tìm thấy <span className="fw-bold">{searchCount}</span> truyện
+                                    </p>
+                                </div>
+                            ) : (
+                                <div className="no-result">
+                                    <img src={noResult} alt="no-result" />
+                                    <p>Không tìm thấy truyện</p>
+                                </div>
+                            ))}
+                        <ListComicItem
+                            search
+                            searchQuery={keyword}
+                            list={searchComics}
+                            loading={searchComicStatus === 'pending'}
+                        />
                     </div>
                 </div>
             </div>

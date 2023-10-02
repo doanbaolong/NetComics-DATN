@@ -1,5 +1,5 @@
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { formatNormalDate } from '~/util/formatDate';
+import { formatComicDate } from '~/util/formatDate';
 
 function Stars({ setRating, setHover, rating, hover, isRated, currentRatingTime, isAll = false }) {
     const ratingStars = [
@@ -32,7 +32,7 @@ function Stars({ setRating, setHover, rating, hover, isRated, currentRatingTime,
                     </div>
                 </div>
             ))}
-            {isRated && <span className="time-rating">{formatNormalDate(currentRatingTime)}</span>}
+            {isRated && <span className="time-rating">{formatComicDate(currentRatingTime)}</span>}
         </div>
     );
 }

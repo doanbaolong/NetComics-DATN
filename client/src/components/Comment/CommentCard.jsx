@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import noAvatar from '~/assets/images/no-avatar-1.png';
 
-function CommentCard({ inChapter = false, avatar, fullName, content, replyName, children }) {
+function CommentCard({ all, inChapter, avatar, fullName, content, replyName, children }) {
     return (
         <div className="comment-item">
             <div className="d-flex">
@@ -14,9 +14,12 @@ function CommentCard({ inChapter = false, avatar, fullName, content, replyName, 
                 </div>
                 <div className="info">
                     <div className="content">
-                        <p className="name">{fullName}</p>
+                        <p className="name">
+                            {fullName}
+                            {all && !isNaN(inChapter) && <span className="in-chapter ms-4">Chapter {inChapter}</span>}
+                        </p>
                         <p className="comment">
-                            {replyName && <span className="reply-name">{replyName}</span>}
+                            {/* {replyName && <span className="reply-name">{replyName}</span>} */}
                             {content}
                         </p>
                     </div>

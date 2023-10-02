@@ -24,6 +24,11 @@ function AuthorManagerAdd() {
     const { addAuthorMessage, addAuthorStatus } = useSelector(authorSelector);
 
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        document.title = 'Thêm Tác Giả | NetComics';
+    }, []);
+
     useEffect(() => {
         addAuthorMessage ? setError(addAuthorMessage) : setError('');
     }, [addAuthorMessage]);

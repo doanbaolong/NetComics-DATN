@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const userController = require("../app/controllers/UserController");
-const authMiddleware = require("../middlewares/AuthMiddeware");
+const authMiddleware = require("../middlewares/AuthMiddleware");
 
 router.get("/all", userController.getAllUsers);
 router.put("/:id", userController.upload, userController.updateUser);

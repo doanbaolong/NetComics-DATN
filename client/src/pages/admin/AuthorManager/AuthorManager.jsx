@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { toastSuccess } from '~/util/toastify';
-import { deleteAuthor, getAuthors } from '~/store/authorSlice';
+import { authorSlice, deleteAuthor, getAuthors } from '~/store/authorSlice';
 import { authorSelector } from '~/store/selector';
 import routes from '~/config/routes';
 import Modal from '~/components/Modal';
@@ -20,6 +20,10 @@ function AuthorManager() {
     const { authors, deleteAuthorStatus } = useSelector(authorSelector);
 
     useEffect(() => {
+        document.title = 'Danh Sách Tác Giả | NetComics';
+    }, []);
+
+    useEffect(() => {
         dispatch(getAuthors());
     }, [dispatch]);
 
@@ -31,6 +35,7 @@ function AuthorManager() {
         if (deleteAuthorStatus === 'success') {
             toastSuccess('Xóa tác giả thành công');
             dispatch(getAuthors());
+            dispatch(authorSlice.actions.reset());
         }
     }, [deleteAuthorStatus, dispatch]);
     return (
@@ -70,6 +75,7 @@ function AuthorManager() {
                                             closeText="Hủy"
                                             confirmText="Xóa"
                                             onConfirmClick={() => handleDeleteAuthor(author.id)}
+                                            loading={deleteAuthorStatus === 'pending'}
                                         />
                                     </div>
                                 </td>

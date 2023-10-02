@@ -40,8 +40,8 @@ const getFollowingComicByComicIds = async (req, res) => {
 
 const getCountFollow = async (req, res) => {
   try {
-    const slug = req.params.slug;
-    const response = await followServices.getCountFollowService(slug);
+    const id = req.params.id;
+    const response = await followServices.getCountFollowService(id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({

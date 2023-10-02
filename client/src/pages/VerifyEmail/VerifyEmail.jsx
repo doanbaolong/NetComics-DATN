@@ -33,7 +33,6 @@ function VerifyEmail() {
             setError('Xác thực thất bại');
         }
     }, [verifyEmailMessage]);
-    console.log(currentUser);
 
     const handleSendMail = async () => {
         if (!currentUser) {

@@ -12,8 +12,14 @@ import { userSelector } from '~/store/selector';
 import { userSlice, updateUser } from '~/store/userSlice';
 import { getCurrentUser } from '~/store/authSlice';
 import { trimString } from '~/util/trimString';
+import SelectForm from '../Form/SelectForm/SelectForm';
 
 function ProfileForm({ info }) {
+    const genderOptions = [
+        { value: 1, label: 'Nam' },
+        { value: 0, label: 'Nữ' },
+    ];
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -51,10 +57,13 @@ function ProfileForm({ info }) {
 
     const onSubmit = (data) => {
         const formData = new FormData();
-        formData.append('avatar', info?.avatar);
+        formData.append('avatar', info.avatar || '');
+        if (data.gender === null) {
+            data.gender = -1;
+        }
         const dataTrim = trimString(data);
         for (let key in dataTrim) {
-            formData.append(key, dataTrim[key] || '');
+            formData.append(key, dataTrim[key]);
         }
         const payload = { formData, id: info?.id };
         dispatch(updateUser(payload));
@@ -130,14 +139,24 @@ function ProfileForm({ info }) {
                             id={'address'}
                             name={'address'}
                         />
-                        <div className="gender-input">
-                            <InputForm label={'Nam'} type={'radio'} id={'male'} name={'gender'} value={1} />
-                            <InputForm label={'Nữ'} type={'radio'} id={'female'} name={'gender'} value={0} />
-                        </div>
+
+                        <SelectForm
+                            label="Giới tính"
+                            selectName="gender"
+                            placeholder="Chọn giới tính"
+                            options={genderOptions}
+                            defaultValue={genderOptions.find((genderOption) => genderOption.value === info?.gender)}
+                        />
                     </div>
 
                     <button className="btn btn-success w-100 text-uppercase mb-4">
-                        <span>Cập nhật</span>
+                        {updateUserStatus === 'pending' ? (
+                            <div className="spinner-border text-white" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        ) : (
+                            <span>Cập nhật</span>
+                        )}
                     </button>
                 </form>
             </FormProvider>

@@ -177,8 +177,7 @@ export const getUsers = createAsyncThunk(GET_USERS, async (payload, thunkAPI) =>
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -191,8 +190,7 @@ export const updateUser = createAsyncThunk(UPDATE_USER, async (payload, thunkAPI
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -205,8 +203,7 @@ export const changePassword = createAsyncThunk(CHANGE_PASSWORD, async (payload, 
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -219,8 +216,7 @@ export const lockUser = createAsyncThunk(LOCK_USER, async (payload, thunkAPI) =>
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        console.log('Error', error.response.data);
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 export default userSlice.reducer;

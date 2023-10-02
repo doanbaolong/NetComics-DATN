@@ -16,7 +16,6 @@ const uploads = (file) => {
         upload_preset: "netcomics",
       });
       if (result) {
-        console.log(result);
         resolve({
           url: result.secure_url,
           id: result.public_id,

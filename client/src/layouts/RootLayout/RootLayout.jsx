@@ -7,7 +7,7 @@ import ToTopButton from '~/components/ToTopButton/ToTopButton';
 function RootLayout({ children }) {
     let location = useLocation();
     useEffect(() => {
-        window.scrollTo({ top: '0px' });
+        window.scrollTo({ top: '0px', behavior: 'instant' });
     }, [location]);
 
     return (

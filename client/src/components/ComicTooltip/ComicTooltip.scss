@@ -1,0 +1,64 @@
+.comic-tooltip-box {
+    width: 325px;
+    min-height: 200px;
+    overflow: hidden;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    background-color: var(--nav-hover);
+    border: 1px solid #c2c2c2;
+    color: var(--text-color);
+
+    .title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 5px 0 8px;
+    }
+
+    .info-details {
+        .col-image {
+            width: 115px;
+            height: 150px;
+            padding-right: 5px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .col-info {
+            flex: 1;
+
+            .row-info {
+                font-size: 1.3rem;
+                margin-bottom: 5px;
+
+                .info-title {
+                    margin-right: 2px;
+                    color: var(--primary-color);
+                    font-weight: 600;
+                }
+
+                p {
+                    display: inline;
+                    line-height: 2.2rem;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+
+    .content {
+        padding: 5px 0 0 0;
+        margin-bottom: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 7;
+        -webkit-box-orient: vertical;
+        text-align: justify;
+        font-size: 1.4rem;
+    }
+}

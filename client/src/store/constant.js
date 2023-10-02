@@ -25,7 +25,6 @@ export const GET_COMICS_LIMIT = 'get_comics_limit';
 export const GET_COMICS_BY_GENRE_LIMIT = 'get_comics_by_genre_limit';
 export const SEARCH_COMIC = 'search_comic';
 export const GET_SINGLE_COMIC = 'get_single_comic';
-export const GET_SINGLE_COMIC_BY_SLUG = 'get_single_comic_by_slug';
 export const ADD_COMIC = 'add_comic';
 export const UPDATE_COMIC = 'update_comic';
 export const DELETE_COMIC = 'delete_comic';
@@ -59,6 +58,9 @@ export const DELETE_HISTORY_COMIC = 'delete_history_comic';
 export const ADD_RATING = 'add_rating';
 
 export const GET_COMMENT_BY_CHAPTER = 'get_comment_by_chapter';
+export const GET_COMMENT_BY_COMIC = 'get_comment_by_comic';
 export const GET_REPLY = 'get_reply';
 
 export const GET_NOTIFICATION = 'get_notification';
+
+export const GET_RATING = 'get_rating';

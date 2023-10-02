@@ -9,12 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      History.belongsTo(models.Comic, { foreignKey: "comicId" });
+      History.belongsTo(models.Chapter, { foreignKey: "chapterId" });
     }
   }
   History.init(
     {
       userId: DataTypes.INTEGER,
       comicId: DataTypes.INTEGER,
+      chapterIds: DataTypes.TEXT,
+      chapterId: DataTypes.INTEGER,
     },
     {
       sequelize,

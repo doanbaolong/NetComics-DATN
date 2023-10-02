@@ -24,13 +24,18 @@ function GenreManagerAdd() {
     const dispatch = useDispatch();
     const { addGenreMessage, addGenreStatus } = useSelector(genreSelector);
 
+    const methods = useForm();
+    const { handleSubmit, reset } = methods;
+
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        document.title = 'Thêm Thể Loại | NetComics';
+    }, []);
+
     useEffect(() => {
         addGenreMessage ? setError(addGenreMessage) : setError('');
     }, [addGenreMessage]);
-
-    const methods = useForm();
-    const { handleSubmit, reset } = methods;
 
     const onSubmit = (data) => {
         const dataTrim = trimString(data);

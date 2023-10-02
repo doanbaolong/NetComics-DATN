@@ -185,7 +185,7 @@ export const authSlide = createSlice({
                 state.verifyEmailStatus = '';
             })
             .addCase(getCurrentUser.rejected, (state, action) => {
-                state.message = action.payload;
+                state.message = '';
                 state.signUpStatus = '';
                 state.logInStatus = '';
                 state.getCurrentUserStatus = 'rejected';
@@ -214,7 +214,7 @@ export const authSlide = createSlice({
                 state.verifyEmailStatus = '';
             })
             .addCase(getCurrentAdmin.rejected, (state, action) => {
-                state.message = action.payload;
+                state.message = '';
                 state.signUpStatus = '';
                 state.logInStatus = '';
                 state.getCurrentUserStatus = '';
@@ -236,7 +236,7 @@ export const signUp = createAsyncThunk(SIGN_UP, async (payload, thunkAPI) => {
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -251,7 +251,7 @@ export const verifyEmail = createAsyncThunk(VERIFY_EMAIL, async (emailToken, thu
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -281,7 +281,7 @@ export const getCurrentUser = createAsyncThunk(GET_CURRENT_USER, async (payload,
         }
     } catch (error) {
         thunkAPI.dispatch(authSlide.actions.logOut());
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -296,7 +296,7 @@ export const adminSignUp = createAsyncThunk(ADMIN_SIGN_UP, async (payload, thunk
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -311,7 +311,7 @@ export const adminLogIn = createAsyncThunk(ADMIN_LOG_IN, async (payload, thunkAP
             return thunkAPI.rejectWithValue(response.data.msg);
         }
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 
@@ -326,7 +326,7 @@ export const getCurrentAdmin = createAsyncThunk(GET_CURRENT_ADMIN, async (payloa
         }
     } catch (error) {
         thunkAPI.dispatch(authSlide.actions.logOut());
-        return thunkAPI.rejectWithValue(error.response.data);
+        return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 });
 

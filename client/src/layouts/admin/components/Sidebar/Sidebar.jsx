@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { MdSpaceDashboard } from 'react-icons/md';
 import { FaUserFriends, FaCaretDown, FaUserEdit } from 'react-icons/fa';
 import { BiLogOut } from 'react-icons/bi';
-import { TbMenu2, TbCategory } from 'react-icons/tb';
+import { TbCategory } from 'react-icons/tb';
 import { GiBookshelf } from 'react-icons/gi';
 import './Sidebar.scss';
 import logo from '~/assets/images/logo.png';
@@ -13,7 +13,7 @@ import { ALL } from '~/util/constants';
 import { useDispatch } from 'react-redux';
 import { authSlide } from '~/store/authSlice';
 
-function Sidebar() {
+function Sidebar({ isClose, isOpen }) {
     const menuSidebar = [
         {
             id: 1,
@@ -59,12 +59,8 @@ function Sidebar() {
 
     const dispatch = useDispatch();
 
-    const [isClose, setIsClose] = useState(false);
     const [isShowMenu, setIsShowMenu] = useState([]);
 
-    const handleCloseSidebar = () => {
-        setIsClose(!isClose);
-    };
     const handleShowSubMenu = (index) => {
         if (isShowMenu.includes(index)) {
             setIsShowMenu((prev) => prev.filter((item) => item !== index));
@@ -74,7 +70,13 @@ function Sidebar() {
     };
 
     return (
-        <div className={'adm-sidebar d-flex flex-column justify-content-between' + (isClose ? ' close' : '')}>
+        <div
+            className={
+                'adm-sidebar d-flex flex-column justify-content-between' +
+                (isClose ? ' close' : '') +
+                (isOpen ? ' open' : '')
+            }
+        >
             <ul className="navbar-nav">
                 <li className="nav-logo">
                     <Link className="nav-link d-flex align-items-center">
@@ -85,9 +87,6 @@ function Sidebar() {
                             <img src={logo} alt="NetComics" />
                         </span>
                     </Link>
-                    <button className="sidebar-toggler" onClick={handleCloseSidebar}>
-                        <TbMenu2 />
-                    </button>
                 </li>
                 {menuSidebar.map((item) => (
                     <li key={item.id}>
@@ -140,7 +139,9 @@ function Sidebar() {
                                     <span className="link-name">{item.title}</span>
                                 </Link>
                                 <div className="sub-menu">
-                                    <Link className="nav-link">{item.title}</Link>
+                                    <Link to={item.path} className="nav-link">
+                                        {item.title}
+                                    </Link>
                                 </div>
                             </>
                         )}

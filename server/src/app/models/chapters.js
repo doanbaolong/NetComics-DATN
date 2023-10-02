@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Chapter.hasMany(models.Comment, { foreignKey: "chapterId" });
       Chapter.hasMany(models.Reply, { foreignKey: "chapterId" });
       Chapter.hasMany(models.Notification, { foreignKey: "chapterId" });
+      Chapter.hasMany(models.History, { foreignKey: "chapterId" });
     }
   }
   Chapter.init(

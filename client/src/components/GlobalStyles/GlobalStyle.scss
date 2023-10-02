@@ -31,6 +31,7 @@ $container-max-widths: (
     --red-hover: rgba(255, 56, 56, 0.1);
     --primary-color: #0054ff;
     --primary-color-hover: rgb(0, 84, 255, 0.1);
+    --primary-color-shadow: rgb(0, 84, 255, 0.5);
     --secondary-color: #ee4d2d;
     --dark-color: #ee4d2d;
     --time-color: #c0c0c0;
@@ -45,7 +46,7 @@ $container-max-widths: (
     --sidebar-item-hover: #f0f2f5;
     --detail-text-color: #666;
     --comment-bg-color: #f0f2f5;
-    --reading-control-bg-color: #f6f7f8;
+    --reading-control-bg-color: rgba(246, 247, 248, 0.85);
     --chapter-list-bg-color: #f0f2f5;
 }
 
@@ -55,14 +56,15 @@ $container-max-widths: (
     --nav-border: #4d4d4d;
     --text-color: #fff;
     --primary-color: #ee4d2d;
-    --primary-color-hover: rgb(238, 77, 45, 0.1);
+    --primary-color-hover: rgb(238, 77, 45, 0.2);
+    --primary-color-shadow: rgb(238, 77, 45, 0.8);
     --main-bg-color: #1a1a1a;
     --main-container-bg-color: #252525;
     --sidebar-title-color: #ee4d2d;
     --sidebar-item-hover: #383838;
     --detail-text-color: #fff;
     --comment-bg-color: #3a3b3c;
-    --reading-control-bg-color: #252525;
+    --reading-control-bg-color: rgba(37, 37, 37, 0.85);
     --chapter-list-bg-color: #303030;
 }
 
@@ -156,12 +158,20 @@ ul {
                 }
             }
         }
+
+        .need-login {
+            color: var(--text-color);
+        }
+
+        .need-login-btn {
+            background-color: var(--primary-color);
+        }
     }
 }
 
 .manager {
     background-color: #fff;
-    border-radius: 10px;
+    // border-radius: 10px;
     padding: 15px 15px 30px 15px;
 
     .form {
@@ -188,6 +198,10 @@ ul {
     .dropdown-menu {
         font-size: 1.6rem;
     }
+
+    .btn {
+        font-size: 1.5rem;
+    }
 }
 
 table {
@@ -200,6 +214,10 @@ table {
             width: 60px;
             height: 60px;
         }
+    }
+
+    td {
+        font-size: 1.4rem;
     }
 }
 

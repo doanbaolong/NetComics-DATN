@@ -3,7 +3,7 @@ import './Comment.scss';
 import { useSelector } from 'react-redux';
 import { authSelector } from '~/store/selector';
 
-function CommentForm({ socket, chapterId, comicId, commentId, setReply, replyId, send }) {
+function CommentForm({ socket, chapterId, comicId, commentId, setReply, send, inChapterId }) {
     const { currentUser } = useSelector(authSelector);
     const [comment, setComment] = useState('');
     const [error, setError] = useState('');
@@ -20,19 +20,20 @@ function CommentForm({ socket, chapterId, comicId, commentId, setReply, replyId,
             setError('Vui lòng nhập nội dung');
             return;
         }
-        if (comment.trim().length < 10) {
-            setError('Bình luận quá ngắn. Vui lòng nhập trên 10 kí tự');
+        if (comment.trim().length < 5) {
+            setError('Bình luận quá ngắn. Vui lòng nhập trên 5 kí tự');
             return;
         }
         setError('');
 
-        socket.emit('createComment', {
+        socket.emit('comment:create', {
             userId: currentUser?.id,
             comicId,
-            chapterId,
+            chapterId: chapterId || null,
             content: comment.trim(),
             commentId,
             send,
+            inChapterId: inChapterId || null,
         });
 
         setComment('');

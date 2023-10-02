@@ -1,13 +1,28 @@
+@import '../../components/GlobalStyles/breakpoints.scss';
+
 .genre-name {
-    color: var(--text-color);
+    color: var(--primary-color);
 }
+
+.genre-list {
+    width: 100%;
+    padding: 6px;
+    margin-top: 16px;
+    font-size: 1.4rem;
+    display: none;
+
+    @include breakpoint(md) {
+        display: block;
+    }
+}
+
 .genre-description {
     margin: 16px 0 24px;
 
     .info {
         padding: 10px;
         color: var(--text-color);
-        border: 1px solid #ddd;
+        background-color: var(--nav-border);
         border-radius: 4px;
         font-size: 1.4rem;
     }

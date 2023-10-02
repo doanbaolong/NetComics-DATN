@@ -5,23 +5,28 @@ $xl: 1200px;
 $xxl: 1400px;
 
 @mixin breakpoint($breakpoint) {
+    @if $breakpoint == xs {
+        @media (max-width: $sm) {
+            @content;
+        }
+    }
     @if $breakpoint == sm {
-        @media (max-width: #{$md - 0.02px}) {
+        @media (max-width: $md) {
             @content;
         }
     }
     @if $breakpoint == md {
-        @media (max-width: #{$lg - 0.02px}) {
+        @media (max-width: $lg) {
             @content;
         }
     }
     @if $breakpoint == lg {
-        @media (max-width: #{$xl - 0.02px}) {
+        @media (max-width: $xl) {
             @content;
         }
     }
     @if $breakpoint == xl {
-        @media (max-width: #{$xxl - 0.02px}) {
+        @media (max-width: $xxl) {
             @content;
         }
     }

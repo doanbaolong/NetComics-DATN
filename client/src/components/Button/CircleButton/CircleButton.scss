@@ -11,4 +11,14 @@
     &.hover:hover {
         background-color: #e6e6e6;
     }
+
+    &.mobile-btn {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header-btn.mobile-btn {
+        display: inline-flex;
+    }
 }

@@ -29,6 +29,14 @@ function Login() {
     const [error, setError] = useState('');
 
     useEffect(() => {
+        if (isSignUp) {
+            document.title = 'Đăng ký | NetComics';
+        } else {
+            document.title = 'Đăng nhập | NetComics';
+        }
+    }, [isSignUp]);
+
+    useEffect(() => {
         message && setError(message);
     }, [message]);
 
@@ -86,7 +94,7 @@ function Login() {
                 </Link>
                 <span>{isSignUp ? 'Đăng ký' : 'Đăng nhập'}</span>
             </div>
-            <div className="auth-container bg-primary">
+            <div className="auth-container">
                 <div className="row auth-row">
                     <div className="col-xl-8 col-lg-12 text-center m-auto auth-row-logo">
                         <div>
@@ -227,7 +235,7 @@ function Login() {
                                         )}
                                     </div>
 
-                                    <button className="btn btn-primary w-100 text-uppercase">
+                                    <button className="btn btn-log w-100 text-uppercase">
                                         {isSignUp ? (
                                             signUpStatus === 'pending' ? (
                                                 <div className="spinner-border text-white" role="status">

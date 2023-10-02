@@ -41,7 +41,13 @@ const getHistoryByComicIds = async (req, res) => {
 const addHistory = async (req, res) => {
   try {
     const { userId, comicId } = req.params;
-    const response = await historyServices.addHistoryService(userId, comicId);
+    const { chapterIds, chapterId } = req.query;
+    const response = await historyServices.addHistoryService(
+      userId,
+      comicId,
+      chapterIds,
+      chapterId
+    );
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({

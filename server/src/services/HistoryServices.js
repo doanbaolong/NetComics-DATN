@@ -18,12 +18,21 @@ const getHistoryService = (page, limit, type, userId) => {
           where: { id: comicIds },
           include: [
             {
+              model: db.History,
+              where: { userId },
+              attributes: ["id", "updatedAt"],
+              include: [
+                { model: db.Chapter, attributes: ["id", "chapterNumber"] },
+              ],
+            },
+            {
               model: db.Chapter,
               attributes: ["id", "chapterNumber", "chapterUpdatedAt"],
               limit: 3,
               order: [["chapterNumber", "DESC"]],
             },
           ],
+          order: [[{ model: db.History }, "updatedAt", "DESC"]],
           offset: page * pageLimit || 0,
           limit: pageLimit,
           distinct: true,
@@ -80,26 +89,53 @@ const getHistoryByComicIdsService = (page, limit, type, ids) => {
   });
 };
 
-const addHistoryService = (userId, comicId) => {
+const addHistoryService = (userId, comicId, chapterIds, chapterId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const count = await db.History.count({ where: { userId, comicId } });
+      const count = await db.History.count({
+        where: { userId, comicId, chapterIds },
+      });
 
       if (count > 0) {
-        resolve({
-          err: 2,
-          msg: "Truyện đã có trong lịch sử đọc",
-        });
-      } else {
-        const response = await db.History.create({
-          userId,
-          comicId,
-        });
+        const response = await db.History.update(
+          { chapterId },
+          { where: { userId, comicId } }
+        );
         resolve({
           err: 0,
           msg: "OK",
           response,
         });
+      } else {
+        const count = await db.History.count({
+          where: { userId, comicId },
+        });
+
+        if (count > 0) {
+          const response = await db.History.update(
+            { chapterIds, chapterId },
+            { where: { userId, comicId } }
+          );
+
+          resolve({
+            err: 0,
+            msg: "OK",
+            response,
+          });
+        } else {
+          const response = await db.History.create({
+            userId,
+            comicId,
+            chapterIds,
+            chapterId,
+          });
+
+          resolve({
+            err: 0,
+            msg: "OK",
+            response,
+          });
+        }
       }
     } catch (error) {
       reject(error);

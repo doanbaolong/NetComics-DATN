@@ -4,6 +4,10 @@
             padding: 0 30px;
             border-right: 2px solid #f9f6f6;
 
+            @media screen and (max-width: 768px) {
+                border-right: none;
+            }
+
             .avatar-wrapper {
                 display: flex;
                 justify-content: center;
@@ -86,7 +90,7 @@
             }
 
             .actions {
-                padding: 20px 0 0 0;
+                padding: 20px 0 10px 0;
                 border-top: 2px solid #f9f6f6;
                 li .action-link {
                     display: block;

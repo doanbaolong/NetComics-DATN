@@ -2,8 +2,13 @@ import { useSelector } from 'react-redux';
 import './Dashboard.scss';
 import adminImg from '~/assets/images/admin-dashboard.jpg';
 import { authSelector } from '~/store/selector';
+import { useEffect } from 'react';
 function Dashboard() {
     const { currentAdmin } = useSelector(authSelector);
+
+    useEffect(() => {
+        document.title = 'Quản trị | NetComics';
+    }, []);
 
     return (
         <div className="manager dashboard">

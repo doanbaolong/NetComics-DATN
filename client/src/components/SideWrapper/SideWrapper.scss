@@ -1,18 +1,22 @@
 .right-side {
-    padding: 0 0 10px;
     margin-bottom: 15px;
     border: 1px solid #ddd;
+
+    &.hide-mobile {
+        @media screen and (max-width: 992px) {
+            display: none;
+        }
+    }
 
     .side-top {
         border-bottom: 1px solid #ddd;
         padding: 0 10px;
-        margin-bottom: 10px;
+        background-color: var(--nav-bg-color);
 
         .title {
             font-size: 1.6rem;
             margin-bottom: 0;
             padding: 10px 0;
-            font-weight: bold;
             color: var(--sidebar-title-color);
         }
 

@@ -23,7 +23,13 @@ const getFollowingComicService = (page, limit, type, userId) => {
               limit: 3,
               order: [["chapterNumber", "DESC"]],
             },
+            {
+              model: db.User,
+              as: "histories",
+              attributes: ["id"],
+            },
           ],
+          order: [["chapterUpdatedAt", "DESC"]],
           offset: page * pageLimit || 0,
           limit: pageLimit,
           distinct: true,
@@ -61,7 +67,13 @@ const getFollowingComicByComicIdsService = (page, limit, type, ids) => {
               limit: 3,
               order: [["chapterNumber", "DESC"]],
             },
+            {
+              model: db.User,
+              as: "histories",
+              attributes: ["id"],
+            },
           ],
+          order: [["chapterUpdatedAt", "DESC"]],
           offset: page * pageLimit || 0,
           limit: pageLimit,
           distinct: true,
@@ -80,10 +92,10 @@ const getFollowingComicByComicIdsService = (page, limit, type, ids) => {
   });
 };
 
-const getCountFollowService = (slug) => {
+const getCountFollowService = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const comic = await db.Comic.findOne({ where: { slug } });
+      const comic = await db.Comic.findOne({ where: { id } });
       resolve({
         err: comic ? 0 : 1,
         msg: comic ? "OK" : "Fail to get following comics",

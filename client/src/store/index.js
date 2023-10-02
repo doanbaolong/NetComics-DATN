@@ -13,6 +13,7 @@ import followReducer from './followSlice';
 import historyReducer from './historySlice';
 import commentReducer from './commentSlice';
 import notificationReducer from './notificationSlice';
+import ratingReducer from './ratingSlice';
 
 const commonConfig = {
     storage,
@@ -37,6 +38,7 @@ const store = configureStore({
         history: historyReducer,
         comment: commentReducer,
         notification: notificationReducer,
+        rating: ratingReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

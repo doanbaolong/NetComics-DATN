@@ -1,6 +1,6 @@
 .star-rating {
     display: inline-flex;
-    align-items: end;
+    align-items: flex-end;
     cursor: pointer;
 
     &.disabled {
@@ -56,4 +56,13 @@
 
 .current-rating {
     margin-top: 6px;
+}
+
+.rating-input {
+    min-height: 80px;
+    max-height: 80px;
+}
+
+.rating-btn {
+    min-width: 80px;
 }

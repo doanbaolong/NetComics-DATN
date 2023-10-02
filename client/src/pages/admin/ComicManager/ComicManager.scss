@@ -1,0 +1,19 @@
+.comic-manager {
+    .btn-success {
+        min-width: 100px;
+    }
+
+    .name,
+    .genres {
+        min-width: 160px;
+    }
+
+    .authors,
+    .status {
+        min-width: 100px;
+    }
+
+    tbody tr {
+        cursor: pointer;
+    }
+}

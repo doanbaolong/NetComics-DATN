@@ -50,6 +50,10 @@ function ComicManagerEdit() {
     const [currentGenres, setCurrentGenres] = useState([]);
 
     useEffect(() => {
+        document.title = 'Sửa Truyện | NetComics';
+    }, []);
+
+    useEffect(() => {
         dispatch(getSingleComic(id));
     }, [dispatch, id]);
 

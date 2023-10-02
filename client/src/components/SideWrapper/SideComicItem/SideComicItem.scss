@@ -26,11 +26,14 @@
         }
     }
 
+    .img-link {
+        margin-right: 10px;
+    }
+
     .item-img {
         width: 70px;
         height: 60px;
         object-fit: cover;
-        margin-right: 10px;
     }
 
     .item-info {
@@ -49,6 +52,14 @@
         .lastest-chapter {
             .number {
                 font-size: 1.3rem;
+
+                &.read {
+                    color: var(--time-color);
+
+                    &:hover {
+                        color: var(--primary-color);
+                    }
+                }
             }
 
             .continue-read {
@@ -89,6 +100,21 @@
                 &:hover {
                     color: var(--red);
                 }
+            }
+        }
+
+        .reading-chapter {
+            display: inline-flex;
+            align-items: center;
+            color: var(--time-color);
+            font-size: 1.3rem;
+
+            svg {
+                margin-left: 2px;
+            }
+
+            &:hover {
+                color: var(--primary-color);
             }
         }
     }

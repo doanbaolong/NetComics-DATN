@@ -6,7 +6,7 @@ import { authSelector, userSelector } from '~/store/selector';
 import noAvatar from '~/assets/images/no-avatar-1.png';
 import routes from '~/config/routes';
 import { ProfileChangePassword, ProfileForm, ProfileInfo } from '~/components/Profile';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { authSlide, getCurrentUser } from '~/store/authSlice';
 import { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
@@ -35,11 +35,14 @@ function Profile() {
     ];
 
     const location = useLocation();
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [image, setImage] = useState('');
     const [imagePreview, setImagePreview] = useState();
+
+    useEffect(() => {
+        document.title = 'Trang cá nhân | NetComics';
+    }, []);
 
     useEffect(() => {
         return () => {
@@ -63,7 +66,6 @@ function Profile() {
     };
     const handleLogout = () => {
         dispatch(authSlide.actions.logOut());
-        navigate(routes.home);
     };
 
     const handleSubmit = () => {
@@ -190,7 +192,7 @@ function Profile() {
                             </li>
                         ))}
                         <li>
-                            <Link className="action-link log-out" onClick={handleLogout}>
+                            <Link className="action-link log-out" to={routes.home} onClick={handleLogout}>
                                 Đăng xuất
                             </Link>
                         </li>

@@ -15,6 +15,12 @@ module.exports = {
       comicId: {
         type: Sequelize.INTEGER,
       },
+      chapterIds: {
+        type: Sequelize.TEXT,
+      },
+      chapterId: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

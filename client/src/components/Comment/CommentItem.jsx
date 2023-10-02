@@ -1,11 +1,17 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
+import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import './Comment.scss';
 import { formatChapterDate } from '~/util/formatDate';
 import CommentForm from './CommentForm';
 import CommentCard from './CommentCard';
+import { useSelector } from 'react-redux';
+import { authSelector } from '~/store/selector';
+import { IoMdClose } from 'react-icons/io';
 
 function CommentItem({
-    inChapter = false,
+    inChapterId,
+    inChapter,
+    all,
     id,
     userId,
     avatar,
@@ -14,37 +20,102 @@ function CommentItem({
     createdAt,
     comicId,
     chapterId,
-    replies,
+    replies = [],
     socket,
 }) {
+    const { currentUser } = useSelector(authSelector);
+
     const [reply, setReply] = useState(false);
-    const [commentReplies, setCommentReplies] = useState(replies || []);
 
     const handleReply = () => {
-        setReply(true);
+        setReply(!reply);
     };
 
-    useEffect(() => {
+    const handleRemoveComment = (commentId) => {
         if (socket) {
-            socket.on('sendReplyCommentToClient', (msg) => {
-                const newArr = [...commentReplies];
-                newArr.unshift(msg);
-
-                setCommentReplies(newArr);
-            });
-            return () => socket.off('sendReplyCommentToClient');
+            socket.emit('comment:delete', { comicId, chapterId: all ? inChapterId : chapterId, commentId });
         }
-    }, [commentReplies, socket]);
+    };
+
+    const handleRemoveReply = (commentId, replyId) => {
+        if (socket) {
+            socket.emit('reply:delete', { comicId, chapterId: all ? inChapterId : chapterId, commentId, replyId });
+        }
+    };
 
     return (
         <>
-            <CommentCard inChapter={inChapter} avatar={avatar} fullName={fullName} content={content}>
+            <CommentCard all={all} inChapter={inChapter} avatar={avatar} fullName={fullName} content={content}>
                 <div className="comment-footer">
                     <span className="reply" onClick={handleReply}>
                         Trả lời
                     </span>
 
                     <span className="time">{formatChapterDate(createdAt)}</span>
+
+                    {currentUser && currentUser.id === userId && (
+                        <>
+                            <span
+                                className="comment-dropdown"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                <HiOutlineDotsHorizontal />
+                            </span>
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <button
+                                        className="dropdown-item text-center"
+                                        data-bs-toggle="modal"
+                                        data-bs-target={`#commentModal${id}`}
+                                    >
+                                        <span>Xóa</span>
+                                    </button>
+                                </li>
+                            </ul>
+
+                            <div
+                                className="modal fade"
+                                id={`commentModal${id}`}
+                                tabIndex="-1"
+                                aria-labelledby={`commentModal${id}Label`}
+                                aria-hidden="true"
+                            >
+                                <div className="modal-dialog modal-dialog-centered">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h1 className="modal-title fs-5" id={`commentModal${id}Label`}>
+                                                NetComics
+                                            </h1>
+                                            <button
+                                                type="button"
+                                                className="close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"
+                                            >
+                                                <IoMdClose />
+                                            </button>
+                                        </div>
+                                        <div className="modal-body">Bạn chắc chắn muốn xóa bình luận này?</div>
+                                        <div className="modal-footer">
+                                            <button
+                                                type="button"
+                                                className="btn btn-danger"
+                                                data-bs-dismiss="modal"
+                                                onClick={() => handleRemoveComment(id)}
+                                            >
+                                                Xóa
+                                            </button>
+                                            <button type="button" className="btn btn-info" data-bs-dismiss="modal">
+                                                Hủy
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
                 {reply && (
                     <CommentForm
@@ -53,17 +124,20 @@ function CommentItem({
                         comicId={comicId}
                         chapterId={chapterId}
                         setReply={setReply}
-                        replyId={userId}
+                        replierId={userId}
                         send="sendReply"
+                        inChapterId={inChapterId}
                     />
                 )}
             </CommentCard>
             <div className="reply-comment">
-                {commentReplies?.length > 0 &&
-                    commentReplies.map((reply) => (
+                {replies?.length > 0 &&
+                    replies.map((reply) => (
                         <CommentCard
                             key={reply?.id}
-                            inChapter={inChapter}
+                            all={all}
+                            inChapterId={reply?.Chapter?.id || reply?.chapter?.id}
+                            inChapter={reply?.Chapter?.chapterNumber || reply?.chapter?.chapterNumber}
                             avatar={reply?.User?.avatar || reply?.user?.avatar}
                             fullName={reply?.User?.fullName || reply?.user?.fullName}
                             content={reply?.User?.content || reply?.content}
@@ -72,6 +146,81 @@ function CommentItem({
                         >
                             <div className="comment-footer">
                                 <span className="time">{formatChapterDate(reply?.createdAt)}</span>
+
+                                {currentUser &&
+                                    (reply?.User?.id
+                                        ? reply?.User?.id === currentUser.id
+                                        : reply?.user?.id === currentUser.id) && (
+                                        <>
+                                            <span
+                                                className="comment-dropdown"
+                                                type="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                <HiOutlineDotsHorizontal />
+                                            </span>
+                                            <ul className="dropdown-menu">
+                                                <li>
+                                                    <button
+                                                        className="dropdown-item text-center"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target={`#replyModal${id}`}
+                                                    >
+                                                        <span>Xóa</span>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                            <div
+                                                className="modal fade"
+                                                id={`replyModal${id}`}
+                                                tabIndex="-1"
+                                                aria-labelledby={`replyModal${id}Label`}
+                                                aria-hidden="true"
+                                            >
+                                                <div className="modal-dialog modal-dialog-centered">
+                                                    <div className="modal-content">
+                                                        <div className="modal-header">
+                                                            <h1
+                                                                className="modal-title fs-5"
+                                                                id={`replyModal${id}Label`}
+                                                            >
+                                                                NetComics
+                                                            </h1>
+                                                            <button
+                                                                type="button"
+                                                                className="close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"
+                                                            >
+                                                                <IoMdClose />
+                                                            </button>
+                                                        </div>
+                                                        <div className="modal-body">
+                                                            Bạn chắc chắn muốn xóa bình luận này?
+                                                        </div>
+                                                        <div className="modal-footer">
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-danger"
+                                                                data-bs-dismiss="modal"
+                                                                onClick={() => handleRemoveReply(id, reply?.id)}
+                                                            >
+                                                                Xóa
+                                                            </button>
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-info"
+                                                                data-bs-dismiss="modal"
+                                                            >
+                                                                Hủy
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
                             </div>
                         </CommentCard>
                     ))}

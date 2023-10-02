@@ -28,12 +28,12 @@ export const apiGetFollowingComicsByComicIds = (query) =>
         }
     });
 
-export const apiGetCountFollow = (slug) =>
+export const apiGetCountFollow = (id) =>
     new Promise(async (resolve, reject) => {
         try {
             const response = await instance({
                 method: 'GET',
-                url: `/api/follow/count/${slug}`,
+                url: `/api/follow/count/${id}`,
             });
             resolve(response);
         } catch (error) {

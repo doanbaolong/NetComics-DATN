@@ -33,6 +33,10 @@
     }
 }
 
+.see-rating {
+    min-width: 110px;
+}
+
 .rating-list {
     margin-top: 10px;
 
@@ -40,13 +44,13 @@
         padding: 16px 0;
         position: relative;
 
-        &::after {
+        &:not(:last-child):after {
             content: '';
             position: absolute;
             left: 0;
             bottom: 0;
-            width: 40px;
-            border: 1px solid #c2c2c2;
+            width: 80px;
+            border: 1px solid rgba(194, 194, 194, 0.25);
         }
 
         .user-info {
@@ -87,9 +91,70 @@
     border-top: 1px solid #eaecee;
     box-shadow: -2px 0 12px rgba(0, 0, 0, 0.1);
 
+    .card.card-body {
+        background-color: var(--nav-hover);
+
+        border: none;
+
+        & > span {
+            color: #666;
+        }
+
+        .log-in-btn {
+            padding: 5px;
+            width: 100px;
+            text-align: center;
+            border: 1px solid #666;
+            background-color: var(--nav-hover);
+            border-radius: 2px;
+
+            &:hover {
+                border-color: var(--primary-color);
+            }
+        }
+    }
+
     .auth-rating {
         padding-left: 10px;
-        border-left: 2px solid #c2c2c2;
+        border-left: 2px solid rgba(194, 194, 194, 0.25);
+        position: relative;
+
+        .dropdown {
+            position: absolute;
+            right: 6px;
+            top: 6px;
+        }
+
+        .dropdown-toggle {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            border-radius: 50%;
+            color: var(--text-color);
+
+            svg {
+                font-size: 2rem;
+            }
+
+            &::after {
+                display: none;
+            }
+
+            &:hover {
+                background-color: var(--sidebar-item-hover);
+            }
+        }
+
+        .dropdown-item {
+            font-size: 1.4rem;
+
+            span {
+                color: #000;
+            }
+        }
     }
 
     & > span {

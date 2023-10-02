@@ -26,6 +26,10 @@ function GenreManagerEdit() {
     const { id } = useParams();
 
     useEffect(() => {
+        document.title = 'Sửa Thể Loại | NetComics';
+    }, []);
+
+    useEffect(() => {
         dispatch(getSingleGenre(id));
     }, [dispatch, id]);
 

@@ -9,11 +9,15 @@ aside.wrapper {
     }
 }
 
+.side-list {
+    padding: 10px 0;
+}
+
 .genre-nav {
     padding: 0 10px;
     .genres {
         .genre-item {
-            border-bottom: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color);
 
             a {
                 display: block;
@@ -29,14 +33,98 @@ aside.wrapper {
 
         .genre-item:first-child {
             float: none;
-
-            a {
-                padding-top: 0;
-            }
+            border-top: none;
         }
 
-        .genre-item:last-child {
-            border-bottom: none;
+        // .genre-item:last-child {
+        //     border-bottom: none;
+        // }
+    }
+}
+
+.sidebar-loading {
+    display: flex;
+    justify-content: center;
+}
+
+.no-message {
+    padding: 0 10px;
+    font-size: 1.4rem;
+    color: var(--text-color);
+}
+
+.no-follow,
+.no-history {
+    padding: 0 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    color: #fff;
+
+    .icon {
+        img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
         }
+
+        &.animate img {
+            animation: animateIcon 0.2s linear 6;
+        }
+    }
+
+    p {
+        background-color: var(--primary-color);
+        padding: 5px 10px;
+        font-size: 1.4rem;
+        border-radius: 4px;
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            border-style: solid;
+            border-width: 6px;
+        }
+    }
+}
+
+.no-follow {
+    .icon {
+        padding-right: 15px;
+    }
+
+    p::before {
+        border-color: transparent var(--primary-color) transparent transparent;
+        left: -10px;
+    }
+}
+
+.no-history {
+    .icon {
+        padding-left: 15px;
+    }
+
+    p::before {
+        border-color: transparent transparent transparent var(--primary-color);
+        right: -10px;
+    }
+}
+
+@keyframes animateIcon {
+    0% {
+        transform: rotateZ(3deg);
+    }
+    25% {
+        transform: rotateZ(-3deg);
+    }
+    50% {
+        transform: rotateZ(-3deg);
+    }
+    75% {
+        transform: rotateZ(3deg);
+    }
+    100% {
+        transform: rotateZ(3deg);
     }
 }

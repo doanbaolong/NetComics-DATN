@@ -1,9 +1,15 @@
 const db = require("../app/models/index");
 
-const getNotificationsService = (userId) => {
+const getNotificationsService = (userId, page, limit, type) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Notification.findAll(
+      let pageLimit = +limit;
+      if (type === "less") {
+        pageLimit = 10;
+      } else {
+        pageLimit = +limit;
+      }
+      const response = await db.Notification.findAndCountAll(
         {
           where: { userId },
           order: [["createdAt", "DESC"]],
@@ -21,6 +27,9 @@ const getNotificationsService = (userId) => {
               },
             },
           ],
+          offset: page * pageLimit || 0,
+          limit: pageLimit,
+          distinct: true,
         },
         { raw: true },
         { nest: true }
@@ -31,7 +40,7 @@ const getNotificationsService = (userId) => {
       resolve({
         err: response ? 0 : 1,
         msg: response ? "OK" : "Fail to get all Notifications",
-        response: { response, unread },
+        response: { ...response, unread },
       });
     } catch (error) {
       reject(error);

@@ -39,6 +39,10 @@ function ChapterManagerEdit() {
     const [imagesPreview, setImagesPreview] = useState([]);
 
     useEffect(() => {
+        document.title = 'Sửa Chapter | NetComics';
+    }, []);
+
+    useEffect(() => {
         dispatch(getSingleComic(comicId));
         dispatch(getSingleChapter(chapterId));
     }, [chapterId, comicId, dispatch]);

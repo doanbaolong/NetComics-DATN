@@ -133,7 +133,13 @@ function ProfileChangePassword({ info }) {
                     </div>
 
                     <button className="btn btn-success w-100 text-uppercase mb-4">
-                        <span>Xác nhận</span>
+                        {changePasswordStatus === 'pending' ? (
+                            <div className="spinner-border text-white" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        ) : (
+                            <span>Xác nhận</span>
+                        )}
                     </button>
                 </form>
             </FormProvider>

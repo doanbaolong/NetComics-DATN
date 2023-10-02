@@ -12,17 +12,17 @@ import DataProvider from './context';
 moment().tz('Asia/Ho_Chi_Minh').format();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <GlobalStyle>
-                    <DataProvider>
-                        <App />
-                    </DataProvider>
-                </GlobalStyle>
-            </PersistGate>
-        </Provider>
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+            <GlobalStyle>
+                <DataProvider>
+                    <App />
+                </DataProvider>
+            </GlobalStyle>
+        </PersistGate>
+    </Provider>,
+    // </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

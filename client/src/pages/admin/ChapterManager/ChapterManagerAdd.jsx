@@ -42,6 +42,11 @@ function ChapterManagerAdd() {
     const [imagesPreview, setImagesPreview] = useState([]);
     const [comicOptions, setComicOptions] = useState([]);
     const [link, setLink] = useState({ title: 'Tất cả truyện tranh', to: routes.comicManager });
+    const [addComicId, setAddComicId] = useState(null);
+
+    useEffect(() => {
+        document.title = 'Thêm Chapter | NetComics';
+    }, []);
 
     useEffect(() => {
         if (comicId === ALL) {
@@ -86,8 +91,8 @@ function ChapterManagerAdd() {
             setImagesPreview([]);
 
             if (socket) {
-                socket.emit('newChapter', {
-                    comicId,
+                socket.emit('notification:create', {
+                    comicId: addComicId !== null && addComicId,
                     chapterId: chapter?.id,
                     read: false,
                     type: 2,
@@ -96,7 +101,7 @@ function ChapterManagerAdd() {
 
             dispatch(chapterSlice.actions.reset());
         }
-    }, [addChapterStatus, chapter?.id, comicId, dispatch, resetField, socket]);
+    }, [addChapterStatus, addComicId, chapter?.id, comicId, dispatch, resetField, socket]);
 
     useEffect(() => {
         return () => {
@@ -124,6 +129,11 @@ function ChapterManagerAdd() {
     };
 
     const onSubmit = (data) => {
+        if (comicId === ALL) {
+            setAddComicId(data.comic);
+        } else {
+            setAddComicId(comic.id);
+        }
         const dataTrim = comicId === ALL ? trimString(data) : trimString({ ...data, comic: comic.id });
         const formData = new FormData();
 

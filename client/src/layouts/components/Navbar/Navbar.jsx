@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiFillHome } from 'react-icons/ai';
 import { FaCaretDown } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 import { genreSelector } from '~/store/selector';
 import { getGenres } from '~/store/genreSlice';
@@ -11,13 +12,25 @@ import './Navbar.scss';
 import { ALL } from '~/util/constants';
 
 function Navbar({ showMobileNavbar }) {
+    const { chapterSlug } = useParams();
+
     const dispatch = useDispatch();
     const { genres } = useSelector(genreSelector);
+
+    const navRef = useRef();
 
     useEffect(() => {
         dispatch(getGenres());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (chapterSlug) {
+            navRef.current.style.position = 'static';
+        } else {
+            navRef.current.style.position = 'sticky';
+        }
+    }, [chapterSlug]);
 
     const menuItems = [
         { title: 'Trang chủ', name: 'home', to: routes.home, MainIcon: AiFillHome },
@@ -29,7 +42,7 @@ function Navbar({ showMobileNavbar }) {
 
     return (
         <>
-            <nav className="nav-bar">
+            <nav ref={navRef} className="nav-bar">
                 <div className="container">
                     <div className="d-flex align-items-center justify-content-center">
                         <ul className="nav-list list-unstyled d-flex">

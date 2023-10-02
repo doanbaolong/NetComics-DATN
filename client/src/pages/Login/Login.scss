@@ -1,11 +1,13 @@
 @import '../../components/GlobalStyles/breakpoints.scss';
 
 .auth-header {
-    width: 1320px;
+    // width: 1320px;
     max-width: 100%;
     height: 70px;
     display: flex;
     align-items: center;
+    background-color: var(--main-container-bg-color);
+    color: var(--text-color);
 
     a {
         height: 100%;
@@ -26,6 +28,7 @@
 
 .auth-container {
     // padding: 40px 0;
+    background-color: var(--primary-color);
 
     .auth-row {
         min-height: calc(100vh + -70px);
@@ -60,7 +63,8 @@
                 margin: 0 auto;
                 padding: 1.2rem 3rem;
                 border-radius: 5px;
-                background-color: var(--white);
+                background-color: var(--main-container-bg-color);
+                color: var(--text-color);
                 box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
 
                 h2 {
@@ -108,11 +112,16 @@
                     margin-top: 16px;
 
                     span {
-                        color: var(--grey);
+                        color: #c2c2c2;
                     }
 
                     a {
                         font-weight: 500;
+                        color: var(--text-primary);
+
+                        &:hover {
+                            color: var(--primary-color);
+                        }
                     }
                 }
             }
@@ -123,6 +132,10 @@
         padding: 8px;
         border-radius: 2px;
         font-size: 1.6rem;
+
+        &.btn-log {
+            background-color: var(--primary-color);
+        }
     }
 
     .form-control {

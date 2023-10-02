@@ -1,15 +1,20 @@
+import { Link } from 'react-router-dom';
 import './CommentNav.scss';
 
-function CommentNav({ active, onClick }) {
+function CommentNav({ active, localLink, accountLink }) {
     return (
         <div className="comment-nav">
             <div className="visited-tab">
                 <ul className="list-unstyled text-center">
-                    <li className={!active ? 'active' : ''} onClick={() => onClick(false)}>
-                        Từ thiết bị
+                    <li>
+                        <Link to={localLink} className={!active ? 'active' : ''}>
+                            Từ thiết bị
+                        </Link>
                     </li>
-                    <li className={active ? 'active' : ''} onClick={() => onClick(true)}>
-                        Theo tài khoản
+                    <li>
+                        <Link to={accountLink} className={active ? 'active' : ''}>
+                            Theo tài khoản
+                        </Link>
                     </li>
                 </ul>
             </div>
